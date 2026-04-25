@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: theme('fontFamily.sans');
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Leaflet sometimes refuses to fill its parent without an explicit height. */
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+  background: #0b1220;
+}
+
+/* Custom marker styling — built from a div, not an <img>. */
+.aqi-marker {
+  border-radius: 9999px;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(15, 23, 42, 0.95);
+  font-weight: 700;
+  font-size: 12px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #1a253f 0%, #243150 50%, #1a253f 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+  border-radius: 0.5rem;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
