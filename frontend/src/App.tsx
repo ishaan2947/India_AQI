@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
+import Footer from "./components/Layout/Footer";
 import Navbar from "./components/Layout/Navbar";
 import CityDetail from "./pages/CityDetail";
 import Home from "./pages/Home";
@@ -35,6 +36,7 @@ export default function App() {
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
+        <Footer />
       </div>
     </BrowserRouter>
   );

@@ -120,3 +120,20 @@ export function formatHour(ts: string): string {
   const d = new Date(ts);
   return `${d.getHours().toString().padStart(2, "0")}:00`;
 }
+
+/**
+ * One-line, opinionated advice for what to actually do at a given AQI.
+ *
+ * Less "consult your physician" boilerplate, more "should I leave the house?"
+ */
+export function getAQIAdvice(aqi: number): string {
+  if (aqi <= 50) return "Open the windows — the air's clean today.";
+  if (aqi <= 100) return "Fine for everyone. Sensitive folks: keep an eye on symptoms.";
+  if (aqi <= 150)
+    return "If you have asthma or run long distances, ease up today. Everyone else is OK.";
+  if (aqi <= 200)
+    return "Cut outdoor cardio. Wear a mask if you'll be out more than 30 minutes.";
+  if (aqi <= 300)
+    return "Stay inside if you can. N95 outdoors. Close windows and run an air purifier.";
+  return "Hazardous. Avoid going out. Wear an N95 if you absolutely must.";
+}

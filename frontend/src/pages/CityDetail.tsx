@@ -10,6 +10,7 @@ import PredictionPanel from "../components/Dashboard/PredictionPanel";
 import TrendChart from "../components/Dashboard/TrendChart";
 import { fetchCity, fetchCityHistory } from "../api/client";
 import type { CityWithLatest } from "../types";
+import { getAQIAdvice, getAQIColor } from "../utils/aqiHelpers";
 
 export default function CityDetail() {
   const { cityId } = useParams<{ cityId: string }>();
@@ -65,6 +66,20 @@ export default function CityDetail() {
         </div>
       ) : (
         <>
+          {city.latest_aqi != null ? (
+            <div
+              className="flex items-start gap-3 border-l-4 rounded-r-md bg-ink-800/70 px-4 py-3"
+              style={{ borderColor: getAQIColor(city.latest_aqi) }}
+            >
+              <span className="text-[11px] uppercase tracking-wider text-ink-200/80 mt-0.5 shrink-0">
+                Today
+              </span>
+              <p className="text-sm text-ink-100 leading-snug">
+                {getAQIAdvice(city.latest_aqi)}
+              </p>
+            </div>
+          ) : null}
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <CityCard city={city} trendDelta={trendDelta} />
             <div className="md:col-span-2">
