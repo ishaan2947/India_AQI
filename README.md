@@ -6,7 +6,11 @@
 > forecaster that predicts AQI 24 hours into the future — all in one
 > portable repo.
 
-**🌐 Live demo:** _coming soon_ — frontend on Vercel, backend on Render. See [Deploy](#deploy) below.
+**🌐 [Live demo →](https://india-aqi-three.vercel.app)** &nbsp;·&nbsp; **[API docs →](https://aqi-india-api.onrender.com/docs)**
+
+> Free-tier hosting: frontend on Vercel, backend on Render. First request after
+> 15 min of idle takes ~30–60 s to wake the backend up — just open the link
+> while you're talking. Subsequent requests are fast.
 
 ![Python](https://img.shields.io/badge/python-3.11+-blue)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688)
