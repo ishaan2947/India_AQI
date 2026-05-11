@@ -23,3 +23,4 @@ Thumbs.db
 .vscode/
 *.swp
 git-history.sh
+save-clipboard-image.ps1

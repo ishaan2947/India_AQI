@@ -26,7 +26,7 @@ The full Leaflet map of India with all 30 cities rendered as colour-coded
 circular markers (size scales with AQI severity), plus the live "most
 polluted" leaderboard in the right-hand sidebar.
 
-![Home map](docs/screenshots/01-home-map.png)
+![Home map](docs/screenshots/01-home-map.jpg)
 
 ### City detail — Delhi
 
@@ -34,7 +34,7 @@ Drill into any city for its current AQI snapshot, 24-hour trend (with the
 orange dashed reference line at AQI = 100), and the ML-generated 24-hour
 forecast with a delta arrow vs. the current reading.
 
-![City detail – Delhi](docs/screenshots/03-city-detail.png)
+![City detail – Delhi](docs/screenshots/03-city-detail.jpg)
 
 ### Forecasts page
 
@@ -42,7 +42,7 @@ A horizontal bar chart of the top-15 most polluted cities right now,
 colour-coded by AQI band, followed by a grid of every monitored city with
 its 24-hour predicted trend arrow.
 
-![Forecasts page](docs/screenshots/04-predictions.png)
+![Forecasts page](docs/screenshots/04-predictions.jpg)
 
 ---
 
