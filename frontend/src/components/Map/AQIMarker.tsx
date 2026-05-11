@@ -26,10 +26,9 @@ interface AQIMarkerProps {
 
 export default function AQIMarker({ city, onSelect }: AQIMarkerProps) {
   const aqi = city.latest_aqi;
-  const hasReading = aqi != null;
 
   const { color, radius, category, description } = useMemo(() => {
-    if (!hasReading) {
+    if (aqi == null) {
       return {
         color: "#475569",
         radius: 10,
@@ -43,7 +42,9 @@ export default function AQIMarker({ city, onSelect }: AQIMarkerProps) {
       category: getAQICategory(aqi),
       description: getAQIDescription(aqi),
     };
-  }, [aqi, hasReading]);
+  }, [aqi]);
+
+  const hasReading = aqi != null;
 
   return (
     <CircleMarker
