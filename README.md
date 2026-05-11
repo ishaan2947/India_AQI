@@ -6,6 +6,8 @@
 > forecaster that predicts AQI 24 hours into the future — all in one
 > portable repo.
 
+**🌐 Live demo:** _coming soon_ — frontend on Vercel, backend on Render. See [Deploy](#deploy) below.
+
 ![Python](https://img.shields.io/badge/python-3.11+-blue)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688)
 ![React](https://img.shields.io/badge/React-18-61dafb)
@@ -165,6 +167,55 @@ docker-compose up --build
 
 Brings up the backend on `:8000` and the frontend on `:5173` with hot reload
 for both.
+
+---
+
+## Deploy
+
+The repo ships with a [`render.yaml`](render.yaml) blueprint for the backend
+and a [`frontend/vercel.json`](frontend/vercel.json) config for the frontend.
+Free tier on both providers; total cost: **$0/month**.
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/ishaan2947/India_AQI)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fishaan2947%2FIndia_AQI&root-directory=frontend)
+
+### Step-by-step
+
+1. **Backend → Render**
+   - Click the "Deploy to Render" button above (or New → Blueprint → pick this repo).
+   - In the blueprint review screen Render will prompt for two env vars:
+     - `WAQI_TOKEN` — get a free one at <https://aqicn.org/data-platform/token/>
+     - `CORS_ORIGINS` — leave as a placeholder for now, e.g. `https://placeholder.vercel.app`
+   - Click **Apply**. First build takes ~3 min. Note your service URL —
+     it'll look like `https://aqi-india-api.onrender.com`.
+
+2. **Frontend → Vercel**
+   - Click the "Deploy with Vercel" button above.
+   - In the import step, the root directory is already set to `frontend/`.
+   - Add one env var: `VITE_API_BASE_URL` = `https://aqi-india-api.onrender.com/api`
+     (use *your* Render URL from step 1).
+   - Click **Deploy**. First build takes ~1 min.
+
+3. **Wire CORS back to Render**
+   - Copy your Vercel production URL (e.g. `https://india-aqi.vercel.app`).
+   - On Render → your service → Environment → set `CORS_ORIGINS` to that URL.
+   - Render redeploys automatically. You're live.
+
+4. **(Optional) Keep the backend warm**
+   - Render's free tier sleeps after 15 min of inactivity; first request after sleep
+     takes ~30 s.
+   - For interview demos, just open the live URL while you're talking.
+   - For always-on: ping `/healthz` every 10 min from
+     [uptimerobot.com](https://uptimerobot.com) (free) or [cron-job.org](https://cron-job.org).
+
+### Production notes
+
+- The SQLite database lives on Render's ephemeral disk — it's recreated and
+  re-seeded with 24 h of synthetic history every cold start (takes ~20 s).
+  For persistent data across restarts, attach a Render Disk (1 GB ~ $1/mo)
+  or swap `DATABASE_URL` for a managed Postgres.
+- CORS is locked to whatever you set in `CORS_ORIGINS` — for multiple frontends
+  (e.g. a preview deploy + production), comma-separate them.
 
 ---
 

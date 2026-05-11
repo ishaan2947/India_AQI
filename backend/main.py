@@ -42,7 +42,9 @@ def _bootstrap() -> None:
     db = SessionLocal()
     try:
         fetcher.seed_cities_from_json(db)
-        fetcher.backfill_synthetic_history(db, hours=72)
+        # 24h is plenty for the dashboard's "last 24h" chart and keeps
+        # the cold-start under Render's free-tier health-check timeout.
+        fetcher.backfill_synthetic_history(db, hours=24)
         try:
             ml_model.train_model(db)
         except Exception:  # pragma: no cover

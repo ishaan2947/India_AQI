@@ -1,0 +1,28 @@
+# Render blueprint for the AQI India Intelligence backend.
+# Render picks this up automatically when you create a new Blueprint
+# from the GitHub repo (or when you create a single Web Service).
+
+services:
+  - type: web
+    name: aqi-india-api
+    runtime: python
+    plan: free
+    region: oregon
+    branch: main
+    rootDir: .
+    buildCommand: "pip install -r backend/requirements.txt"
+    startCommand: "uvicorn backend.main:app --host 0.0.0.0 --port $PORT"
+    healthCheckPath: /healthz
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.10
+      - key: PYTHONPATH
+        value: .
+      - key: WAQI_TOKEN
+        # Set to your real WAQI token in the Render dashboard.
+        # Free token at https://aqicn.org/data-platform/token/
+        sync: false
+      - key: CORS_ORIGINS
+        # Set to your Vercel production URL after the frontend is deployed.
+        # e.g. https://india-aqi.vercel.app
+        sync: false
