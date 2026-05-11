@@ -20,84 +20,29 @@
 
 ## Screenshots
 
-> 📸 **Drop your screenshots into `docs/screenshots/` and they'll render
-> here automatically.** Recommended captures listed below.
+### Home page — interactive map of India
 
-### 1. Home page — interactive map of India
-
-`docs/screenshots/01-home-map.png`
-
-```
-[INSERT SCREENSHOT HERE]
-Capture: the full Home page (http://localhost:5173/) at 1440×900.
-Show:
-  • Dark navbar at top with "AQI India Intelligence" logo.
-  • Full-width Leaflet map of India centred at zoom 5.
-  • All 30 colored circular markers visible (green → maroon by AQI).
-  • The "AQI scale" legend in the bottom-right of the map.
-  • The right-hand "Live leaderboard" sidebar with the worst-10 cities.
-```
+The full Leaflet map of India with all 30 cities rendered as colour-coded
+circular markers (size scales with AQI severity), plus the live "most
+polluted" leaderboard in the right-hand sidebar.
 
 ![Home map](docs/screenshots/01-home-map.png)
 
-### 2. Marker popup
+### City detail — Delhi
 
-`docs/screenshots/02-marker-popup.png`
+Drill into any city for its current AQI snapshot, 24-hour trend (with the
+orange dashed reference line at AQI = 100), and the ML-generated 24-hour
+forecast with a delta arrow vs. the current reading.
 
-```
-[INSERT SCREENSHOT HERE]
-Capture: hover/click on the Delhi marker so its popup is open.
-Show:
-  • City name + state.
-  • Big colored AQI number, category label, and one-line description.
-  • PM2.5 value and "Updated X minutes ago".
-```
+![City detail – Delhi](docs/screenshots/03-city-detail.png)
 
-![Marker popup](docs/screenshots/02-marker-popup.png)
+### Forecasts page
 
-### 3. City detail page
+A horizontal bar chart of the top-15 most polluted cities right now,
+colour-coded by AQI band, followed by a grid of every monitored city with
+its 24-hour predicted trend arrow.
 
-`docs/screenshots/03-city-detail.png`
-
-```
-[INSERT SCREENSHOT HERE]
-Capture: click any marker → city detail page (e.g. /cities/1 for Delhi).
-Show:
-  • The "← Back to map" link in the top-left.
-  • CityCard (left) with current AQI, category badge, PM2.5 and trend arrow.
-  • 24-hour TrendChart (right) with the orange dashed reference line at AQI=100.
-  • PredictionPanel below: forecast line + shaded confidence band + delta arrow.
-```
-
-![City detail](docs/screenshots/03-city-detail.png)
-
-### 4. Predictions / Forecasts page
-
-`docs/screenshots/04-predictions.png`
-
-```
-[INSERT SCREENSHOT HERE]
-Capture: navigate to /predictions.
-Show:
-  • Header "24-hour forecasts".
-  • Horizontal bar chart "Most polluted cities" (top 15, colored by AQI band).
-  • Grid of CityCards below, each with an up/down trend arrow vs. 24h-ahead.
-```
-
-![Predictions page](docs/screenshots/04-predictions.png)
-
-### 5. Swagger / OpenAPI docs
-
-`docs/screenshots/05-api-docs.png`
-
-```
-[INSERT SCREENSHOT HERE]
-Capture: open http://localhost:8000/docs.
-Show: the auto-generated Swagger UI with all endpoints expanded under
-"cities", "aqi", and "predictions".
-```
-
-![Swagger UI](docs/screenshots/05-api-docs.png)
+![Forecasts page](docs/screenshots/04-predictions.png)
 
 ---
 
