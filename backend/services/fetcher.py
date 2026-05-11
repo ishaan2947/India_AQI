@@ -234,26 +234,47 @@ def backfill_synthetic_history(db: Session, hours: int = 72) -> int:
     """
     Generate `hours` of synthetic hourly history for every city.
 
-    Useful on a fresh install so the ML model and trend chart have something
-    meaningful to plot before the scheduler has run for a few days.
+    Useful on a fresh install so the trend chart has something to plot
+    before the scheduler has run for a few days.
+
+    Performs a single bulk-insert + commit (vs. one commit per row in the
+    original implementation) — ~15× faster on Render's free-tier disk and
+    crucial for keeping the cold-start under the health-check window.
     """
     from datetime import timedelta
+
+    from ..models import AQIReading
 
     cities = crud.list_cities(db)
     if not cities:
         return 0
 
     now = datetime.utcnow().replace(minute=0, second=0, microsecond=0)
-    inserted = 0
+    rows: list[AQIReading] = []
+
     for city in cities:
         if crud.count_readings(db, city.id) > 0:
             continue
         for h in range(hours, 0, -1):
             ts = now - timedelta(hours=h)
             sample = _synthetic_sample(city.name, now=ts)
-            crud.create_reading(db, city_id=city.id, sample=sample, timestamp=ts)
-            inserted += 1
+            rows.append(
+                AQIReading(
+                    city_id=city.id,
+                    aqi_value=sample.aqi_value,
+                    pm25=sample.pm25,
+                    pm10=sample.pm10,
+                    o3=sample.o3,
+                    no2=sample.no2,
+                    so2=sample.so2,
+                    co=sample.co,
+                    source=sample.source,
+                    timestamp=ts,
+                )
+            )
 
-    if inserted:
-        logger.info("Backfilled %d synthetic readings across %d cities", inserted, len(cities))
-    return inserted
+    if rows:
+        db.bulk_save_objects(rows)
+        db.commit()
+        logger.info("Backfilled %d synthetic readings across %d cities", len(rows), len(cities))
+    return len(rows)

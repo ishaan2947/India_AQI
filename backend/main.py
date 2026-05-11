@@ -27,7 +27,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from .database import SessionLocal, init_db
 from .routers import aqi, cities, predictions
-from .services import fetcher, ml_model, scheduler
+from .services import fetcher, scheduler
 
 logging.basicConfig(
     level=logging.INFO,
@@ -37,7 +37,14 @@ logger = logging.getLogger(__name__)
 
 
 def _bootstrap() -> None:
-    """Synchronous bootstrap: schema, cities, history, model."""
+    """
+    Synchronous bootstrap: schema, cities, history.
+
+    The ML model is *not* trained here — that happens lazily on the first
+    `/predictions` request (or when the daily retrain job fires). Keeping
+    training out of the cold-start path drops Render's wake-up time
+    significantly without affecting the map/charts flow.
+    """
     init_db()
     db = SessionLocal()
     try:
@@ -45,10 +52,6 @@ def _bootstrap() -> None:
         # 24h is plenty for the dashboard's "last 24h" chart and keeps
         # the cold-start under Render's free-tier health-check timeout.
         fetcher.backfill_synthetic_history(db, hours=24)
-        try:
-            ml_model.train_model(db)
-        except Exception:  # pragma: no cover
-            logger.exception("Initial ML training failed — endpoints will retrain on demand")
     finally:
         db.close()
 
