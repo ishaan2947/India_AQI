@@ -34,6 +34,15 @@ polluted" leaderboard in the right-hand sidebar.
 
 ![Home map](docs/screenshots/01-home-map.jpg)
 
+### Marker interaction
+
+Clicking a city marker flies the map to centre on it and opens a popup
+with the current AQI, category description, last-updated time, and a
+direct link to that city's detail page. Deliberately doesn't auto-navigate
+so you can keep exploring without losing your place.
+
+![Marker popup](docs/screenshots/02-marker-popup.jpg)
+
 ### City detail — Delhi
 
 Drill into any city for its current AQI snapshot, 24-hour trend (with the
