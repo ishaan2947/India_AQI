@@ -100,20 +100,22 @@ function ColdStartOverlay() {
 function Legend() {
   const categories = getAllCategories();
   return (
-    <div className="absolute bottom-4 right-4 z-[1000] bg-ink-800/95 border border-ink-600 rounded-lg p-3 text-xs shadow-xl backdrop-blur-sm">
-      <div className="font-semibold text-ink-100 mb-2 tracking-tight">AQI scale</div>
-      <ul className="space-y-1">
+    <div className="absolute bottom-2 right-2 sm:bottom-4 sm:right-4 z-[1000] bg-ink-800/95 border border-ink-600 rounded-lg p-2 sm:p-3 text-[10px] sm:text-xs shadow-xl backdrop-blur-sm max-w-[calc(100%-1rem)]">
+      <div className="font-semibold text-ink-100 mb-1.5 sm:mb-2 tracking-tight">
+        AQI scale
+      </div>
+      <ul className="space-y-0.5 sm:space-y-1">
         {categories.map((c) => (
-          <li key={c.key} className="flex items-center gap-2 text-ink-200">
+          <li key={c.key} className="flex items-center gap-1.5 sm:gap-2 text-ink-200">
             <span
-              className="inline-block h-3 w-3 rounded-full border border-white/40"
+              className="inline-block h-2.5 w-2.5 sm:h-3 sm:w-3 shrink-0 rounded-full border border-white/40"
               style={{ background: c.color }}
             />
-            <span className="font-mono tabular-nums w-16">
+            <span className="font-mono tabular-nums w-12 sm:w-16">
               {c.min}
               {Number.isFinite(c.max) ? `–${c.max}` : "+"}
             </span>
-            <span>{c.label}</span>
+            <span className="hidden sm:inline">{c.label}</span>
           </li>
         ))}
       </ul>

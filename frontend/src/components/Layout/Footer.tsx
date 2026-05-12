@@ -6,7 +6,10 @@
 
 export default function Footer() {
   return (
-    <footer className="border-t border-ink-700 bg-ink-900 text-[11px] text-ink-200/70 px-6 py-2 flex flex-wrap items-center justify-between gap-2">
+    <footer
+      className="border-t border-ink-700 bg-ink-900 text-[11px] text-ink-200/70 px-3 sm:px-6 py-2 flex flex-wrap items-center justify-between gap-2"
+      style={{ paddingBottom: "max(0.5rem, env(safe-area-inset-bottom))" }}
+    >
       <div>
         Built by{" "}
         <a

@@ -14,7 +14,7 @@ export default function Sidebar() {
   const { data, loading, error } = useWorstCities();
 
   return (
-    <aside className="bg-ink-800 border-l border-ink-700 p-4 overflow-y-auto">
+    <aside className="bg-ink-800 border-t md:border-t-0 md:border-l border-ink-700 p-4 overflow-y-auto h-full">
       <h2 className="text-ink-100 font-semibold mb-1">Live leaderboard</h2>
       <p className="text-xs text-ink-200 mb-4">Most polluted cities right now.</p>
 

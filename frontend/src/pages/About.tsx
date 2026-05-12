@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 export default function About() {
   return (
-    <div className="max-w-3xl mx-auto px-6 py-10 space-y-10 overflow-y-auto h-full">
+    <div className="max-w-3xl mx-auto px-4 sm:px-6 py-6 sm:py-10 space-y-6 sm:space-y-10 overflow-y-auto h-full">
       <header className="space-y-2">
         <p className="text-xs uppercase tracking-widest text-ink-200/70">About</p>
         <h1 className="text-3xl md:text-4xl font-semibold tracking-tight text-ink-100">

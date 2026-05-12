@@ -29,7 +29,7 @@ export default function Predictions() {
   }, [preds.data, cities.data]);
 
   return (
-    <div className="p-6 space-y-6 overflow-y-auto h-full">
+    <div className="p-4 sm:p-6 space-y-4 sm:space-y-6 overflow-y-auto h-full">
       <header>
         <h1 className="text-ink-100 text-2xl font-semibold">24-hour forecasts</h1>
         <p className="text-ink-200 text-sm mt-1">

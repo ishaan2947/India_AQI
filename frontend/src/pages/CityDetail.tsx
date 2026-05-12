@@ -52,7 +52,7 @@ export default function CityDetail() {
   }
 
   return (
-    <div className="p-6 space-y-6 overflow-y-auto h-full">
+    <div className="p-4 sm:p-6 space-y-4 sm:space-y-6 overflow-y-auto h-full">
       <Link to="/" className="text-sm text-ink-200 hover:text-ink-100">
         ← Back to map
       </Link>
