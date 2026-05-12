@@ -13,11 +13,8 @@ import Sidebar from "../components/Layout/Sidebar";
 
 export default function Home() {
   return (
-    <div
-      className="h-full grid md:grid-cols-[1fr_320px]"
-      style={{ gridTemplateRows: undefined }}
-    >
-      <div className="relative h-[55vh] md:h-full">
+    <div className="h-full grid grid-rows-[45dvh_1fr] md:grid-rows-1 md:grid-cols-[1fr_320px]">
+      <div className="relative min-h-0">
         <AQIMap />
       </div>
       <div className="min-h-0 overflow-hidden">
