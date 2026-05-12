@@ -6,7 +6,7 @@
 > forecaster that predicts AQI 24 hours into the future — all in one
 > portable repo.
 
-**🌐 [Live demo →](https://india-aqi-three.vercel.app)** &nbsp;·&nbsp; **[API docs →](https://aqi-india-api.onrender.com/docs)**
+**🌐 [Live demo →](https://india-aqi-three.vercel.app)** &nbsp;·&nbsp; **[API docs →](https://aqi-india-api.onrender.com/docs)** &nbsp;·&nbsp; **📱 Installable PWA** (iOS / Android — see [Install as an app](#install-as-an-app))
 
 > Free-tier hosting: frontend on Vercel, backend on Render. First request after
 > 15 min of idle takes ~30–60 s to wake the backend up — just open the link
@@ -75,6 +75,7 @@ its 24-hour predicted trend arrow.
 | Charting                 | Recharts line/area/bar with reference lines and confidence bands                             |
 | Styling                  | Tailwind CSS with a custom dark theme + skeleton loaders                                     |
 | DX & deployment          | docker-compose with hot reload for backend + frontend                                        |
+| Installable               | PWA via `vite-plugin-pwa` + Workbox — home-screen icon, offline shell, runtime cache         |
 
 ---
 
@@ -180,6 +181,32 @@ docker-compose up --build
 
 Brings up the backend on `:8000` and the frontend on `:5173` with hot reload
 for both.
+
+---
+
+## Install as an app
+
+The site is a Progressive Web App — no App Store, no $99/yr Apple tax, no
+review process. Install it to your home screen and it behaves like a real
+app: full-screen, splash on launch, offline shell, custom icon.
+
+### iOS (Safari)
+1. Open <https://india-aqi-three.vercel.app> in Safari.
+2. Tap the **Share** button → **Add to Home Screen** → **Add**.
+
+### Android (Chrome / Edge)
+1. Open the site in Chrome.
+2. Tap the kebab menu (⋮) → **Install app** (or wait a couple of seconds for
+   the in-page install prompt to appear).
+
+### Desktop (Chrome / Edge)
+1. Open the site.
+2. Look for the install icon in the address bar (a small monitor with a
+   down-arrow) → **Install**.
+
+The PWA caches the app shell + map tiles + Google Fonts, so it loads
+instantly on repeat visits and the dark map still renders even when
+you're offline (AQI data refreshes when you're back online).
 
 ---
 
