@@ -59,6 +59,24 @@ its 24-hour predicted trend arrow.
 
 ![Forecasts page](docs/screenshots/04-predictions.jpg)
 
+### Mobile
+
+Fully responsive. Installs as a PWA on iOS / Android home screens (full-screen
+launch, offline shell, safe-area-aware layout for the iPhone notch + home
+indicator). The map stacks above the live leaderboard on phones; the same
+data flows to the same FastAPI backend.
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/05-mobile-home.png" alt="Mobile — home / map + leaderboard" /></td>
+    <td width="50%"><img src="docs/screenshots/06-mobile-forecast.png" alt="Mobile — forecasts page" /></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>Home — map + live leaderboard</sub></td>
+    <td align="center"><sub>Forecasts — ranking + city grid</sub></td>
+  </tr>
+</table>
+
 ---
 
 ## What this project demonstrates
