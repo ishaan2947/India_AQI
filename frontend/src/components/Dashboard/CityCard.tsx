@@ -37,7 +37,7 @@ export default function CityCard({ city, trendDelta }: CityCardProps) {
   return (
     <Link
       to={`/cities/${city.id}`}
-      className="block bg-ink-800 border border-ink-700 hover:border-ink-600 rounded-xl p-4 transition shadow-md"
+      className="block bg-ink-800 border border-ink-700 hover:border-ink-600 rounded-xl p-4 transition-all duration-200 shadow-md hover:shadow-xl hover:-translate-y-0.5"
     >
       <div className="flex items-start justify-between">
         <div>
@@ -55,7 +55,7 @@ export default function CityCard({ city, trendDelta }: CityCardProps) {
       </div>
 
       <div className="mt-3 flex items-baseline gap-3">
-        <div className="text-3xl font-bold" style={{ color }}>
+        <div className="text-3xl font-bold font-mono tabular-nums tracking-tight" style={{ color }}>
           {aqi != null ? Math.round(aqi) : "—"}
         </div>
         <div

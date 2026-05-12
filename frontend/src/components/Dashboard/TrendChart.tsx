@@ -1,11 +1,12 @@
 /**
- * 24-hour AQI trend line chart for a selected city.
+ * Historical AQI line chart for a selected city.
  *
- * Highlights a reference line at AQI = 100 (the "unhealthy for sensitive
- * groups" threshold) and colours the trend by the city's mean AQI.
+ * Toggleable between the last 24 hours and the last 7 days. Highlights a
+ * reference line at AQI = 100 (the "unhealthy for sensitive groups"
+ * threshold) and colours the trend by the city's mean AQI.
  */
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
   CartesianGrid,
   Line,
@@ -18,7 +19,14 @@ import {
 } from "recharts";
 
 import { useCityHistory } from "../../hooks/useAQIData";
-import { formatHour, getAQIColor } from "../../utils/aqiHelpers";
+import { getAQIColor } from "../../utils/aqiHelpers";
+
+type RangeKey = "24h" | "7d";
+
+const RANGES: Record<RangeKey, { hours: number; label: string }> = {
+  "24h": { hours: 24, label: "24h" },
+  "7d": { hours: 168, label: "7d" },
+};
 
 interface TrendChartProps {
   cityId: number | null;
@@ -26,16 +34,18 @@ interface TrendChartProps {
 }
 
 export default function TrendChart({ cityId, cityName }: TrendChartProps) {
-  const { data, loading, error } = useCityHistory(cityId, 24);
+  const [range, setRange] = useState<RangeKey>("24h");
+  const { hours } = RANGES[range];
+  const { data, loading, error } = useCityHistory(cityId, hours);
 
   const chartData = useMemo(() => {
     if (!data) return [];
     return data.map((r) => ({
-      time: formatHour(r.timestamp),
+      // For 24h view show hour-of-day; for 7d, show "Mon 14:00"
+      time: formatTick(r.timestamp, range),
       aqi: Math.round(r.aqi_value),
-      pm25: r.pm25 ?? null,
     }));
-  }, [data]);
+  }, [data, range]);
 
   const meanAQI =
     chartData.length > 0
@@ -45,17 +55,22 @@ export default function TrendChart({ cityId, cityName }: TrendChartProps) {
 
   return (
     <div className="bg-ink-800 border border-ink-700 rounded-xl p-4">
-      <div className="flex items-center justify-between mb-3">
-        <h3 className="text-ink-100 font-semibold">
-          24-hour trend{cityName ? ` · ${cityName}` : ""}
+      <div className="flex items-center justify-between mb-3 gap-3">
+        <h3 className="text-ink-100 font-semibold tracking-tight">
+          {RANGES[range].label} trend{cityName ? ` · ${cityName}` : ""}
         </h3>
-        <div className="text-xs text-ink-200">Reference line: AQI 100</div>
+        <div className="flex items-center gap-3">
+          <span className="text-[11px] text-ink-200/70 hidden md:inline">
+            Reference: AQI 100
+          </span>
+          <RangeToggle value={range} onChange={setRange} />
+        </div>
       </div>
 
       {loading && chartData.length === 0 ? (
         <div className="skeleton h-64 w-full" />
       ) : error ? (
-        <div className="h-64 flex items-center justify-center text-aqi-unhealthy">{error}</div>
+        <div className="h-64 flex items-center justify-center text-aqi-unhealthy text-sm">{error}</div>
       ) : chartData.length === 0 ? (
         <div className="h-64 flex items-center justify-center text-ink-200">
           No data for this city yet.
@@ -65,7 +80,11 @@ export default function TrendChart({ cityId, cityName }: TrendChartProps) {
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={chartData} margin={{ top: 8, right: 16, bottom: 0, left: -8 }}>
               <CartesianGrid stroke="#243150" strokeDasharray="3 3" />
-              <XAxis dataKey="time" tick={{ fill: "#cdd5e0", fontSize: 11 }} />
+              <XAxis
+                dataKey="time"
+                tick={{ fill: "#cdd5e0", fontSize: 11 }}
+                minTickGap={28}
+              />
               <YAxis tick={{ fill: "#cdd5e0", fontSize: 11 }} />
               <Tooltip
                 contentStyle={{
@@ -94,6 +113,43 @@ export default function TrendChart({ cityId, cityName }: TrendChartProps) {
           </ResponsiveContainer>
         </div>
       )}
+    </div>
+  );
+}
+
+function formatTick(ts: string, range: RangeKey): string {
+  const d = new Date(ts);
+  const hh = d.getHours().toString().padStart(2, "0");
+  if (range === "24h") return `${hh}:00`;
+  // 7d view: "Mon 14:00" — short weekday + hour
+  const wday = d.toLocaleDateString(undefined, { weekday: "short" });
+  return `${wday} ${hh}:00`;
+}
+
+function RangeToggle({
+  value,
+  onChange,
+}: {
+  value: RangeKey;
+  onChange: (next: RangeKey) => void;
+}) {
+  return (
+    <div className="inline-flex rounded-md bg-ink-700/60 p-0.5 text-[11px] font-medium">
+      {(Object.keys(RANGES) as RangeKey[]).map((key) => (
+        <button
+          key={key}
+          type="button"
+          onClick={() => onChange(key)}
+          className={
+            "px-2.5 py-1 rounded transition " +
+            (value === key
+              ? "bg-ink-600 text-ink-100 shadow-sm"
+              : "text-ink-200 hover:text-ink-100")
+          }
+        >
+          {RANGES[key].label}
+        </button>
+      ))}
     </div>
   );
 }

@@ -43,7 +43,7 @@ export default function Sidebar() {
                     </span>
                   </div>
                   <span
-                    className="text-sm font-bold tabular-nums"
+                    className="text-sm font-bold font-mono tabular-nums"
                     style={{ color }}
                   >
                     {Math.round(entry.aqi_value)}

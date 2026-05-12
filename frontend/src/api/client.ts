@@ -18,16 +18,32 @@ import type {
 
 const baseURL = import.meta.env.VITE_API_BASE_URL ?? "/api";
 
+// 90s default — Render's free tier sleeps after 15 min idle and the cold-start
+// boot (uvicorn + sqlite seed) can take 30–60s on the first request after a
+// long sleep. 15s was too aggressive and caused user-visible timeouts the
+// next morning. Once the backend is warm, responses return in <1s, so the
+// generous ceiling only matters for the very first request of a session.
 const http = axios.create({
   baseURL,
-  timeout: 15_000,
+  timeout: 90_000,
   headers: { "Content-Type": "application/json" },
 });
 
 http.interceptors.response.use(
   (r) => r,
   (error) => {
-    // Surface a friendlier error message; let the caller decide how to render.
+    const isTimeout =
+      error?.code === "ECONNABORTED" ||
+      (typeof error?.message === "string" && error.message.toLowerCase().includes("timeout"));
+
+    if (isTimeout) {
+      return Promise.reject(
+        new Error(
+          "Backend is waking up — this takes ~30s on the first request after long idle. Please try again.",
+        ),
+      );
+    }
+
     const message =
       error?.response?.data?.detail ?? error?.message ?? "Network error";
     return Promise.reject(new Error(message));

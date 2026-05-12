@@ -23,13 +23,20 @@ export default {
       },
       fontFamily: {
         sans: [
-          "Inter",
+          "Geist",
           "ui-sans-serif",
           "system-ui",
           "-apple-system",
           "Segoe UI",
           "Roboto",
           "sans-serif",
+        ],
+        mono: [
+          '"JetBrains Mono"',
+          "ui-monospace",
+          "SFMono-Regular",
+          "Menlo",
+          "monospace",
         ],
       },
     },

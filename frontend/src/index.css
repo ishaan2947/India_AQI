@@ -9,7 +9,17 @@ html, body, #root {
 
 body {
   font-family: theme('fontFamily.sans');
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11"; /* Geist stylistic alternates */
   -webkit-font-smoothing: antialiased;
+  background-color: #0b1220;
+  /* Subtle dotted texture so the dark background isn't completely flat. */
+  background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.03) 1px, transparent 0);
+  background-size: 28px 28px;
+}
+
+/* Tabular numerics for monospace number alignment */
+.tnum, .font-mono {
+  font-variant-numeric: tabular-nums;
 }
 
 /* Leaflet sometimes refuses to fill its parent without an explicit height. */
@@ -19,18 +29,29 @@ body {
   background: #0b1220;
 }
 
-/* Custom marker styling — built from a div, not an <img>. */
-.aqi-marker {
-  border-radius: 9999px;
-  border: 2px solid rgba(255, 255, 255, 0.9);
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.45);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgba(15, 23, 42, 0.95);
-  font-weight: 700;
-  font-size: 12px;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+/* Customise leaflet's default popup to fit our dark theme */
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: #f8fafc;
+  color: #0f172a;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+}
+
+/* Pulse the highest-AQI marker so the eye is drawn to the worst hotspot. */
+.aqi-marker-pulse {
+  animation: aqi-pulse 2.5s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes aqi-pulse {
+  0%, 100% {
+    stroke-width: 2;
+    fill-opacity: 0.85;
+  }
+  50% {
+    stroke-width: 7;
+    fill-opacity: 1;
+  }
 }
 
 .skeleton {
