@@ -58,12 +58,22 @@ export default function CityRanking() {
               />
               <Tooltip
                 contentStyle={{
-                  background: "#111a2e",
-                  border: "1px solid #243150",
+                  background: "#0f172a",
+                  border: "1px solid #334155",
                   color: "#e6ebf2",
                   fontSize: 12,
+                  borderRadius: 8,
+                  boxShadow: "0 8px 24px rgba(0,0,0,0.55)",
                 }}
-                cursor={{ fill: "rgba(255,255,255,0.04)" }}
+                labelStyle={{ color: "#f8fafc", fontWeight: 600, marginBottom: 4 }}
+                itemStyle={{ color: "#e6ebf2" }}
+                formatter={(value: number) => [
+                  <span style={{ color: "#e6ebf2", fontVariantNumeric: "tabular-nums" }}>
+                    {value}
+                  </span>,
+                  "AQI",
+                ]}
+                cursor={{ fill: "rgba(255,255,255,0.06)" }}
               />
               <Bar dataKey="aqi" radius={[0, 6, 6, 0]}>
                 {chartData.map((entry) => (

@@ -96,12 +96,25 @@ export default function PredictionPanel({ city }: PredictionPanelProps) {
                 <YAxis tick={{ fill: "#cdd5e0", fontSize: 11 }} />
                 <Tooltip
                   contentStyle={{
-                    background: "#111a2e",
-                    border: "1px solid #243150",
+                    background: "#0f172a",
+                    border: "1px solid #334155",
                     color: "#e6ebf2",
                     fontSize: 12,
+                    borderRadius: 8,
+                    boxShadow: "0 8px 24px rgba(0,0,0,0.55)",
                   }}
-                  labelStyle={{ color: "#cdd5e0" }}
+                  labelStyle={{ color: "#f8fafc", fontWeight: 600, marginBottom: 4 }}
+                  itemStyle={{ color: "#e6ebf2" }}
+                  formatter={(value: number, name: string) => {
+                    if (name === "band") return [null, null];
+                    return [
+                      <span style={{ color: "#e6ebf2", fontVariantNumeric: "tabular-nums" }}>
+                        {value}
+                      </span>,
+                      "Predicted AQI",
+                    ];
+                  }}
+                  cursor={{ stroke: "rgba(255,255,255,0.18)", strokeDasharray: "3 3" }}
                 />
                 <Area
                   type="monotone"
