@@ -1,0 +1,60 @@
+# Pings the Render backend every 10 minutes so it never goes to sleep.
+#
+# Why: Render's free tier sleeps a service after 15 minutes of idle. The
+# next request takes 30-60 seconds to cold-start. A recruiter or
+# interviewer opening the live demo should never wait that long.
+#
+# This workflow runs entirely on GitHub-hosted runners — free on public
+# repos. The 10-minute cadence stays comfortably under Render's 15-min
+# sleep threshold even if GitHub schedules a job a few minutes late
+# (which it sometimes does under heavy runner load).
+
+name: Keep Render warm
+
+on:
+  schedule:
+    # Every 10 minutes. Cron in GitHub Actions runs in UTC.
+    - cron: "*/10 * * * *"
+  # Allow manual triggering from the Actions tab.
+  workflow_dispatch:
+
+# Only one keep-warm job in flight at a time.
+concurrency:
+  group: keep-warm
+  cancel-in-progress: false
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Ping /healthz (warms the dyno)
+        run: |
+          # Wake the service. --max-time 90s covers a worst-case cold
+          # start. We don't fail the job on a single non-200 — Render's
+          # proxy occasionally returns 502 mid-wakeup; the next cron tick
+          # will catch it.
+          set +e
+          for i in 1 2 3; do
+            code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 90 \
+              "https://aqi-india-api.onrender.com/healthz")
+            echo "Attempt $i → HTTP $code"
+            if [ "$code" = "200" ]; then
+              exit 0
+            fi
+            sleep 10
+          done
+          # Give a soft warning but don't fail — the next 10-minute tick
+          # is right around the corner.
+          echo "::warning::healthz did not return 200 after 3 attempts"
+
+      - name: Warm a couple of real endpoints too
+        run: |
+          # /api/cities and /api/stats/worst are the two endpoints the
+          # frontend hits first on home-page load. Pre-warming them
+          # means the very first user request hits a hot SQLAlchemy
+          # connection pool, not a fresh one.
+          curl -s -o /dev/null --max-time 30 \
+            "https://aqi-india-api.onrender.com/api/cities" || true
+          curl -s -o /dev/null --max-time 30 \
+            "https://aqi-india-api.onrender.com/api/stats/worst" || true

@@ -49,22 +49,45 @@ export default defineConfig({
         // chart page (chunks are split — vendor bundles are demanded
         // by routes that need them).
         maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
+        // Force the new service worker to activate immediately on next
+        // page load (rather than waiting for all open tabs to close)
+        // and take control of currently-open pages.
+        skipWaiting: true,
+        clientsClaim: true,
+        // Nuke any caches from older SW versions so stale data doesn't
+        // outlive a deploy.
+        cleanupOutdatedCaches: true,
+        navigateFallbackDenylist: [/^\/api\//],
         runtimeCaching: [
-          // Our backend API — Network first so data stays fresh, but
-          // fall back to the cached response if the network is slow or
-          // the user is offline. 8s timeout balances fresh-vs-fast.
+          // AQI backend — StaleWhileRevalidate. Returns the cached
+          // response INSTANTLY (no waiting on Render to cold-start),
+          // then silently fetches fresh data in the background and
+          // updates the cache for next time. The user always sees a
+          // populated dashboard, never a spinner-then-error.
+          //
+          // AQI doesn't change second-by-second, so showing 5-15 min
+          // old data while fresh data loads is the right trade-off.
+          // Acceptable for /cities, /aqi/current, /stats/*. The
+          // /predictions endpoint changes only nightly so it's even
+          // happier with this strategy.
           {
             urlPattern: ({ url }) =>
-              url.origin === "https://aqi-india-api.onrender.com",
-            handler: "NetworkFirst",
+              url.origin === "https://aqi-india-api.onrender.com" &&
+              url.pathname.startsWith("/api/"),
+            handler: "StaleWhileRevalidate",
             options: {
               cacheName: "aqi-api-cache",
-              networkTimeoutSeconds: 8,
               expiration: {
-                maxEntries: 60,
-                maxAgeSeconds: 5 * 60, // 5 minutes
+                maxEntries: 80,
+                maxAgeSeconds: 24 * 60 * 60, // 24h max — stale-but-shown
               },
               cacheableResponse: { statuses: [0, 200] },
+              // Broadcast cache updates so React can re-render when
+              // fresh data lands (handled by vite-plugin-pwa default).
+              broadcastUpdate: {
+                channelName: "aqi-api-updates",
+                options: { headersToCheck: ["content-length", "etag"] },
+              },
             },
           },
           // CARTO dark map tiles — Cache first, they basically never
