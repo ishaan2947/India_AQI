@@ -1,0 +1,61 @@
+# Refreshes the build-time snapshot JSON every few hours and commits it.
+#
+# Why: the frontend ships a static snapshot (frontend/src/data/*.json) so
+# the dashboard is paintable instantly on first visit — even before the
+# live API call resolves. If we only regenerate that snapshot at deploy
+# time, the bundled "Updated …" timestamps drift further into the past
+# every day the site doesn't get redeployed. Recruiters see what looks
+# like a dead project.
+#
+# This workflow hits the live API, overwrites the snapshot files, and
+# pushes the commit back to main. Vercel auto-redeploys on the push, so
+# the bundle is always serving ≤ refresh-cadence-old data.
+#
+# Runs entirely on GitHub-hosted runners — free for public repos.
+
+name: Refresh snapshot
+
+on:
+  schedule:
+    # Once daily at 03:30 UTC (~09:00 IST — before most real users hit
+    # the demo). Hourly would just burn CI minutes for no real gain
+    # since the dashboard's 12h formatter floor already collapses
+    # anything older than half a day to "recently". Cron is UTC.
+    - cron: "30 3 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: refresh-snapshot
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      # Needed for the auto-commit step to push back to main.
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Regenerate snapshot
+        working-directory: frontend
+        # The script is best-effort: if the API is briefly unreachable
+        # it leaves the previous snapshot in place and exits 0.
+        run: node scripts/fetch-snapshot.mjs
+
+      - name: Commit if changed
+        run: |
+          if git diff --quiet -- frontend/src/data; then
+            echo "No snapshot changes — nothing to commit."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add frontend/src/data
+          git commit -m "chore(snapshot): refresh build-time data [skip ci]"
+          git push

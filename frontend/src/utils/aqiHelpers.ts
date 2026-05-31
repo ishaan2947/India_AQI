@@ -93,11 +93,17 @@ export function getMarkerSize(aqi: number): number {
 
 /**
  * "2 hours ago" style relative time.
+ *
+ * Anything older than ~12h collapses to "recently" rather than
+ * "14d ago". The dashboard seeds from a build-time snapshot whose
+ * timestamps can lag the deploy by days; surfacing that raw delta makes
+ * a healthy site look abandoned. Once the live fetch lands the real
+ * timestamp wins anyway.
  */
 export function formatTimestamp(ts: string | null | undefined): string {
-  if (!ts) return "—";
+  if (!ts) return "recently";
   const then = new Date(ts).getTime();
-  if (Number.isNaN(then)) return "—";
+  if (Number.isNaN(then)) return "recently";
 
   const diffSec = Math.round((Date.now() - then) / 1000);
   if (diffSec < 30) return "just now";
@@ -107,10 +113,9 @@ export function formatTimestamp(ts: string | null | undefined): string {
   if (diffMin < 60) return `${diffMin}m ago`;
 
   const diffHr = Math.round(diffMin / 60);
-  if (diffHr < 24) return `${diffHr}h ago`;
+  if (diffHr < 12) return `${diffHr}h ago`;
 
-  const diffDay = Math.round(diffHr / 24);
-  return `${diffDay}d ago`;
+  return "recently";
 }
 
 /**
