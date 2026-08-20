@@ -13,7 +13,7 @@ from typing import Generator
 
 from sqlalchemy import create_engine
 from sqlalchemy.engine import Engine
-from sqlalchemy.orm import Session, declarative_base, sessionmaker
+from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
 
 DATABASE_URL: str = os.getenv("DATABASE_URL", "sqlite:///./aqi_india.db")
 
@@ -26,7 +26,14 @@ engine: Engine = create_engine(DATABASE_URL, connect_args=_connect_args, future=
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine, future=True)
 
-Base = declarative_base()
+class Base(DeclarativeBase):
+    """
+    Declarative base for every ORM model.
+
+    Declared as a class rather than via `declarative_base()` so that static
+    analysers can follow it — a base produced by a function call is a value,
+    not a type, and mypy rejects it as a base class.
+    """
 
 
 def get_db() -> Generator[Session, None, None]:
