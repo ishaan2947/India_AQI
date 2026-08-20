@@ -55,6 +55,9 @@ testpaths = ["backend/tests"]
 # path regardless of where pytest is invoked from.
 pythonpath = ["."]
 addopts = "-q --strict-markers --strict-config"
+# The fetcher's retry loop is `async def`, so its tests are too. `auto`
+# saves marking every one of them by hand.
+asyncio_mode = "auto"
 filterwarnings = [
     # `datetime.utcnow()` is deprecated on 3.12+ and the backend uses it in
     # the models, crud, fetcher, and ML layers. Moving to timezone-aware
