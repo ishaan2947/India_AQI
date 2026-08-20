@@ -8,6 +8,9 @@ formula, the history padding — not sklearn's, which has its own suite.
 Stubbing also makes each assertion exact instead of "roughly 140", and
 keeps the file fast enough to stay in the pre-commit loop.
 
+The stub itself lives in `conftest.py` as the `make_forest` /
+`stub_model` fixtures, since the prediction endpoint tests need it too.
+
 Two tests do fit a real forest, to prove `train_model` wires the pieces
 together and persists what it produces.
 """
@@ -31,47 +34,14 @@ from backend.services.ml_model import (
     train_model,
 )
 
-
-class StubTree:
-    """A single estimator returning a fixed value, recording what it saw."""
-
-    def __init__(self, value: float, log: list[np.ndarray]) -> None:
-        self.value = value
-        self.log = log
-
-    def predict(self, X: np.ndarray) -> np.ndarray:
-        self.log.append(np.asarray(X)[0].copy())
-        return np.array([self.value])
-
-
-class StubForest:
-    """Stands in for a fitted RandomForestRegressor."""
-
-    def __init__(self, *per_tree_values: float) -> None:
-        self.rows_seen: list[np.ndarray] = []
-        self.estimators_ = [StubTree(v, self.rows_seen) for v in per_tree_values]
-
-
-@pytest.fixture(name="stub_model")
-def stub_model_fixture(monkeypatch: pytest.MonkeyPatch):
-    """Install a stub estimator as the module's cached model."""
-
-    def _install(*per_tree_values: float) -> StubForest:
-        forest = StubForest(*per_tree_values)
-        monkeypatch.setattr(ml_model, "_loaded_model", forest)
-        return forest
-
-    return _install
-
-
 # ---------------------------------------------------------------------------
 # Confidence
 # ---------------------------------------------------------------------------
 
 
-def test_unanimous_trees_give_full_confidence():
+def test_unanimous_trees_give_full_confidence(make_forest):
     """Zero spread across the ensemble is maximum confidence."""
-    forest = StubForest(150.0, 150.0, 150.0)
+    forest = make_forest(150.0, 150.0, 150.0)
 
     mean, confidence = _predict_with_confidence(forest, np.zeros((1, 9)))
 
@@ -79,9 +49,9 @@ def test_unanimous_trees_give_full_confidence():
     assert confidence == pytest.approx(1.0)
 
 
-def test_disagreeing_trees_reduce_confidence():
+def test_disagreeing_trees_reduce_confidence(make_forest):
     """Confidence is 1 - (stddev / mean), so spread costs exactly that."""
-    forest = StubForest(100.0, 200.0)
+    forest = make_forest(100.0, 200.0)
 
     mean, confidence = _predict_with_confidence(forest, np.zeros((1, 9)))
 
@@ -90,22 +60,22 @@ def test_disagreeing_trees_reduce_confidence():
     assert confidence == pytest.approx(1.0 - 50.0 / 150.0)
 
 
-def test_confidence_never_goes_negative():
+def test_confidence_never_goes_negative(make_forest):
     """
     Spread can exceed the mean, which would make `1 - relative` negative.
     The result has to stay a valid [0, 1] score because the API publishes
     it directly as `confidence_score`.
     """
-    forest = StubForest(0.0, 0.0, 1000.0)
+    forest = make_forest(0.0, 0.0, 1000.0)
 
     _, confidence = _predict_with_confidence(forest, np.zeros((1, 9)))
 
     assert confidence == 0.0
 
 
-def test_non_positive_mean_falls_back_to_neutral_confidence():
+def test_non_positive_mean_falls_back_to_neutral_confidence(make_forest):
     """A zero or negative mean can't be normalised against, so 0.5 is used."""
-    forest = StubForest(0.0, 0.0)
+    forest = make_forest(0.0, 0.0)
 
     mean, confidence = _predict_with_confidence(forest, np.zeros((1, 9)))
 
