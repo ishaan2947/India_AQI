@@ -1,0 +1,9 @@
+# Development + CI dependencies. Install on top of requirements.txt:
+#     pip install -r backend/requirements.txt -r backend/requirements-dev.txt
+#
+# Pinned exactly, same as the runtime deps, so a CI run is reproducible and
+# a new ruff release can't turn a green PR red without an explicit bump.
+pytest==9.1.1
+pytest-asyncio==1.4.0
+ruff==0.16.3
+mypy==2.3.1
