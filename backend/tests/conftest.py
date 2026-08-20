@@ -29,6 +29,7 @@ from __future__ import annotations
 
 from collections.abc import Iterator
 from datetime import datetime, timedelta
+from pathlib import Path
 
 import pytest
 from fastapi.testclient import TestClient
@@ -100,7 +101,7 @@ def client_fixture(db_session: Session) -> Iterator[TestClient]:
 
 
 @pytest.fixture(autouse=True)
-def isolated_model(tmp_path: object, monkeypatch: pytest.MonkeyPatch) -> None:
+def isolated_model(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     """
     Point the ML layer at a scratch model path and clear its cached estimator.
 
@@ -108,7 +109,7 @@ def isolated_model(tmp_path: object, monkeypatch: pytest.MonkeyPatch) -> None:
     suite read or clobber the real `backend/model.joblib`, and the symptom
     (a test that passes alone but fails in a full run) is expensive to chase.
     """
-    monkeypatch.setattr(ml_model, "MODEL_PATH", tmp_path / "model.joblib")  # type: ignore[attr-defined]
+    monkeypatch.setattr(ml_model, "MODEL_PATH", tmp_path / "model.joblib")
     monkeypatch.setattr(ml_model, "_loaded_model", None)
 
 
@@ -143,6 +144,70 @@ def cities_fixture(db_session: Session) -> list[models.City]:
         crud.create_city(db_session, name="Delhi", state="Delhi", lat=28.61, lng=77.21),
         crud.create_city(db_session, name="Chennai", state="Tamil Nadu", lat=13.08, lng=80.27),
     ]
+
+
+# ---------------------------------------------------------------------------
+# ML stubs
+# ---------------------------------------------------------------------------
+
+
+class StubTree:
+    """A single estimator returning a fixed value, recording what it was asked."""
+
+    def __init__(self, value: float, log: list) -> None:
+        self.value = value
+        self.log = log
+
+    def predict(self, X):  # noqa: N803 - matches sklearn's parameter name
+        self.log.append(list(X[0]))
+        return [self.value]
+
+
+class StubForest:
+    """
+    Stands in for a fitted `RandomForestRegressor`.
+
+    `_predict_with_confidence` only ever touches `.estimators_` and calls
+    `.predict()` on each, so this is the whole surface that needs faking —
+    and it makes the ensemble's spread (and therefore the confidence score)
+    something a test states outright instead of hoping for.
+    """
+
+    def __init__(self, *per_tree_values: float) -> None:
+        self.rows_seen: list[list[float]] = []
+        self.estimators_ = [StubTree(v, self.rows_seen) for v in per_tree_values]
+
+
+@pytest.fixture(name="make_forest")
+def make_forest_fixture():
+    """Build a stub ensemble without installing it."""
+
+    def _make(*per_tree_values: float) -> StubForest:
+        return StubForest(*per_tree_values)
+
+    return _make
+
+
+@pytest.fixture(name="stub_model")
+def stub_model_fixture(monkeypatch: pytest.MonkeyPatch):
+    """
+    Build a stub ensemble and install it as ml_model's cached estimator.
+
+    Lets prediction tests skip a real `fit()` — they are covering our
+    forecast loop, not sklearn's — which keeps them fast and exact.
+    """
+
+    def _install(*per_tree_values: float) -> StubForest:
+        forest = StubForest(*per_tree_values)
+        monkeypatch.setattr(ml_model, "_loaded_model", forest)
+        return forest
+
+    return _install
+
+
+# ---------------------------------------------------------------------------
+# Data
+# ---------------------------------------------------------------------------
 
 
 @pytest.fixture(name="make_readings")
