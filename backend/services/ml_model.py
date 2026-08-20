@@ -26,7 +26,7 @@ import math
 import random
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import List, Optional, Tuple
+from typing import Optional, Tuple
 
 import joblib
 import numpy as np
