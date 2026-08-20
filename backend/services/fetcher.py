@@ -26,7 +26,7 @@ from typing import Any, Optional
 import httpx
 from sqlalchemy.orm import Session
 
-from .. import crud, models
+from .. import crud
 
 logger = logging.getLogger(__name__)
 
