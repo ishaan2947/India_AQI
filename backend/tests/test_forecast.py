@@ -169,7 +169,7 @@ def test_forecast_covers_the_full_horizon_at_hourly_steps(
 
     assert len(points) == HORIZON_HOURS
     timestamps = [ts for ts, _, _ in points]
-    gaps = {b - a for a, b in zip(timestamps, timestamps[1:])}
+    gaps = {b - a for a, b in zip(timestamps, timestamps[1:], strict=False)}
     assert gaps == {timedelta(hours=1)}
     assert timestamps[0] > datetime.utcnow()
 
