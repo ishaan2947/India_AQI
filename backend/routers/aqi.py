@@ -78,7 +78,9 @@ async def admin_refresh(db: Session = Depends(get_db)) -> schemas.RefreshRespons
     )
 
 
-def _stats_response(db: Session, *, label: str, worst: bool, limit: int = 10) -> schemas.StatsResponse:
+def _stats_response(
+    db: Session, *, label: str, worst: bool, limit: int = 10
+) -> schemas.StatsResponse:
     latest = crud.latest_reading_per_city(db)
     entries: List[schemas.StatsCityEntry] = []
     for city in crud.list_cities(db):
