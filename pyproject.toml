@@ -1,0 +1,60 @@
+# Tooling config for the backend. Deliberately not a packaging manifest —
+# the app is deployed from `backend/requirements.txt` (Render) and run as
+# `uvicorn backend.main:app`, so there is nothing to build or install here.
+# This file exists so ruff / mypy / pytest read the same settings locally
+# and in CI, instead of drifting between a developer's shell and the runner.
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+extend-exclude = [".venv", "frontend", "docs"]
+
+[tool.ruff.lint]
+# A deliberately moderate ruleset. `UP` (pyupgrade) is left off: it would
+# rewrite every `typing.List` / `Optional` in the codebase to PEP 585/604
+# syntax, which is a churn-heavy refactor unrelated to correctness.
+#   E/W  pycodestyle      F   pyflakes
+#   I    import sorting   B   bugbear (mutable defaults, shadowed loop vars)
+#   C4   comprehensions
+select = ["E", "W", "F", "I", "B", "C4"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["backend"]
+
+[tool.ruff.lint.flake8-bugbear]
+# `def endpoint(db: Session = Depends(get_db))` is FastAPI's documented
+# dependency-injection idiom, not the mutable-default bug B008 exists to
+# catch — the call is evaluated per-request by the framework, not once at
+# import. Same for `Query(...)` defaults.
+extend-immutable-calls = ["fastapi.Depends", "fastapi.Query"]
+
+[tool.ruff.lint.per-file-ignores]
+# Fixtures legitimately shadow their own names as function args, and
+# assert-heavy test bodies don't benefit from bugbear's opinions here.
+"backend/tests/*" = ["B011"]
+
+[tool.mypy]
+python_version = "3.13"
+files = ["backend"]
+# Third-party stubs (apscheduler, joblib, sklearn) are absent or partial;
+# chasing them adds noise without catching bugs in our own code.
+ignore_missing_imports = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_unused_configs = true
+no_implicit_optional = true
+check_untyped_defs = true
+# The ORM layer is typed via SQLAlchemy 2.0 `Mapped[...]` annotations, so
+# no per-module error suppression is needed anywhere in the backend. If a
+# future change makes this file need an override block, that is a signal
+# worth reading rather than routing around.
+
+[tool.pytest.ini_options]
+testpaths = ["backend/tests"]
+# Tests import the app as `backend.main`, so the repo root must be on the
+# path regardless of where pytest is invoked from.
+pythonpath = ["."]
+addopts = "-q --strict-markers --strict-config"
+filterwarnings = [
+    "error::DeprecationWarning:backend.*",
+]
