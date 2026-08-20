@@ -12,6 +12,7 @@
 > 15 min of idle takes ~30–60 s to wake the backend up — just open the link
 > while you're talking. Subsequent requests are fast.
 
+[![CI](https://github.com/ishaan2947/India_AQI/actions/workflows/ci.yml/badge.svg)](https://github.com/ishaan2947/India_AQI/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/python-3.11+-blue)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688)
 ![React](https://img.shields.io/badge/React-18-61dafb)
@@ -92,7 +93,8 @@ data flows to the same FastAPI backend.
 | Geospatial visualisation | Leaflet (via React-Leaflet), custom `CircleMarker`s sized + coloured by AQI category         |
 | Charting                 | Recharts line/area/bar with reference lines and confidence bands                             |
 | Styling                  | Tailwind CSS with a custom dark theme + skeleton loaders                                     |
-| DX & deployment          | docker-compose with hot reload for backend + frontend                                        |
+| Testing                  | pytest suite over API routes + feature engineering, mock transports, no network in tests     |
+| DX & deployment          | docker-compose with hot reload; ruff + mypy + pytest gated on every PR                       |
 | Installable               | PWA via `vite-plugin-pwa` + Workbox — home-screen icon, offline shell, runtime cache         |
 
 ---
@@ -199,6 +201,57 @@ docker-compose up --build
 
 Brings up the backend on `:8000` and the frontend on `:5173` with hot reload
 for both.
+
+---
+
+## Testing & CI
+
+```bash
+pip install -r backend/requirements.txt -r backend/requirements-dev.txt
+
+ruff check .    # lint
+mypy            # type-check (config in pyproject.toml)
+pytest          # 102 tests, ~8s
+```
+
+All three run on every pull request via
+[`.github/workflows/ci.yml`](.github/workflows/ci.yml).
+
+### What's covered
+
+| Area | File | Focus |
+|------|------|-------|
+| Feature engineering | `test_features.py` | Lag/rolling/temporal correctness, leakage guards |
+| Forecasting | `test_forecast.py` | Recursive 24-step loop, clamping, confidence bounds |
+| City + reading API | `test_api_cities.py` | Payload shape, window filtering, 404 semantics |
+| Leaderboards | `test_api_stats.py` | Sort direction, 10-row cap, missing-reading handling |
+| Predictions + admin | `test_api_predictions.py` | Horizon, per-city failure isolation, refresh hook |
+| Upstream fetcher | `test_fetcher.py` | WAQI parsing, retry/backoff, synthetic fallback |
+
+### How the suite is built
+
+**No test touches the network.** The WAQI retry loop is driven through
+`httpx.MockTransport`, so the real `_fetch_waqi` runs — its status-code
+branching, its exponential backoff, its exception handling — against
+scripted responses. A parametrised guard patches httpx's transports and
+asserts the read endpoints make no outbound call at all.
+
+**No test touches your database or your trained model.** Each test gets a
+fresh in-memory SQLite via `StaticPool`, with `get_db` overridden so
+request handlers share it. An autouse fixture repoints `ml_model` at a
+scratch path — otherwise a test would load the committed `model.joblib`,
+and a test that trains would overwrite it.
+
+**The app's lifespan never runs.** `TestClient` is deliberately not used as
+a context manager, so no APScheduler thread starts and no 30-city bootstrap
+runs. Tests declare the data they need.
+
+Assertions are arithmetic over a linear AQI ramp rather than values copied
+from a passing run, so an expected lag or rolling mean can be checked by
+eye. The suite is verified by mutation, not by coverage percentage:
+removing the `.shift(1)` that keeps rolling means from including their own
+target fails 3 tests, dropping the per-city `groupby` fails 2, flattening
+the fetcher's backoff fails 1.
 
 ---
 
@@ -407,12 +460,21 @@ aqi-india/
 │   │   ├── fetcher.py                # WAQI client + synthetic fallback
 │   │   ├── ml_model.py               # Random Forest train + predict
 │   │   └── scheduler.py              # APScheduler jobs
+│   ├── tests/
+│   │   ├── conftest.py               # In-memory DB, stub estimator, fixtures
+│   │   ├── test_features.py          # Lag / rolling / temporal engineering
+│   │   ├── test_forecast.py          # Forecast loop, clamping, confidence
+│   │   ├── test_api_cities.py        # /api/cities/*  /api/aqi/*
+│   │   ├── test_api_stats.py         # /api/stats/*
+│   │   ├── test_api_predictions.py   # /api/predictions/*  /api/admin/*
+│   │   └── test_fetcher.py           # WAQI parsing + retry (mock transport)
 │   ├── database.py                   # SQLAlchemy engine + Base
 │   ├── models.py                     # City · AQIReading · Prediction
 │   ├── schemas.py                    # Pydantic response models
 │   ├── crud.py                       # DB helpers
 │   ├── main.py                       # FastAPI app + lifespan
 │   ├── requirements.txt
+│   ├── requirements-dev.txt          # pytest · ruff · mypy
 │   └── .env.example
 ├── frontend/
 │   ├── src/
@@ -432,6 +494,11 @@ aqi-india/
 │   ├── package.json
 │   ├── tailwind.config.js · postcss.config.js
 │   └── vite.config.ts · tsconfig.json
+├── .github/workflows/
+│   ├── ci.yml                        # ruff · mypy · pytest on every PR
+│   ├── keep-warm.yml                 # Pings Render so the demo never sleeps
+│   └── refresh-snapshot.yml          # Daily rebuild of the bundled snapshot
+├── pyproject.toml                    # ruff · mypy · pytest config
 ├── docker-compose.yml
 └── README.md
 ```
@@ -462,7 +529,9 @@ The UI follows the standard US-EPA colour bands:
 * Push real-time updates over WebSockets instead of polling.
 * Helm chart + GitHub Actions deploy to Fly.io or Render.
 * Persistent Postgres in compose with Alembic-managed migrations.
-* Unit tests + GitHub Actions CI (pytest + Vitest).
+* Frontend test suite (Vitest + Testing Library) to match the backend's.
+* Migrate off the 3.12-deprecated `datetime.utcnow()` to timezone-aware
+  datetimes across the models, crud, and fetcher layers.
 
 ---
 
