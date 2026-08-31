@@ -124,6 +124,16 @@ export default function Navbar() {
             />
           </span>
 
+          {/* The logo links home too, but a wordmark is not a signpost —
+              without this the landing page is unreachable from every other
+              page unless you happen to try clicking the logo. */}
+          <NavLink
+            to="/"
+            end
+            className={({ isActive }) => `${linkBase} ${isActive ? linkActive : linkInactive}`}
+          >
+            Home
+          </NavLink>
           <NavLink
             to="/map"
             className={({ isActive }) => `${linkBase} ${isActive ? linkActive : linkInactive}`}
