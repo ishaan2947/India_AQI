@@ -17,6 +17,55 @@ body {
   background-size: 28px 28px;
 }
 
+/* ------------------------------------------------------------------ */
+/* Scrollbars. The platform default is a light track with arrow buttons */
+/* at each end — fine on a white page, a bright stripe down the side of */
+/* a dark one. color-scheme tells the browser to draw its own chrome    */
+/* dark; the rest replaces the bar with a thin inset thumb that gains   */
+/* contrast on hover. Deliberately still visible: hiding scrollbars     */
+/* entirely costs people a real affordance.                             */
+/* ------------------------------------------------------------------ */
+:root {
+  color-scheme: dark;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(205, 213, 224, 0.2) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(205, 213, 224, 0.18);
+  border-radius: 9999px;
+  /* Transparent border + content-box clip insets the thumb, so it reads
+     as a slim pill with breathing room rather than a full-width slab. */
+  border: 2px solid transparent;
+  background-clip: content-box;
+  transition: background-color 0.15s ease;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(205, 213, 224, 0.36);
+}
+
+/* The little up/down arrows at the ends of the track. */
+*::-webkit-scrollbar-button {
+  display: none;
+}
+
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
 /* Tabular numerics for monospace number alignment */
 .tnum, .font-mono {
   font-variant-numeric: tabular-nums;
