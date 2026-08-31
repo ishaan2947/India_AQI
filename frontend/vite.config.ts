@@ -90,10 +90,14 @@ export default defineConfig({
               },
             },
           },
-          // CARTO dark map tiles — Cache first, they basically never
+          // Esri dark-canvas map tiles — Cache first, they basically never
           // change so caching aggressively saves a *lot* of bandwidth.
+          // (Must track whatever host AQIMap.tsx points at: a stale pattern
+          // here means the service worker keeps replaying the old provider's
+          // tiles to returning visitors long after the code has moved on.)
           {
-            urlPattern: /^https:\/\/[a-d]\.basemaps\.cartocdn\.com\/.*/i,
+            urlPattern:
+              /^https:\/\/server\.arcgisonline\.com\/ArcGIS\/rest\/services\/Canvas\/.*/i,
             handler: "CacheFirst",
             options: {
               cacheName: "map-tile-cache",
