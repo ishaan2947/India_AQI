@@ -83,6 +83,15 @@ export default function Landing() {
 function Hero() {
   const [loaded, setLoaded] = useState(false);
 
+  // The photograph is not decoration: its subject sits at 27.1767, 78.0081,
+  // which is a city this site monitors. So the hero can report the air in the
+  // frame you are looking at. Falls away silently if Agra ever drops out of
+  // the tracked set or has no reading.
+  const { data: cities } = useCurrentAQI();
+  const pictured =
+    cities?.find((c) => c.name.toLowerCase() === "agra") ?? null;
+  const picturedAqi = pictured?.latest_aqi ?? null;
+
   return (
     <section className="relative">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 pt-8 pb-7 sm:pt-12 sm:pb-8">
@@ -131,7 +140,7 @@ function Hero() {
           it doesn't belong. Aspect ratios rather than viewport heights, so the
           crop is predictable — 4:3 on a phone is close to the frame's native
           shape, and it widens as the screen does. */}
-      <div className="relative aspect-[4/3] sm:aspect-[16/10] lg:aspect-[21/9] w-full overflow-hidden">
+      <div className="group relative aspect-[4/3] sm:aspect-[16/10] lg:aspect-[21/9] w-full overflow-hidden">
         {/* The blur sits underneath, so there is something to look at for the
             few hundred milliseconds before the real frame decodes. */}
         <div
@@ -148,7 +157,7 @@ function Hero() {
           height={1728}
           decoding="async"
           onLoad={() => setLoaded(true)}
-          className={`relative h-full w-full object-cover object-[center_58%] transition-opacity duration-700 ${
+          className={`relative h-full w-full object-cover object-[center_58%] transition-[opacity,transform] duration-700 ease-out motion-safe:group-hover:scale-[1.02] ${
             loaded ? "opacity-100" : "opacity-0"
           }`}
         />
@@ -162,6 +171,36 @@ function Hero() {
           className="absolute inset-0"
           style={{ backgroundImage: BOTTOM_SCRIM }}
         />
+
+        {picturedAqi != null && pictured ? (
+          <Link
+            to={`/cities/${pictured.id}`}
+            className="absolute bottom-20 left-4 sm:bottom-28 sm:left-6 lg:left-8 z-10 max-w-[calc(100%-2rem)] rounded-lg border border-white/10 bg-ink-900/55 px-3.5 py-2.5 backdrop-blur-md transition duration-300 hover:border-white/30 hover:bg-ink-900/80"
+          >
+            <p className="text-[9px] uppercase tracking-[0.18em] text-dusk-300/80">
+              In this photograph
+            </p>
+            <p className="mt-1 flex items-center gap-2 text-xs">
+              <span
+                className="h-2 w-2 shrink-0 rounded-full"
+                style={{ background: getAQIColor(picturedAqi) }}
+              />
+              <span className="font-mono text-sm font-bold tabular-nums text-ink-100">
+                {Math.round(picturedAqi)}
+              </span>
+              <span className="truncate text-ink-200">
+                Agra
+                <span className="hidden sm:inline">
+                  {" · "}
+                  {getAQICategory(picturedAqi)}
+                </span>
+              </span>
+              <span className="text-ink-200/40 transition-transform duration-200 group-hover:translate-x-0.5">
+                →
+              </span>
+            </p>
+          </Link>
+        ) : null}
       </div>
 
       {/* Pulled up into the base of the photograph, where the bottom scrim has
