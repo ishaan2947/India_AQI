@@ -11,14 +11,42 @@
  */
 
 import { useEffect, useMemo, useState } from "react";
-import { MapContainer, TileLayer } from "react-leaflet";
+import { MapContainer, TileLayer, useMap } from "react-leaflet";
+
+import type { LatLngBoundsLiteral } from "leaflet";
 
 import { useCurrentAQI } from "../../hooks/useAQIData";
 import { getAllCategories } from "../../utils/aqiHelpers";
 import AQIMarker from "./AQIMarker";
 
-const INDIA_CENTER: [number, number] = [22.5, 80.0];
-const INITIAL_ZOOM = 5;
+// The subject is India, so the map is India. INDIA_BOUNDS is what we frame on
+// load; PAN_BOUNDS is the hard wall for dragging — a little slack around the
+// country so edge cities aren't pinned against the frame, but nowhere near far
+// enough to sail off into the Atlantic.
+const INDIA_BOUNDS: LatLngBoundsLiteral = [
+  [6.0, 67.0], // SW — below Kanyakumari, west of Kutch
+  [36.5, 98.0], // NE — above Kashmir, east of Arunachal
+];
+const PAN_BOUNDS: LatLngBoundsLiteral = [
+  [3.5, 63.5],
+  [38.5, 101.5],
+];
+
+// Basemap: Esri's dark canvas, one of the few genuinely key-free dark tile
+// sets left. (CARTO, the previous provider, now stamps "API KEY REQUIRED"
+// diagonally across every tile served without a key.) Esri's coverage stops
+// at z16 — past that it returns a "map data not yet available" placeholder,
+// so we cap zoom there instead of letting the user find it. Labels ship as a
+// separate transparent overlay: light text with dark halos, built for exactly
+// this base.
+const MIN_ZOOM = 4;
+const MAX_ZOOM = 16;
+const ESRI = "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas";
+const BASE_TILES = `${ESRI}/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}`;
+const LABEL_TILES = `${ESRI}/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}`;
+const ATTRIBUTION =
+  'Tiles &copy; <a href="https://www.esri.com/">Esri</a> &middot; Esri, HERE, ' +
+  'Garmin, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
 export default function AQIMap() {
   const { data, loading, error } = useCurrentAQI();
@@ -38,14 +66,27 @@ export default function AQIMap() {
   return (
     <div className="relative h-full w-full">
       <MapContainer
-        center={INDIA_CENTER}
-        zoom={INITIAL_ZOOM}
+        bounds={INDIA_BOUNDS}
+        maxBounds={PAN_BOUNDS}
+        maxBoundsViscosity={1}
+        minZoom={MIN_ZOOM}
+        maxZoom={MAX_ZOOM}
         scrollWheelZoom
         className="h-full w-full"
       >
+        <ClampToIndia />
         <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &middot; &copy; <a href="https://carto.com/attributions">CARTO</a>'
-          url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png"
+          attribution={ATTRIBUTION}
+          url={BASE_TILES}
+          maxZoom={MAX_ZOOM}
+          maxNativeZoom={MAX_ZOOM}
+          noWrap
+        />
+        <TileLayer
+          url={LABEL_TILES}
+          maxZoom={MAX_ZOOM}
+          maxNativeZoom={MAX_ZOOM}
+          noWrap
         />
         {data?.map((city) => (
           <AQIMarker
@@ -69,6 +110,35 @@ export default function AQIMap() {
       <Legend />
     </div>
   );
+}
+
+/**
+ * Pins the zoom floor to "the whole country just fits". Leaflet's default
+ * floor is zoom 0, which lets you pull back far enough to see six copies of
+ * the world tiled across the screen — India a speck in the middle of it.
+ *
+ * The right floor depends on the viewport (a phone in portrait needs to sit
+ * further out than a desktop), so we ask Leaflet what zoom fits INDIA_BOUNDS
+ * and recompute it whenever the container resizes.
+ */
+function ClampToIndia() {
+  const map = useMap();
+
+  useEffect(() => {
+    const clamp = () => {
+      const floor = map.getBoundsZoom(INDIA_BOUNDS);
+      if (Number.isFinite(floor)) {
+        map.setMinZoom(Math.min(floor, MAX_ZOOM));
+      }
+    };
+    clamp();
+    map.on("resize", clamp);
+    return () => {
+      map.off("resize", clamp);
+    };
+  }, [map]);
+
+  return null;
 }
 
 /**
