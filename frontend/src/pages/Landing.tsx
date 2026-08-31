@@ -10,10 +10,14 @@
  * brightness profile (sampled off the source file, not eyeballed): the top
  * quarter of the frame is bright empty sky — luma ~170-210, hopeless for
  * white type — and the bottom third is dark garden at luma ~50-80. So the
- * headline sits in a scrimmed band at the top, the Taj itself is left
+ * type sits above the photograph rather than on it, the Taj is left
  * completely unobstructed, and the base of the frame dissolves into the page
  * background so the stats below read as part of the image rather than a
  * separate box bolted underneath it.
+ *
+ * The crop is deliberately low in the frame (object-position 58%) so the
+ * building rides high in the band and lands inside the first screenful
+ * instead of below the fold.
  */
 
 import { useState } from "react";
@@ -33,11 +37,13 @@ const HERO_LQIP =
 
 // Stops chosen against the sampled luma curve. The top of the frame is pale
 // sky at luma ~185 meeting a page at luma ~18 — left alone that seam is a
-// hard bright line across the screen, so the scrim starts opaque and is gone
-// by the time the sky turns golden. The bottom one runs heavier because the
-// live stats sit on it and need a dark bed to stay legible.
+// hard bright line across the screen, so the scrim starts opaque and fades
+// out. It falls off fast: the crop now sits low enough in the frame that the
+// dome is only ~10% down the band, and a slower fade would leave the building
+// veiled in exactly the place we want it seen. The bottom one runs heavier
+// because the live stats sit on it and need a dark bed to stay legible.
 const TOP_SCRIM =
-  "linear-gradient(to bottom, #0b1220 0%, rgba(11,18,32,0.66) 11%, rgba(11,18,32,0.22) 28%, rgba(11,18,32,0) 46%)";
+  "linear-gradient(to bottom, #0b1220 0%, rgba(11,18,32,0.45) 5%, rgba(11,18,32,0.12) 13%, rgba(11,18,32,0) 24%)";
 const BOTTOM_SCRIM =
   "linear-gradient(to top, #0b1220 0%, rgba(11,18,32,0.94) 15%, rgba(11,18,32,0.42) 34%, rgba(11,18,32,0) 58%)";
 
@@ -79,20 +85,20 @@ function Hero() {
 
   return (
     <section className="relative">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 pt-12 pb-10 sm:pt-20 sm:pb-14">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 pt-8 pb-7 sm:pt-12 sm:pb-8">
         <div className="text-center max-w-2xl mx-auto">
-          <p className="text-[11px] uppercase tracking-[0.22em] text-dusk-300 mb-4">
+          <p className="text-[11px] uppercase tracking-[0.22em] text-dusk-300 mb-3">
             Live air quality · 30 Indian cities
           </p>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight text-ink-100 leading-[1.05]">
             Should you go outside?
           </h1>
-          <p className="mt-5 text-base sm:text-lg text-ink-200 leading-relaxed max-w-xl mx-auto">
+          <p className="mt-4 text-base sm:text-lg text-ink-200 leading-relaxed max-w-xl mx-auto">
             Real-time air quality and 24-hour forecasts for the thirty largest
             cities in India — answered in one sentence per city, not a wall of
             charts.
           </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
             <Link
               to="/map"
               className="group inline-flex items-center gap-2 rounded-full bg-ink-100 px-5 py-2.5 text-sm font-semibold text-ink-900 shadow-lg shadow-black/30 transition hover:bg-white"
@@ -142,7 +148,7 @@ function Hero() {
           height={1728}
           decoding="async"
           onLoad={() => setLoaded(true)}
-          className={`relative h-full w-full object-cover object-[center_45%] transition-opacity duration-700 ${
+          className={`relative h-full w-full object-cover object-[center_58%] transition-opacity duration-700 ${
             loaded ? "opacity-100" : "opacity-0"
           }`}
         />
@@ -188,58 +194,100 @@ function LiveStrip() {
   return (
     <div className="pb-10 sm:pb-14">
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/10 backdrop-blur-md">
-        {top ? (
-          <Link
-            to={`/cities/${top.city_id}`}
-            className="group bg-ink-900/70 px-5 py-4 transition hover:bg-ink-800/80"
-          >
-            <StatLabel>Worst right now</StatLabel>
-            <div className="mt-1.5 flex items-baseline gap-2.5">
+        <StatCard
+          to={top ? `/cities/${top.city_id}` : "/map"}
+          label="Worst right now"
+          note={top ? getAQICategory(top.aqi_value) : "Waiting on the backend"}
+          cta="view city"
+        >
+          {top ? (
+            <div className="flex items-baseline gap-2.5">
               <span
                 className="font-mono text-2xl font-bold tabular-nums"
                 style={{ color: getAQIColor(top.aqi_value) }}
               >
                 {Math.round(top.aqi_value)}
               </span>
-              <span className="text-ink-100 font-medium truncate">
+              <span className="truncate font-medium text-ink-100">
                 {top.city_name}
               </span>
             </div>
-            <p className="mt-1 text-xs text-ink-200/70 truncate">
-              {getAQICategory(top.aqi_value)}
-              <span className="text-ink-200/40 transition group-hover:text-ink-200/80">
-                {" · view city →"}
-              </span>
-            </p>
-          </Link>
-        ) : (
-          <div className="bg-ink-900/70 px-5 py-4">
-            <StatLabel>Worst right now</StatLabel>
-            <div className="skeleton mt-2 h-7 w-32" />
-          </div>
-        )}
+          ) : (
+            <div className="skeleton h-7 w-32" />
+          )}
+        </StatCard>
 
-        <div className="bg-ink-900/70 px-5 py-4">
-          <StatLabel>Cities tracked</StatLabel>
-          <div className="mt-1.5 font-mono text-2xl font-bold tabular-nums text-ink-100">
+        <StatCard
+          to="/map"
+          label="Cities tracked"
+          note="Every major metro"
+          cta="open the map"
+        >
+          <div className="font-mono text-2xl font-bold tabular-nums text-ink-100">
             {tracked ?? "—"}
           </div>
-          <p className="mt-1 text-xs text-ink-200/70">
-            Every major metro, coast to coast
-          </p>
-        </div>
+        </StatCard>
 
-        <div className="bg-ink-900/70 px-5 py-4">
-          <StatLabel>Last reading</StatLabel>
-          <div className="mt-1.5 text-2xl font-semibold tracking-tight text-ink-100">
+        <StatCard
+          to="/predictions"
+          label="Last reading"
+          note="Hourly, from WAQI"
+          cta="see forecasts"
+        >
+          <div className="text-2xl font-semibold tracking-tight text-ink-100">
             {formatTimestamp(latest)}
           </div>
-          <p className="mt-1 text-xs text-ink-200/70">
-            Collected hourly from WAQI stations
-          </p>
-        </div>
+        </StatCard>
       </div>
     </div>
+  );
+}
+
+/**
+ * One live number, and a place to go because of it — every card is a real
+ * destination, so the hover state is signalling something rather than
+ * decorating.
+ *
+ * That hover is the whole interaction budget for this page: a hairline draws
+ * itself across the top edge, the link text comes up out of the murk, the
+ * arrow moves half a step. No glow, no lift, no bounce. Restraint is the
+ * thing that reads as professional — an effect should either tell you
+ * something is clickable or it shouldn't be there.
+ */
+function StatCard({
+  to,
+  label,
+  note,
+  cta,
+  children,
+}: {
+  to: string;
+  label: string;
+  note: string;
+  cta: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <Link
+      to={to}
+      className="group relative bg-ink-900/70 px-5 py-4 transition-colors duration-200 hover:bg-ink-800/85"
+    >
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-gradient-to-r from-dusk-300/80 via-dusk-300/25 to-transparent transition-transform duration-300 ease-out group-hover:scale-x-100"
+      />
+      <StatLabel>{label}</StatLabel>
+      <div className="mt-1.5">{children}</div>
+      <p className="mt-1 flex items-center gap-2 text-xs">
+        <span className="truncate text-ink-200/70">{note}</span>
+        <span className="ml-auto flex shrink-0 items-center gap-1 text-ink-200/35 transition-colors duration-200 group-hover:text-ink-100">
+          {cta}
+          <span className="transition-transform duration-200 group-hover:translate-x-0.5">
+            →
+          </span>
+        </span>
+      </p>
+    </Link>
   );
 }
 
