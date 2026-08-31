@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
-import About from "./pages/About";
 import Footer from "./components/Layout/Footer";
 import Navbar from "./components/Layout/Navbar";
 import CityDetail from "./pages/CityDetail";
-import Home from "./pages/Home";
+import Landing from "./pages/Landing";
+import MapView from "./pages/MapView";
 import Predictions from "./pages/Predictions";
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL ?? "/api";
@@ -31,10 +31,13 @@ export default function App() {
         <Navbar />
         <main className="flex-1 min-h-0">
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Landing />} />
+            <Route path="/map" element={<MapView />} />
             <Route path="/cities/:cityId" element={<CityDetail />} />
             <Route path="/predictions" element={<Predictions />} />
-            <Route path="/about" element={<About />} />
+            {/* The about copy lives on the landing page now; keep the old
+                path working rather than 404ing anyone who bookmarked it. */}
+            <Route path="/about" element={<Navigate to="/" replace />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
