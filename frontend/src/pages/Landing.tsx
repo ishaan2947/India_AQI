@@ -442,8 +442,8 @@ function Colophon() {
               <ExternalLink href="https://github.com/ishaan2947">
                 Ishaan Nigam
               </ExternalLink>
-              . Software engineer — currently at BNSF Railway, joining PwC in
-              July 2026. CS grad from Texas A&amp;M, May 2025. Source is on{" "}
+              . Software engineer at PwC on the Sightline AI team. CS grad
+              from Texas A&amp;M, May 2025. Source is on{" "}
               <ExternalLink href="https://github.com/ishaan2947/India_AQI">
                 GitHub
               </ExternalLink>{" "}
