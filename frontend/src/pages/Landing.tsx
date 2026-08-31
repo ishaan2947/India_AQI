@@ -20,7 +20,7 @@
  * instead of below the fold.
  */
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { useCurrentAQI, useWorstCities } from "../hooks/useAQIData";
@@ -231,7 +231,7 @@ function LiveStrip() {
     }, null) ?? null;
 
   return (
-    <div className="pb-10 sm:pb-14">
+    <Reveal className="pb-10 sm:pb-14">
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-px overflow-hidden rounded-xl border border-white/10 bg-white/10 backdrop-blur-md">
         <StatCard
           to={top ? `/cities/${top.city_id}` : "/map"}
@@ -278,7 +278,7 @@ function LiveStrip() {
           </div>
         </StatCard>
       </div>
-    </div>
+    </Reveal>
   );
 }
 
@@ -380,7 +380,7 @@ function HowItWorks() {
             </p>
           </Section>
 
-          <div className="pt-8">
+          <Reveal className="pt-8">
             <Link
               to="/map"
               className="group inline-flex items-center gap-2 text-sm font-medium text-ink-100 transition hover:text-white"
@@ -390,7 +390,7 @@ function HowItWorks() {
                 →
               </span>
             </Link>
-          </div>
+          </Reveal>
         </div>
 
         <aside className="lg:sticky lg:top-6 lg:self-start space-y-8 text-sm">
@@ -431,7 +431,7 @@ function HowItWorks() {
 function Colophon() {
   return (
     <section className="border-t border-ink-700/40">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+      <Reveal className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-8 items-start">
           <div className="max-w-xl">
             <p className="text-[10px] uppercase tracking-[0.18em] text-ink-200/60 mb-3">
@@ -481,8 +481,77 @@ function Colophon() {
           </ExternalLink>
           .
         </p>
-      </div>
+      </Reveal>
     </section>
+  );
+}
+
+/**
+ * Fades a block up the first time it scrolls into view.
+ *
+ * Three deliberate constraints, because this effect is very easy to overdo:
+ * it fires *once* — the observer disconnects on the first intersection, so
+ * nothing re-animates when you scroll back up, which is what makes the
+ * pattern feel cheap; the travel is 16px, far enough to read as motion and
+ * short enough that it never looks like the layout is assembling itself; and
+ * anyone whose OS asks for reduced motion gets the content immediately with
+ * no transform at all. Same fallback if IntersectionObserver is missing —
+ * failure mode is "content is simply there", never "content never appears".
+ */
+function useReveal<T extends HTMLElement>(delay = 0) {
+  const ref = useRef<T>(null);
+  const [shown, setShown] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const reduced = window.matchMedia?.(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    if (reduced || typeof IntersectionObserver === "undefined") {
+      setShown(true);
+      return;
+    }
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setShown(true);
+          io.disconnect();
+        }
+      },
+      // Held back slightly from the bottom edge so a block starts moving
+      // just after it clears the fold, rather than the instant it touches it.
+      { threshold: 0.12, rootMargin: "0px 0px -10% 0px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  return {
+    ref,
+    style: { transitionDelay: shown ? `${delay}ms` : "0ms" },
+    className: `transition-[opacity,transform] duration-700 ease-out ${
+      shown ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+    }`,
+  };
+}
+
+function Reveal({
+  children,
+  className = "",
+  delay = 0,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  delay?: number;
+}) {
+  const reveal = useReveal<HTMLDivElement>(delay);
+  return (
+    <div ref={reveal.ref} style={reveal.style} className={`${reveal.className} ${className}`}>
+      {children}
+    </div>
   );
 }
 
@@ -495,8 +564,13 @@ function Section({
   title: string;
   children: React.ReactNode;
 }) {
+  const reveal = useReveal<HTMLElement>((Number(number) - 1) * 70);
   return (
-    <section className="py-7 sm:py-9 first:pt-0">
+    <section
+      ref={reveal.ref}
+      style={reveal.style}
+      className={`py-7 sm:py-9 first:pt-0 ${reveal.className}`}
+    >
       <div className="flex items-baseline gap-3 mb-4">
         <span className="text-xs font-mono text-ink-200/50 tabular-nums">
           {number}
@@ -519,8 +593,9 @@ function RailBlock({
   label: string;
   children: React.ReactNode;
 }) {
+  const reveal = useReveal<HTMLDivElement>();
   return (
-    <div>
+    <div ref={reveal.ref} style={reveal.style} className={reveal.className}>
       <p className="text-[10px] uppercase tracking-[0.18em] text-ink-200/60 mb-3">
         {label}
       </p>
