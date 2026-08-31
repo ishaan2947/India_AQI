@@ -125,8 +125,7 @@ export default function Navbar() {
           </span>
 
           <NavLink
-            to="/"
-            end
+            to="/map"
             className={({ isActive }) => `${linkBase} ${isActive ? linkActive : linkInactive}`}
           >
             Map
@@ -136,12 +135,6 @@ export default function Navbar() {
             className={({ isActive }) => `${linkBase} ${isActive ? linkActive : linkInactive}`}
           >
             Forecasts
-          </NavLink>
-          <NavLink
-            to="/about"
-            className={({ isActive }) => `${linkBase} ${isActive ? linkActive : linkInactive}`}
-          >
-            About
           </NavLink>
           <a
             href={DOCS_URL}

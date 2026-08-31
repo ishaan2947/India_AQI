@@ -12,6 +12,13 @@ export default {
           veryUnhealthy: "#8F3F97",
           hazardous: "#7E0023",
         },
+        // Sampled from the hero photograph's golden band, so the one warm
+        // accent on the site comes out of the image rather than off a wheel.
+        dusk: {
+          200: "#e2cdb0",
+          300: "#d4be9d",
+          500: "#aa9272",
+        },
         ink: {
           900: "#0b1220",
           800: "#111a2e",
