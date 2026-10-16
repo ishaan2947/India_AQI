@@ -96,7 +96,9 @@ export default function Hero() {
   const band = aqi != null ? getAQIBand(aqi) : null;
 
   useHaze(bandRef, getHazeDensity(aqi));
-  useAccent(band?.textColor ?? null, band?.color ?? null);
+  // 420ms: far enough into the 900ms dissolve that the document-wide style
+  // recalculation isn't competing with the fade's frames.
+  useAccent(band?.textColor ?? null, band?.color ?? null, 420);
 
   const sorted = useMemo(
     () =>

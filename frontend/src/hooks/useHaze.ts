@@ -9,16 +9,25 @@
  *             with a floor that eases up to 0.6 on load so a visitor who
  *             never scrolls still sees today's air rather than a clean frame.
  *
- * Their product is written to `--haze` on the root element, which the overlay
+ * Their product is written as `--haze` on the hero band, which the overlay
  * layers and the photograph's filter read (see index.css). Nothing here
  * touches React state: a scroll-linked effect that re-renders a component
  * tree 60 times a second is how this kind of thing ends up janky.
  *
- * One rAF loop, running only while the band is actually on screen and the tab
- * is visible, writing at most three custom properties per frame and skipping
- * the write entirely when the value has not meaningfully moved. Under
- * `prefers-reduced-motion` there is no loop at all — the haze is set straight
- * to today's density, so the information survives and only the travel is lost.
+ * Two details are not optional, both learned from measuring a city swap at 4x
+ * CPU throttle, where this hook — not the cross-fade — was dropping frames:
+ *
+ *   1. **The variables live on the band, not on :root.** A custom property
+ *      written to the root element invalidates style for the whole document,
+ *      and this page has a thirty-row table, a thirty-dot plot and several
+ *      sections' worth of prose hanging off it. Scoped to the band, a write
+ *      costs a subtree that is one photograph and three overlays.
+ *   2. **The loop stops when there is nothing to do.** Reading the band's
+ *      rect forces a synchronous layout; doing that every frame, forever,
+ *      while the hero is on screen is a tax on every other interaction on the
+ *      page. It now runs only while something is actually changing — the
+ *      load-in settle, a scroll, or a city change — and parks itself the
+ *      moment it has settled.
  */
 
 import { useEffect, useRef, type RefObject } from "react";
@@ -28,8 +37,6 @@ import { usePrefersReducedMotion } from "./useMotionPrefs";
 /** How long the load-in settle takes, and how far it goes. */
 const INTRO_MS = 1600;
 const INTRO_CEILING = 0.6;
-/** Per-frame approach rate when the reader switches city. */
-const LERP = 0.12;
 /** Don't bother rewriting for changes smaller than this. */
 const EPSILON = 0.004;
 
@@ -67,6 +74,17 @@ function bandProgress(el: HTMLElement): number {
   return clamp01(-rect.top / travel);
 }
 
+/** The nearest ancestor that actually scrolls, so we can listen to it. */
+function scrollParent(el: HTMLElement): HTMLElement | Window {
+  let node: HTMLElement | null = el.parentElement;
+  while (node) {
+    const overflow = getComputedStyle(node).overflowY;
+    if (overflow === "auto" || overflow === "scroll") return node;
+    node = node.parentElement;
+  }
+  return window;
+}
+
 export function useHaze(
   bandRef: RefObject<HTMLElement | null>,
   density: number,
@@ -78,109 +96,147 @@ export function useHaze(
   const densityRef = useRef(density);
   densityRef.current = density;
 
-  // Survives across loop stops (tab hidden, band scrolled away) so the haze
-  // doesn't snap back to clean when the loop resumes.
+  // Survives across loop stops so the haze doesn't snap back when it resumes.
   const appliedRef = useRef(0);
+  /** Set by the scroll listener and by a city change; the loop reads it. */
+  const wakeRef = useRef<(() => void) | null>(null);
 
   useEffect(() => {
-    const root = document.documentElement;
+    const band = bandRef.current;
+    if (!band) return;
 
     const write = (haze: number, progress: number) => {
-      root.style.setProperty("--haze", haze.toFixed(3));
-      root.style.setProperty("--haze-p", progress.toFixed(3));
-      root.style.setProperty("--haze-filter", filterFor(haze));
+      band.style.setProperty("--haze", haze.toFixed(3));
+      band.style.setProperty("--haze-p", progress.toFixed(3));
+      band.style.setProperty("--haze-filter", filterFor(haze));
     };
 
     if (reduced) {
       // No loop, no travel: today's air, immediately.
       appliedRef.current = densityRef.current;
       write(densityRef.current, 1);
+      wakeRef.current = () => {
+        appliedRef.current = densityRef.current;
+        write(densityRef.current, 1);
+      };
       return () => {
-        root.style.removeProperty("--haze");
-        root.style.removeProperty("--haze-p");
-        root.style.removeProperty("--haze-filter");
+        wakeRef.current = null;
       };
     }
 
-    const band = bandRef.current;
     let raf = 0;
     let startedAt = 0;
     let lastHaze = -1;
     let lastProgress = -1;
+    let progress = 0;
+    let rectDirty = true;
+    let visible = true;
 
     const tick = (now: number) => {
       if (!startedAt) startedAt = now;
 
-      const intro =
-        easeOutCubic(clamp01((now - startedAt) / INTRO_MS)) * INTRO_CEILING;
-      const scrolled = band ? bandProgress(band) : 1;
-      const progress = Math.max(intro, scrolled);
+      const introElapsed = clamp01((now - startedAt) / INTRO_MS);
+      const intro = easeOutCubic(introElapsed) * INTRO_CEILING;
 
-      // Ease the density itself, so changing city is a settle rather than a
-      // jump cut. Scroll progress is applied directly — lagging the reader's
-      // own scroll by a few frames feels broken, not smooth.
-      appliedRef.current += (densityRef.current - appliedRef.current) * LERP;
+      // The expensive read, done only when the scroll position may have moved.
+      if (rectDirty) {
+        progress = bandProgress(band);
+        rectDirty = false;
+      }
+      const effective = Math.max(intro, progress);
 
-      const haze = appliedRef.current * progress;
+      // The density is applied immediately on a city change rather than
+      // eased toward. Two reasons, one visual and one about frames: the hero
+      // photograph is cross-fading at that exact moment, so the dissolve
+      // already supplies the continuity an ease would have provided — and
+      // animating the filter *during* the fade rewrites it 60 times, which
+      // re-rasterises both layers on every one of those frames.
+      appliedRef.current = densityRef.current;
+
+      const haze = appliedRef.current * effective;
       if (
         Math.abs(haze - lastHaze) > EPSILON ||
-        Math.abs(progress - lastProgress) > EPSILON
+        Math.abs(effective - lastProgress) > EPSILON
       ) {
-        write(haze, progress);
+        write(haze, effective);
         lastHaze = haze;
-        lastProgress = progress;
+        lastProgress = effective;
       }
 
+      // Park as soon as everything has arrived. Anything that can change the
+      // answer — a scroll, a new city — wakes it again.
+      const busy = introElapsed < 1 || rectDirty;
+      if (!busy) {
+        raf = 0;
+        return;
+      }
       raf = requestAnimationFrame(tick);
     };
 
     const start = () => {
-      if (!raf) raf = requestAnimationFrame(tick);
+      if (!raf && visible) raf = requestAnimationFrame(tick);
     };
     const stop = () => {
       if (raf) cancelAnimationFrame(raf);
       raf = 0;
     };
 
+    const onScroll = () => {
+      rectDirty = true;
+      start();
+    };
+    wakeRef.current = onScroll;
+
+    const scroller = scrollParent(band);
+    scroller.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+
     // Only animate while the band is on screen. Once the reader is down in
     // the rankings the haze is pinned at full anyway.
     let io: IntersectionObserver | null = null;
-    if (band && typeof IntersectionObserver !== "undefined") {
+    if (typeof IntersectionObserver !== "undefined") {
       io = new IntersectionObserver(
         (entries) => {
-          if (entries.some((e) => e.isIntersecting)) start();
-          else stop();
+          visible = entries.some((e) => e.isIntersecting);
+          if (visible) {
+            rectDirty = true;
+            start();
+          } else {
+            stop();
+          }
         },
         { threshold: 0 },
       );
       io.observe(band);
-    } else {
-      start();
     }
 
     const onVisibility = () => {
       if (document.hidden) stop();
-      else start();
+      else {
+        rectDirty = true;
+        start();
+      }
     };
     document.addEventListener("visibilitychange", onVisibility);
+
+    start();
 
     return () => {
       stop();
       io?.disconnect();
+      scroller.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
       document.removeEventListener("visibilitychange", onVisibility);
-      root.style.removeProperty("--haze");
-      root.style.removeProperty("--haze-p");
-      root.style.removeProperty("--haze-filter");
+      wakeRef.current = null;
+      band.style.removeProperty("--haze");
+      band.style.removeProperty("--haze-p");
+      band.style.removeProperty("--haze-filter");
     };
   }, [reduced, bandRef]);
 
-  // Reduced motion has no loop to pick the new value up, so it needs an
-  // explicit write when the reader switches city.
+  // A new city means a new target density, which means the parked loop has
+  // work to do again.
   useEffect(() => {
-    if (!reduced) return;
-    const root = document.documentElement;
-    root.style.setProperty("--haze", density.toFixed(3));
-    root.style.setProperty("--haze-p", "1");
-    root.style.setProperty("--haze-filter", filterFor(density));
-  }, [reduced, density]);
+    wakeRef.current?.();
+  }, [density]);
 }
