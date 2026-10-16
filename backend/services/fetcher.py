@@ -4,6 +4,15 @@ External-API fetcher for AQI data.
 Primary source: WAQI (https://aqicn.org/api/). The `demo` token is used by
 default; replace with a real token in `.env` for production-grade quotas.
 
+Be aware of what the demo token actually does: it ignores the city in the
+URL and answers *every* request with one fixed station in Shanghai. Taken at
+face value that writes a Chinese reading into thirty Indian cities, labelled
+`waqi`, which is worse than having no data at all — the dashboard looks
+healthy and is lying. So every upstream reading is checked against the city
+it was requested for before it is trusted (see `_station_matches_city`), and
+anything that fails the check falls through to the synthetic series, where it
+is labelled `synthetic` and the UI says so.
+
 If WAQI is unavailable or rate-limits the request, this module synthesises a
 realistic reading that follows the typical Indian diurnal pollution pattern
 (morning + evening peaks, overnight troughs). That keeps the dashboard alive
@@ -32,6 +41,11 @@ logger = logging.getLogger(__name__)
 
 WAQI_TOKEN: str = os.getenv("WAQI_TOKEN", "demo")
 WAQI_BASE_URL: str = "https://api.waqi.info/feed"
+
+# How far a reporting station may sit from the city it is meant to represent.
+# 150km is generous for metro-area stations and nowhere near far enough to let
+# another country's air through.
+MAX_STATION_DISTANCE_KM: float = 150.0
 
 # Networking knobs — kept conservative to play nicely with WAQI's free tier.
 HTTP_TIMEOUT_SECONDS: float = 10.0
@@ -89,6 +103,86 @@ def _parse_waqi_response(payload: dict[str, Any]) -> Optional[AQISample]:
     )
 
 
+_CITY_COORDS: Optional[dict[str, tuple[float, float]]] = None
+
+
+def _city_coords() -> dict[str, tuple[float, float]]:
+    """
+    Lazily load the bundled city list as name -> (lat, lng).
+
+    Read from the same JSON the database is seeded from, so the validator
+    cannot drift out of step with the cities we actually monitor.
+    """
+    global _CITY_COORDS
+    if _CITY_COORDS is None:
+        path = Path(__file__).resolve().parent.parent / "data" / "indian_cities.json"
+        try:
+            with path.open("r", encoding="utf-8") as f:
+                entries = json.load(f)
+            _CITY_COORDS = {
+                str(e["name"]).strip().lower(): (float(e["lat"]), float(e["lng"]))
+                for e in entries
+            }
+        except (OSError, ValueError, KeyError) as exc:  # pragma: no cover
+            logger.warning("Could not load city coordinates for validation: %s", exc)
+            _CITY_COORDS = {}
+    return _CITY_COORDS
+
+
+def _haversine_km(lat1: float, lng1: float, lat2: float, lng2: float) -> float:
+    """Great-circle distance in kilometres."""
+    radius = 6371.0
+    dlat = math.radians(lat2 - lat1)
+    dlng = math.radians(lng2 - lng1)
+    a = (
+        math.sin(dlat / 2) ** 2
+        + math.cos(math.radians(lat1)) * math.cos(math.radians(lat2)) * math.sin(dlng / 2) ** 2
+    )
+    return 2 * radius * math.asin(math.sqrt(a))
+
+
+def _station_matches_city(payload: dict[str, Any], city_name: str) -> bool:
+    """
+    Is this reading actually about the city we asked for?
+
+    Coordinates settle it when both sides have them — a station's `geo` is
+    hard evidence and a station's name is not. Failing that, fall back to the
+    name: WAQI station names normally carry the city ("Punjabi Bagh, Delhi"),
+    and the demo token's "Shanghai (上海)" fails both tests, which is the
+    point.
+    """
+    city = (payload.get("data") or {}).get("city") or {}
+    known = _city_coords().get(city_name.strip().lower())
+    geo = city.get("geo")
+
+    if known and isinstance(geo, (list, tuple)) and len(geo) == 2:
+        try:
+            distance = _haversine_km(known[0], known[1], float(geo[0]), float(geo[1]))
+        except (TypeError, ValueError):
+            distance = None
+        if distance is not None:
+            if distance > MAX_STATION_DISTANCE_KM:
+                logger.warning(
+                    "WAQI returned a station %.0fkm from %s (%s) — ignoring it",
+                    distance,
+                    city_name,
+                    city.get("name") or "unnamed station",
+                )
+                return False
+            return True
+
+    station_name = str(city.get("name") or "")
+    if city_name.strip().lower() in station_name.lower():
+        return True
+
+    logger.warning(
+        "WAQI returned station %r for %s — ignoring it",
+        station_name or "<unnamed>",
+        city_name,
+    )
+    return False
+
+
 async def _fetch_waqi(client: httpx.AsyncClient, city_name: str) -> Optional[AQISample]:
     """
     Hit WAQI for `city_name`, retrying with exponential backoff.
@@ -110,8 +204,14 @@ async def _fetch_waqi(client: httpx.AsyncClient, city_name: str) -> Optional[AQI
                 )
             else:
                 response.raise_for_status()
-                sample = _parse_waqi_response(response.json())
+                payload = response.json()
+                sample = _parse_waqi_response(payload)
                 if sample is not None:
+                    # A reading for the wrong place is a definitive wrong
+                    # answer, not a transient failure: don't retry it, fall
+                    # through to the synthetic series instead.
+                    if not _station_matches_city(payload, city_name):
+                        return None
                     return sample
                 logger.info("WAQI returned no usable data for %s", city_name)
                 return None
@@ -183,6 +283,15 @@ async def fetch_all_cities(db: Session) -> int:
     if not cities:
         logger.warning("No cities in database — nothing to fetch")
         return 0
+
+    if WAQI_TOKEN in {"", "demo"}:
+        logger.warning(
+            "WAQI_TOKEN is %r — the demo token answers every city with one "
+            "fixed foreign station, so these readings will be rejected and "
+            "the synthetic series used instead. Set a free token from "
+            "https://aqicn.org/data-platform/token/ for live data.",
+            WAQI_TOKEN,
+        )
 
     stored = 0
     timeout = httpx.Timeout(HTTP_TIMEOUT_SECONDS)
