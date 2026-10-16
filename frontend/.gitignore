@@ -10,3 +10,6 @@ dist-ssr
 # tsc build artifacts (we use tsc --noEmit; these should never appear)
 *.tsbuildinfo
 src/**/*.js
+
+# Generated contact sheet for reviewing city photo picks
+city-images-review.html
