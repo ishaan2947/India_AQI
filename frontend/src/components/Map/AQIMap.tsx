@@ -13,13 +13,14 @@
  * next.
  */
 
-import { useEffect, useMemo, useState } from "react";
-import { MapContainer, TileLayer, useMap } from "react-leaflet";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { MapContainer, TileLayer, useMap, useMapEvents } from "react-leaflet";
 
 import type { LatLngBoundsLiteral } from "leaflet";
 
 import { useAccent } from "../../hooks/useAccent";
 import { useCurrentAQI } from "../../hooks/useAQIData";
+import type { CityWithLatest } from "../../types";
 import { getAQIBand, getAllCategories } from "../../utils/aqiHelpers";
 import AQIMarker from "./AQIMarker";
 
@@ -48,12 +49,20 @@ const MAX_ZOOM = 16;
 const ESRI = "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas";
 const BASE_TILES = `${ESRI}/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}`;
 const LABEL_TILES = `${ESRI}/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}`;
+const HILLSHADE_TILES =
+  "https://server.arcgisonline.com/ArcGIS/rest/services/Elevation/World_Hillshade/MapServer/tile/{z}/{y}/{x}";
 const ATTRIBUTION =
   'Tiles &copy; <a href="https://www.esri.com/">Esri</a> &middot; Esri, HERE, ' +
   'Garmin, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
 export default function AQIMap() {
   const { data, loading, error } = useCurrentAQI();
+  const [zoom, setZoom] = useState(MIN_ZOOM);
+
+  // Place names fade up with zoom: at country scale they are clutter
+  // competing with the data; by city scale they are the context that makes a
+  // reading mean something.
+  const labelOpacity = Math.min(0.8, Math.max(0.3, (zoom - 4) * 0.14 + 0.3));
 
   const worst = useMemo(() => {
     if (!data) return null;
@@ -80,6 +89,13 @@ export default function AQIMap() {
         maxZoom={MAX_ZOOM}
         scrollWheelZoom
         zoomControl={false}
+        // Leaflet snaps to whole zoom levels, which is why its maps feel
+        // stepped next to Windy's. Quarter-level snapping with a half-level
+        // wheel delta is the difference between jumping between scales and
+        // zooming.
+        zoomSnap={0.25}
+        zoomDelta={0.5}
+        wheelPxPerZoomLevel={140}
         className="h-full w-full"
       >
         <ClampToIndia />
@@ -90,20 +106,27 @@ export default function AQIMap() {
           maxNativeZoom={MAX_ZOOM}
           noWrap
         />
+        {/* Terrain relief, barely there: the plains stay flat and the
+            Himalaya, the Ghats and the Deccan edge pick up a little shape, so
+            the country reads as a place rather than a silhouette. */}
+        <TileLayer
+          url={HILLSHADE_TILES}
+          className="map-hillshade"
+          maxZoom={MAX_ZOOM}
+          maxNativeZoom={13}
+          noWrap
+        />
         <TileLayer
           url={LABEL_TILES}
+          className="map-labels"
+          opacity={labelOpacity}
           maxZoom={MAX_ZOOM}
           maxNativeZoom={MAX_ZOOM}
           noWrap
         />
         <ZoomControl />
-        {data?.map((city) => (
-          <AQIMarker
-            key={city.id}
-            city={city}
-            isWorst={city.id === worst?.id}
-          />
-        ))}
+        <ZoomWatcher onZoom={setZoom} />
+        <Readings cities={data ?? []} worstId={worst?.id ?? null} zoom={zoom} />
       </MapContainer>
 
       {loading && !data ? <ColdStartOverlay /> : null}
@@ -112,6 +135,90 @@ export default function AQIMap() {
       <Legend />
     </div>
   );
+}
+
+/**
+ * Which readings can actually be drawn at this zoom without colliding.
+ *
+ * Thirty chips at country scale overlap badly across the Indo-Gangetic plain
+ * — Delhi sits on Meerut, Ludhiana on Chandigarh — and a pile of half-hidden
+ * numbers is the single thing that most makes a data map look unfinished.
+ * Windy solves it by decluttering, and so does this: project every city to
+ * screen pixels, walk them worst-first, and keep a chip only if it clears the
+ * ones already kept. The rest stay on the map as dots, so nothing is hidden
+ * and the pattern is intact; zoom in and they become chips as space appears.
+ */
+function Readings({
+  cities,
+  worstId,
+  zoom,
+}: {
+  cities: CityWithLatest[];
+  worstId: number | null;
+  zoom: number;
+}) {
+  const map = useMap();
+  const [visible, setVisible] = useState<Set<number>>(new Set());
+
+  const declutter = useCallback(() => {
+    const ranked = cities
+      .filter((c) => c.latest_aqi != null)
+      .slice()
+      .sort((a, b) => (b.latest_aqi ?? 0) - (a.latest_aqi ?? 0));
+
+    const kept: Array<{ x: number; y: number; r: number }> = [];
+    const keptIds = new Set<number>();
+
+    for (const city of ranked) {
+      const point = map.latLngToContainerPoint([city.lat, city.lng]);
+      const radius = chipRadius(city.latest_aqi ?? 0, zoom);
+      const clears = kept.every((k) => {
+        const dx = k.x - point.x;
+        const dy = k.y - point.y;
+        // A few pixels of air between chips, so "not overlapping" also looks
+        // like not overlapping.
+        return Math.hypot(dx, dy) > k.r + radius + 6;
+      });
+      if (clears) {
+        kept.push({ x: point.x, y: point.y, r: radius });
+        keptIds.add(city.id);
+      }
+    }
+    setVisible(keptIds);
+  }, [cities, map, zoom]);
+
+  useEffect(declutter, [declutter]);
+  useMapEvents({ zoomend: declutter, moveend: declutter, resize: declutter });
+
+  return (
+    <>
+      {cities.map((city) => (
+        <AQIMarker
+          key={city.id}
+          city={city}
+          isWorst={city.id === worstId}
+          collapsed={!visible.has(city.id)}
+          labelled={zoom >= 6.5}
+        />
+      ))}
+    </>
+  );
+}
+
+/** Keep in step with chipSize() in AQIMarker. */
+function chipRadius(aqi: number, zoom: number): number {
+  const base = 28 + (Math.max(0, Math.min(400, aqi)) / 400) * 16;
+  return (base * (zoom >= 6.5 ? 1.9 : 1)) / 2;
+}
+
+/** Reports live zoom so markers and labels can respond to scale. */
+function ZoomWatcher({ onZoom }: { onZoom: (zoom: number) => void }) {
+  const map = useMap();
+  useEffect(() => {
+    onZoom(map.getZoom());
+  }, [map, onZoom]);
+  useMapEvents({ zoomend: (e) => onZoom(e.target.getZoom()) });
+  return null;
 }
 
 /**

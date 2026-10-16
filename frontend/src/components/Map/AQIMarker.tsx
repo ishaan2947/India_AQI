@@ -37,6 +37,14 @@ interface AQIMarkerProps {
   city: CityWithLatest;
   /** The single worst reading on the map gets a standing ring. */
   isWorst?: boolean;
+  /**
+   * This chip would collide with a more important one at the current zoom,
+   * so it shows as a dot instead. The reading is still there, still clickable
+   * and still in the tab order — it just isn't shouting over its neighbour.
+   */
+  collapsed?: boolean;
+  /** Past city scale there is room for the name beside the number. */
+  labelled?: boolean;
 }
 
 /** 28px at the bottom of the scale, 44px at the top. */
@@ -48,16 +56,53 @@ function chipSize(aqi: number): number {
 /** Bands light enough to need dark type on them. */
 const DARK_INK = new Set(["good", "satisfactory", "moderate", "poor"]);
 
-export default function AQIMarker({ city, isWorst = false }: AQIMarkerProps) {
+export default function AQIMarker({
+  city,
+  isWorst = false,
+  collapsed = false,
+  labelled = false,
+}: AQIMarkerProps) {
   const aqi = city.latest_aqi;
   const map = useMap();
   const band = aqi != null ? getAQIBand(aqi) : null;
 
   const icon = useMemo(() => {
-    const size = aqi != null ? chipSize(aqi) : 24;
     const fill = band?.color ?? "#302B28";
     const ink = band && DARK_INK.has(band.key) ? "#140F0C" : "#FBF7F2";
     const value = aqi != null ? String(Math.round(aqi)) : "·";
+
+    // Collapsed: a dot carrying the band colour and nothing else. It keeps
+    // the spatial pattern — which is most of what a map is for — without
+    // competing for the space a legible number needs.
+    if (collapsed) {
+      const dot = 12;
+      return divIcon({
+        className: "aqi-pin aqi-pin--dot",
+        html: `<span class="aqi-pin__dot" style="--pin:${fill}"></span>`,
+        iconSize: [dot, dot],
+        iconAnchor: [dot / 2, dot / 2],
+        popupAnchor: [0, -dot / 2 - 2],
+      });
+    }
+
+    const size = aqi != null ? chipSize(aqi) : 24;
+
+    // Labelled: the chip grows into a pill with the city's name on it, the
+    // way Windy's values do once there is room for them.
+    if (labelled) {
+      const safeName = city.name.replace(/[<>&]/g, "");
+      return divIcon({
+        className: `aqi-pin aqi-pin--pill${isWorst ? " aqi-pin--worst" : ""}`,
+        html:
+          `<span class="aqi-pin__chip aqi-pin__chip--pill" style="--pin:${fill};--pin-ink:${ink};--pin-d:${size}px">` +
+          `<span class="aqi-pin__value">${value}</span>` +
+          `<span class="aqi-pin__name">${safeName}</span>` +
+          `</span>`,
+        iconSize: [size * 1.9, size],
+        iconAnchor: [(size * 1.9) / 2, size / 2],
+        popupAnchor: [0, -size / 2 - 2],
+      });
+    }
 
     return divIcon({
       // Leaflet's default icon class paints a white box behind everything.
@@ -67,7 +112,7 @@ export default function AQIMarker({ city, isWorst = false }: AQIMarkerProps) {
       iconAnchor: [size / 2, size / 2],
       popupAnchor: [0, -size / 2 - 2],
     });
-  }, [aqi, band, isWorst]);
+  }, [aqi, band, isWorst, collapsed, labelled, city.name]);
 
   return (
     <Marker
