@@ -226,6 +226,35 @@ export function formatISTClock(ts: string | null | undefined): string | null {
 }
 
 /**
+ * The hour of the reading in India, 0-23, as a number.
+ *
+ * Charts and the forecast grid label their axes in IST because that is the
+ * clock the air is on: an 08:00 peak means the morning rush in Delhi, not
+ * whatever time it happens to be where the reader is sitting.
+ */
+export function getISTHour(ts: string | null | undefined): number | null {
+  const d = parseApiTimestamp(ts);
+  if (!d) return null;
+  try {
+    const hh = new Intl.DateTimeFormat("en-GB", {
+      timeZone: "Asia/Kolkata",
+      hour: "2-digit",
+      hour12: false,
+    }).format(d);
+    const n = Number(hh);
+    return Number.isFinite(n) ? n % 24 : null;
+  } catch {
+    return null;
+  }
+}
+
+/** "21:00" in IST, for axis ticks and labels. */
+export function formatISTHourLabel(ts: string | null | undefined): string {
+  const h = getISTHour(ts);
+  return h == null ? "" : `${String(h).padStart(2, "0")}:00`;
+}
+
+/**
  * Hour-of-day label, e.g. "14:00". Used on chart axes, where the reader has
  * already been told the zone by the axis title.
  */
