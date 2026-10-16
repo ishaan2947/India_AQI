@@ -67,19 +67,30 @@ export interface StatsResponse {
   entries: StatsCityEntry[];
 }
 
+/**
+ * CPCB (Central Pollution Control Board) band keys — the scale India
+ * actually publishes against. See DESIGN.md §3.2 for why these replaced the
+ * US EPA bands, and for the provenance caveat about WAQI's numbers.
+ */
 export type AQICategoryKey =
   | "good"
+  | "satisfactory"
   | "moderate"
-  | "sensitive"
-  | "unhealthy"
-  | "veryUnhealthy"
-  | "hazardous";
+  | "poor"
+  | "veryPoor"
+  | "severe";
 
 export interface AQICategory {
   key: AQICategoryKey;
+  /** CPCB's own name for the band, e.g. "Very poor". */
   label: string;
+  /** One short imperative: what to do about it today. */
+  verdict: string;
   description: string;
+  /** Fill colour — areas, bars, dots, rules. */
   color: string;
+  /** Lightened variant for when the band colour has to carry glyphs. */
+  textColor: string;
   min: number;
   max: number;
 }
