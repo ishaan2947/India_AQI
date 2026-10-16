@@ -89,8 +89,10 @@ export interface AQICategory {
   description: string;
   /** Fill colour — areas, bars, dots, rules. */
   color: string;
-  /** Lightened variant for when the band colour has to carry glyphs. */
+  /** Lightened variant for when the band colour has to carry glyphs on dark. */
   textColor: string;
+  /** Darkened variant, for the same job on a paper ground. */
+  inkColor: string;
   min: number;
   max: number;
 }

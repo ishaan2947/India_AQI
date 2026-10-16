@@ -63,9 +63,17 @@ export default {
           100: "#EFEAE4",
         },
 
+        // The paper sections. Dark is right for a photograph and a basemap;
+        // it is not right for six hundred words of prose, which is why the
+        // story and the how-it-works page are set on paper instead. Measured
+        // against #F6F3EE: ink 16.6:1, soft 10.1:1, muted 5.4:1.
         paper: {
           DEFAULT: "#F6F3EE",
           ink: "#171412",
+          soft: "#413A34",
+          muted: "#6B6258",
+          rule: "#D9D1C6",
+          sunk: "#EDE8E0",
         },
 
         // The one non-AQI colour, sampled off the hero photograph's golden

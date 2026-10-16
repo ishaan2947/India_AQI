@@ -17,6 +17,7 @@ import { useEffect, useRef } from "react";
 export function useAccent(
   textColor: string | null,
   fillColor: string | null,
+  inkColor: string | null = null,
   /**
    * How long to wait before applying a *change* (the first value is always
    * immediate).
@@ -40,6 +41,8 @@ export function useAccent(
     const apply = () => {
       root.style.setProperty("--accent", textColor);
       root.style.setProperty("--accent-fill", fillColor ?? textColor);
+      // Read by `.on-paper`, where the lightened accent would vanish.
+      root.style.setProperty("--accent-ink", inkColor ?? fillColor ?? textColor);
       applied.current = true;
     };
 
@@ -50,7 +53,7 @@ export function useAccent(
 
     const timer = window.setTimeout(apply, deferMs);
     return () => window.clearTimeout(timer);
-  }, [textColor, fillColor, deferMs]);
+  }, [textColor, fillColor, inkColor, deferMs]);
 
   // Separate from the write above so a colour change doesn't tear the
   // properties off the root on its way to replacing them.
@@ -59,6 +62,7 @@ export function useAccent(
     return () => {
       root.style.removeProperty("--accent");
       root.style.removeProperty("--accent-fill");
+      root.style.removeProperty("--accent-ink");
       applied.current = false;
     };
   }, []);

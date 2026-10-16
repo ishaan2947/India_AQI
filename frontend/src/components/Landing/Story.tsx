@@ -17,9 +17,11 @@ import { Reveal, RevealWords } from "../motion/Reveal";
 
 export default function Story() {
   return (
+    // The one light band on the page. See the `.on-paper` block in
+    // index.css for why, and for how to take it back out.
     <section
       id="how-it-works"
-      className="scroll-mt-16 border-t border-smoke-700 bg-smoke-950"
+      className="on-paper scroll-mt-16"
       aria-label="How this works"
     >
       <div className="mx-auto max-w-data px-gutter py-band sm:px-6 lg:px-gutter-lg lg:py-band-lg">
@@ -101,12 +103,16 @@ function Beat({
   children: React.ReactNode;
 }) {
   return (
-    <div className="grid gap-x-16 gap-y-5 border-b border-smoke-800 py-10 first:pt-0 lg:grid-cols-[1fr_minmax(0,32rem)] lg:py-14">
+    <div className="grid gap-x-16 gap-y-5 border-b border-paper-rule py-10 first:pt-0 lg:grid-cols-[1fr_minmax(0,32rem)] lg:py-14">
       <div>
-        <p className="u-label mb-4 text-smoke-500">{label}</p>
-        <p className="max-w-[22ch] font-serif text-display font-normal leading-[1.08] text-smoke-100 sm:max-w-[20ch]">
+        <p className="u-label mb-4">{label}</p>
+        {/* These read as headlines and should be headings: a reader tabbing
+            through the document outline gets the three beats, not one
+            unlabelled section. The serif utilities override the global
+            heading styles. */}
+        <h2 className="max-w-[22ch] font-serif text-display font-normal leading-[1.08] tracking-normal text-paper-ink sm:max-w-[20ch]">
           <RevealWords text={lead} />
-        </p>
+        </h2>
       </div>
       <Reveal className="u-prose max-w-prose lg:pt-14" delay={90}>
         {children}
@@ -125,7 +131,7 @@ function StoryLink({
   return (
     <Link
       to={to}
-      className="group inline-flex items-baseline gap-2 text-body font-semibold text-smoke-100 transition-colors duration-tap ease-air hover:text-white"
+      className="group inline-flex items-baseline gap-2 text-body font-semibold text-paper-ink transition-colors duration-tap ease-air hover:text-black"
     >
       {children}
       <span

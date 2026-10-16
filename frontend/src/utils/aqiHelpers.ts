@@ -13,10 +13,11 @@
  * values against CPCB band names. The indices agree closely in spirit and
  * differ in detail; /how-it-works says so in plain words.
  *
- * Two colours per band — see DESIGN.md §3.2. `color` fills shapes, `textColor`
- * carries glyphs. The severe maroon is 2.8:1 on the page ground, which is
- * unusable for type at any size, so anything setting `color:` on text reads
- * `textColor` and the distinction is not optional.
+ * Three colours per band — see DESIGN.md §3.2. `color` fills shapes;
+ * `textColor` carries glyphs on the dark ground; `inkColor` carries them on
+ * the paper sections, where the lightened variants would be invisible. The
+ * severe maroon is 2.8:1 on the page ground and the moderate yellow is 1.4:1
+ * on paper, so neither raw fill is ever allowed to carry type.
  */
 
 import type { AQICategory } from "../types";
@@ -29,6 +30,7 @@ const CATEGORIES: AQICategory[] = [
     description: "Air quality is clean. No restrictions for anyone.",
     color: "#4FA64B",
     textColor: "#7FD177",
+    inkColor: "#2E6B2C",
     min: 0,
     max: 50,
   },
@@ -40,6 +42,7 @@ const CATEGORIES: AQICategory[] = [
       "Minor breathing discomfort is possible for unusually sensitive people.",
     color: "#9FC93C",
     textColor: "#BFE05C",
+    inkColor: "#55701B",
     min: 51,
     max: 100,
   },
@@ -51,6 +54,7 @@ const CATEGORIES: AQICategory[] = [
       "Breathing discomfort for people with asthma, and for the elderly, children, and those with heart or lung disease.",
     color: "#F2D73B",
     textColor: "#F7E364",
+    inkColor: "#6F5B06",
     min: 101,
     max: 200,
   },
@@ -62,6 +66,7 @@ const CATEGORIES: AQICategory[] = [
       "Breathing discomfort for most people on prolonged exposure. Cut outdoor exertion.",
     color: "#F08B33",
     textColor: "#F8A95C",
+    inkColor: "#8F4708",
     min: 201,
     max: 300,
   },
@@ -73,6 +78,7 @@ const CATEGORIES: AQICategory[] = [
       "Respiratory illness on prolonged exposure. Effects are more pronounced for people with heart or lung disease.",
     color: "#E54B38",
     textColor: "#F4705D",
+    inkColor: "#B32718",
     min: 301,
     max: 400,
   },
@@ -84,6 +90,7 @@ const CATEGORIES: AQICategory[] = [
       "Affects healthy people and seriously affects anyone with an existing condition. Emergency conditions.",
     color: "#A8262B",
     textColor: "#E86E72",
+    inkColor: "#8A1D22",
     min: 401,
     max: Number.POSITIVE_INFINITY,
   },
@@ -106,9 +113,14 @@ export function getAQIColor(aqi: number): string {
   return pickCategory(aqi).color;
 }
 
-/** Text colour — use this, not `getAQIColor`, whenever colouring glyphs. */
+/** Text colour on the dark ground — never `getAQIColor`, for glyphs. */
 export function getAQITextColor(aqi: number): string {
   return pickCategory(aqi).textColor;
+}
+
+/** Text colour on a paper ground. */
+export function getAQIInkColor(aqi: number): string {
+  return pickCategory(aqi).inkColor;
 }
 
 export function getAQICategory(aqi: number): string {

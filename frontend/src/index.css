@@ -120,6 +120,83 @@ h4 {
   }
 }
 
+/* ------------------------------------------------------------------ */
+/* Paper.                                                              */
+/*                                                                     */
+/* Dark is the right ground for a photograph and for a basemap. It is  */
+/* not the right ground for six hundred words of prose — long-form     */
+/* reading is what paper is for, and a site that is uniformly dark from */
+/* top to bottom reads as a dashboard no matter how it is set.         */
+/*                                                                     */
+/* So the story and the how-it-works page invert: near-black serif on  */
+/* warm paper, between a dark hero and a dark colophon. The AQI scale  */
+/* still works because every band carries an ink variant for exactly   */
+/* this ground (the lightened on-dark ones are invisible here), and    */
+/* the live accent re-points at its own ink variant inside the scope.  */
+/*                                                                     */
+/* Everything here is scoped to `.on-paper`, so removing the class     */
+/* returns a section to the dark system with nothing left behind.      */
+/* ------------------------------------------------------------------ */
+.on-paper {
+  background-color: theme("colors.paper.DEFAULT");
+  color: theme("colors.paper.soft");
+  --accent: var(--accent-ink, #8f4708);
+}
+
+.on-paper h1,
+.on-paper h2,
+.on-paper h3,
+.on-paper h4 {
+  color: theme("colors.paper.ink");
+}
+
+.on-paper .u-prose {
+  color: theme("colors.paper.soft");
+}
+
+.on-paper .u-prose a {
+  color: theme("colors.paper.ink");
+  text-decoration-color: #b9aea0;
+}
+
+.on-paper .u-prose a:hover {
+  text-decoration-color: var(--accent);
+}
+
+.on-paper .u-label {
+  color: theme("colors.paper.muted");
+}
+
+/* Shared components (the CPCB scale legend, for one) are written for the
+   dark ground and appear in both. Rather than fork them or thread a theme
+   prop through, the paper scope re-points the handful of neutral text and
+   rule utilities they use. Scoped overrides win on specificity, and a
+   component dropped into a paper section is legible without knowing it. */
+.on-paper .text-smoke-100 {
+  color: theme("colors.paper.ink");
+}
+.on-paper .text-smoke-200 {
+  color: theme("colors.paper.soft");
+}
+.on-paper .text-smoke-300,
+.on-paper .text-smoke-500 {
+  color: theme("colors.paper.muted");
+}
+.on-paper .border-smoke-700,
+.on-paper .border-smoke-800 {
+  border-color: theme("colors.paper.rule");
+}
+.on-paper .bg-smoke-850,
+.on-paper .bg-smoke-900 {
+  background-color: theme("colors.paper.sunk");
+}
+
+/* Selection on paper, since the dark default is invisible here. */
+.on-paper ::selection {
+  background: #e3d9c7;
+  color: theme("colors.paper.ink");
+}
+
 /* Tabular figures anywhere a number is being compared. */
 .tnum,
 .font-mono,

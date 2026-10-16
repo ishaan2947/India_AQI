@@ -35,11 +35,11 @@ const LAYERS: Array<[string, string]> = [
 
 export default function HowItWorks() {
   return (
-    <div className="h-full overflow-y-auto">
+    <div className="on-paper h-full overflow-y-auto">
       <div className="mx-auto max-w-data px-gutter py-band sm:px-6 lg:px-gutter-lg">
         <div>
           <p className="u-label mb-5">How it works</p>
-          <h1 className="max-w-[19ch] text-display text-smoke-100">
+          <h1 className="max-w-[19ch] text-display text-paper-ink">
             <RevealWords text="A production service that costs nothing to run" />
           </h1>
           <Reveal className="u-prose mt-6 max-w-prose" delay={80}>
@@ -54,7 +54,7 @@ export default function HowItWorks() {
 
         <Reveal className="mt-14 grid gap-12 lg:grid-cols-[1fr_minmax(0,28rem)] lg:gap-20">
           <div className="max-w-prose u-prose">
-            <h2 className="text-head text-smoke-100">The cold start</h2>
+            <h2 className="text-head text-paper-ink">The cold start</h2>
             <p className="mt-3">
               Render's free tier puts the backend to sleep after fifteen
               minutes of nobody looking, and waking it takes about thirty
@@ -67,7 +67,7 @@ export default function HowItWorks() {
               what they are waiting for.
             </p>
 
-            <h2 className="mt-12 text-head text-smoke-100">
+            <h2 className="mt-12 text-head text-paper-ink">
               Which AQI scale this is
             </h2>
             <p className="mt-3">
@@ -87,7 +87,7 @@ export default function HowItWorks() {
             </p>
             <ScaleLegend withNote={false} />
 
-            <h2 className="mt-12 text-head text-smoke-100">
+            <h2 className="mt-12 text-head text-paper-ink">
               When the data isn't real
             </h2>
             <p className="mt-3">
@@ -98,7 +98,7 @@ export default function HowItWorks() {
               shown — in the hero, on the city cards and in the map popups.
             </p>
 
-            <h2 className="mt-12 text-head text-smoke-100">The forecast</h2>
+            <h2 className="mt-12 text-head text-paper-ink">The forecast</h2>
             <p className="mt-3">
               A <code className="font-mono text-[0.9em]">RandomForestRegressor</code>{" "}
               with 120 trees, trained on the rolling history with hour-of-day,
@@ -115,14 +115,14 @@ export default function HowItWorks() {
 
           <div>
             <h2 className="u-label">At a glance</h2>
-            <dl className="mt-3 border-t border-smoke-800">
+            <dl className="mt-3 border-t border-paper-rule">
               {FACTS.map(([k, v]) => (
                 <div
                   key={k}
-                  className="flex items-baseline justify-between gap-6 border-b border-smoke-800 py-2.5"
+                  className="flex items-baseline justify-between gap-6 border-b border-paper-rule py-2.5"
                 >
-                  <dt className="text-micro text-smoke-500">{k}</dt>
-                  <dd className="text-right text-body text-smoke-100 tnum">
+                  <dt className="text-micro text-paper-muted">{k}</dt>
+                  <dd className="text-right text-body text-paper-ink tnum">
                     {v}
                   </dd>
                 </div>
@@ -130,16 +130,16 @@ export default function HowItWorks() {
             </dl>
 
             <h2 className="u-label mt-12">What it's made of</h2>
-            <dl className="mt-3 border-t border-smoke-800">
+            <dl className="mt-3 border-t border-paper-rule">
               {LAYERS.map(([layer, items]) => (
-                <div key={layer} className="border-b border-smoke-800 py-3">
-                  <dt className="text-micro text-smoke-500">{layer}</dt>
-                  <dd className="mt-1 text-body text-smoke-200">{items}</dd>
+                <div key={layer} className="border-b border-paper-rule py-3">
+                  <dt className="text-micro text-paper-muted">{layer}</dt>
+                  <dd className="mt-1 text-body text-paper-soft">{items}</dd>
                 </div>
               ))}
             </dl>
 
-            <p className="mt-8 text-micro leading-relaxed text-smoke-500">
+            <p className="mt-8 text-micro leading-relaxed text-paper-muted">
               The design system for the interface — palette, type scale, motion
               rules — is written down in DESIGN.md in the repository, for the
               same reason the API has a schema.
@@ -147,10 +147,10 @@ export default function HowItWorks() {
           </div>
         </Reveal>
 
-        <Reveal className="mt-16 border-t border-smoke-800 pt-8">
+        <Reveal className="mt-16 border-t border-paper-rule pt-8">
           <Link
             to="/"
-            className="group inline-flex items-baseline gap-2 text-body font-semibold text-smoke-100 transition-colors duration-tap ease-air hover:text-white"
+            className="group inline-flex items-baseline gap-2 text-body font-semibold text-paper-ink transition-colors duration-tap ease-air hover:text-black"
           >
             <span
               aria-hidden
