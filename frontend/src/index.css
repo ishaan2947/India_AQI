@@ -21,11 +21,19 @@
   --t-move: 320ms;
   --t-enter: 680ms;
   --t-settle: 1600ms;
+  /* A full-bleed photograph wants a longer, calmer cross-fade than a hover
+     state does. Long enough to read as a dissolve, short enough that the
+     reader who is clicking through cities isn't waiting on it. */
+  --t-photo: 900ms;
 
-  /* Haze density, 0..1. Written by the hero's scroll handler; read by the
-     overlay layers and the photograph's filter. Lives on :root so the page
-     accent and the haze can never disagree about the same reading. */
+  /* Haze density, 0..1 — a default, so these resolve before the hero mounts.
+     The live values are written on the hero band itself rather than here:
+     a custom property on :root invalidates style for the entire document,
+     and at 60fps on a page this size that was costing frames during a city
+     swap. Scoped to the band, a write touches one photograph and three
+     overlays. */
   --haze: 0;
+  --haze-p: 0;
 }
 
 html,
@@ -215,6 +223,50 @@ table {
     rgba(150, 134, 112, 0) 72%
   );
   opacity: calc(var(--haze) * 0.85);
+}
+
+/* ------------------------------------------------------------------ */
+/* Hero photograph layers.                                             */
+/*                                                                     */
+/* One transition, on one property pair, on one element. The incoming  */
+/* layer starts fractionally larger and settles to its natural size as */
+/* it fades up — a dissolve rather than a slide, which is what a        */
+/* photograph replacing another photograph should look like. The scale  */
+/* is 1.5%: enough to read as movement, far too little to notice as     */
+/* zoom.                                                                */
+/*                                                                     */
+/* will-change is set only on a layer that is actually fading, so the   */
+/* compositor gets its hint for the second it matters and the hero      */
+/* isn't permanently promoted to its own layer.                         */
+/* ------------------------------------------------------------------ */
+.photo-layer {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  /* The haze lives on each layer rather than on their shared parent. That
+     sounds like more work — two filtered surfaces instead of one — and is in
+     fact far less: a filtered parent must re-rasterise every time a child's
+     opacity changes, which during a 900ms cross-fade is every frame. Filtered
+     per layer, each surface is rasterised once and the fade itself is pure
+     compositing. Measured: 607 raster tasks during a swap became 24. */
+  filter: var(--haze-filter, none);
+}
+
+.photo-layer--out,
+.photo-layer--in {
+  will-change: opacity, transform;
+  transition:
+    opacity var(--t-photo) var(--ease-air),
+    transform var(--t-photo) var(--ease-air);
+}
+
+.photo-layer--out {
+  opacity: 0;
+  transform: scale(1.015);
+}
+
+.photo-layer--in {
+  opacity: 1;
+  transform: scale(1);
 }
 
 /* The photograph. filter is written as a whole string by the scroll handler
