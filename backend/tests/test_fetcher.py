@@ -50,6 +50,17 @@ def waqi_payload(aqi: object = 168, **iaqi: float) -> dict:
     }
 
 
+def station_payload(name: str, geo: list[float] | None, aqi: int = 55) -> dict:
+    """A response from a named station, optionally with coordinates."""
+    city: dict[str, object] = {"name": name}
+    if geo is not None:
+        city["geo"] = geo
+    return {
+        "status": "ok",
+        "data": {"aqi": aqi, "idx": 1, "city": city, "iaqi": {"pm25": {"v": 55.0}}},
+    }
+
+
 @pytest.fixture(name="no_backoff")
 def no_backoff_fixture(monkeypatch: pytest.MonkeyPatch) -> list[float]:
     """Replace `asyncio.sleep` with a recorder so retries cost nothing."""
@@ -225,6 +236,81 @@ async def test_a_valid_response_with_no_usable_data_is_not_retried(no_backoff):
 
     assert sample is None
     assert len(seen) == 1
+
+
+# ---------------------------------------------------------------------------
+# Is this reading even about the right city?
+# ---------------------------------------------------------------------------
+
+
+async def test_a_station_in_another_country_is_rejected(no_backoff):
+    """
+    The regression this exists for: WAQI's `demo` token ignores the city in
+    the URL and answers every request with one station in Shanghai. Trusting
+    it wrote an identical Chinese reading into thirty Indian cities, labelled
+    `waqi` — a dashboard that looks healthy and is lying.
+    """
+    client, seen = client_returning(
+        httpx.Response(200, json=station_payload("Shanghai (上海)", [31.23, 121.47]))
+    )
+
+    async with client:
+        sample = await _fetch_waqi(client, "Delhi")
+
+    assert sample is None
+    # Wrong place is a definitive answer, not a transient failure.
+    assert len(seen) == 1
+
+
+async def test_a_nearby_station_is_accepted_even_when_its_name_differs(no_backoff):
+    """
+    Real stations are named for the neighbourhood, not the city — "Punjabi
+    Bagh" is Delhi. Coordinates settle it; a name check alone would throw
+    away most of the live data.
+    """
+    client, _ = client_returning(
+        httpx.Response(200, json=station_payload("Punjabi Bagh", [28.67, 77.13], aqi=188))
+    )
+
+    async with client:
+        sample = await _fetch_waqi(client, "Delhi")
+
+    assert sample is not None
+    assert sample.aqi_value == 188.0
+
+
+async def test_a_station_named_for_the_city_is_accepted_without_coordinates(no_backoff):
+    """Older payloads omit `geo`; fall back to the station name."""
+    client, _ = client_returning(
+        httpx.Response(200, json=station_payload("Sanjay Palace, Agra", None, aqi=210))
+    )
+
+    async with client:
+        sample = await _fetch_waqi(client, "Agra")
+
+    assert sample is not None
+    assert sample.aqi_value == 210.0
+
+
+async def test_an_unrecognisable_station_without_coordinates_is_rejected(no_backoff):
+    client, _ = client_returning(httpx.Response(200, json=station_payload("Somewhere Else", None)))
+
+    async with client:
+        sample = await _fetch_waqi(client, "Delhi")
+
+    assert sample is None
+
+
+async def test_a_rejected_station_falls_through_to_synthetic(no_backoff):
+    """End to end: bad upstream data never reaches the database as `waqi`."""
+    client, _ = client_returning(
+        httpx.Response(200, json=station_payload("Shanghai (上海)", [31.23, 121.47]))
+    )
+
+    async with client:
+        sample = await fetch_city_reading(client, "Delhi")
+
+    assert sample.source == "synthetic"
 
 
 # ---------------------------------------------------------------------------
