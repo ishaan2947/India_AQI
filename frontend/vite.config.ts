@@ -90,6 +90,23 @@ export default defineConfig({
               },
             },
           },
+          // City photographs. Deliberately *not* precached — thirty heroes is
+          // ~6MB and a visitor sees one of them — but cached once fetched, so
+          // flipping back to a city you have already looked at is instant.
+          // Bounded at twenty so the cache can't grow past a few megabytes.
+          {
+            urlPattern: ({ url, sameOrigin }) =>
+              sameOrigin && url.pathname.startsWith("/cities/"),
+            handler: "CacheFirst",
+            options: {
+              cacheName: "city-photo-cache",
+              expiration: {
+                maxEntries: 20,
+                maxAgeSeconds: 30 * 24 * 60 * 60,
+              },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
           // Esri dark-canvas map tiles — Cache first, they basically never
           // change so caching aggressively saves a *lot* of bandwidth.
           // (Must track whatever host AQIMap.tsx points at: a stale pattern

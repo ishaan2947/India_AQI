@@ -24,6 +24,8 @@
 import { useMemo, useRef, useState } from "react";
 
 import { useAccent } from "../../hooks/useAccent";
+import { imageForCity } from "../../data/cityImages";
+import CityPhoto from "./CityPhoto";
 import CitySwitcher from "./CitySwitcher";
 import { useCurrentAQI } from "../../hooks/useAQIData";
 import { useHaze } from "../../hooks/useHaze";
@@ -37,11 +39,6 @@ import {
 
 /** The city in the photograph. */
 const PICTURED = "agra";
-
-// 20px-wide blur of the hero, inlined so the frame is never an empty black
-// rectangle: it paints on the first frame, then the real file fades over it.
-const HERO_LQIP =
-  "data:image/webp;base64,UklGRogAAABXRUJQVlA4IHwAAAAwBACdASoUAA4APu1iqU2ppaQiMAgBMB2JZQCdIHGJ/gPIqRxGO8aH9MAA/pBJEzRVF/kVf/7/zNjPBFKJUtU9eR5QiCRHGlbjyvihAl8LDLineUeqP62eLTUiKs35uNuBhG3DTggWcc6HruTG/g3JAeMineKY/MUwwAAA";
 
 // Stops chosen against the sampled luma curve. The top of the frame is pale
 // sky meeting a near-black page — left alone that seam is a hard bright line
@@ -88,7 +85,6 @@ export default function Hero() {
   const { data: cities, loading, error } = useCurrentAQI();
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const bandRef = useRef<HTMLDivElement>(null);
-  const [imgLoaded, setImgLoaded] = useState(false);
 
   const city = useMemo(() => {
     const fallback = pickDefaultCity(cities);
@@ -111,9 +107,8 @@ export default function Hero() {
     [cities],
   );
 
+  const photo = imageForCity(city?.name);
   const istClock = formatISTClock(city?.latest_timestamp);
-  const picturedElsewhere =
-    city != null && city.name.toLowerCase() !== PICTURED;
 
   return (
     <section className="relative" aria-labelledby="hero-reading">
@@ -123,30 +118,15 @@ export default function Hero() {
         // context of its own it would blend against the page ground too.
         className="relative isolate h-[74dvh] min-h-[480px] w-full overflow-hidden sm:h-[80dvh] lg:h-[86dvh] lg:max-h-[900px]"
       >
-        <div
-          aria-hidden
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url("${HERO_LQIP}")` }}
-        />
-
-        <img
-          src="/hero-taj-1600.webp"
-          srcSet="/hero-taj-900.webp 900w, /hero-taj-1600.webp 1600w, /hero-taj-2400.webp 2400w"
-          sizes="100vw"
+        <CityPhoto
+          image={photo}
           alt={
             aqi != null && city
-              ? `The Taj Mahal at sunset, mirrored in its garden channel, shown through haze matching an AQI of ${Math.round(
+              ? `${photo.title} — shown through haze matching an AQI of ${Math.round(
                   aqi,
                 )} in ${city.name}`
-              : "The Taj Mahal at sunset, mirrored in the long water channel of its garden"
+              : photo.title
           }
-          width={2400}
-          height={1728}
-          decoding="async"
-          onLoad={() => setImgLoaded(true)}
-          className={`haze-subject absolute inset-0 h-full w-full object-cover object-[center_58%] transition-opacity duration-enter ease-air ${
-            imgLoaded ? "opacity-100" : "opacity-0"
-          }`}
         />
 
         {/* The air itself. Order matters: haze over the photograph, scrims
@@ -190,25 +170,36 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Credit and the honest caption: the frame is always Agra, even when
-          the reading is somewhere else. */}
+      {/* Attribution travels with the photograph: most of these are CC BY-SA,
+          which requires the author, the licence and a route back to the
+          original. It also tells the reader what they are looking at. */}
       <div className="mx-auto flex max-w-data flex-wrap items-baseline justify-between gap-x-6 gap-y-1 px-gutter pt-3 text-micro text-smoke-500 sm:px-6 lg:px-gutter-lg">
         <p>
-          Taj Mahal, Agra.{" "}
-          {picturedElsewhere && city
-            ? `Haze shown at ${city.name}'s reading.`
-            : "Haze shown at this city's own reading."}
+          {photo.title}
+          {city ? ` · haze at ${city.name}'s reading` : null}
         </p>
         <p>
-          Photograph{" "}
           <a
-            href="https://unsplash.com/photos/DDiLYt_F88w"
+            href={photo.sourceUrl}
             target="_blank"
             rel="noreferrer noopener"
             className="underline decoration-smoke-700 underline-offset-2 transition-colors duration-tap ease-air hover:text-smoke-300"
           >
-            Shan Elahi / Unsplash
+            {photo.artist}
           </a>
+          {" · "}
+          {photo.licenseUrl ? (
+            <a
+              href={photo.licenseUrl}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="underline decoration-smoke-700 underline-offset-2 transition-colors duration-tap ease-air hover:text-smoke-300"
+            >
+              {photo.license}
+            </a>
+          ) : (
+            photo.license
+          )}
         </p>
       </div>
     </section>

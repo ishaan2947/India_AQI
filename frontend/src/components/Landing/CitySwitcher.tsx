@@ -26,6 +26,7 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 
+import { CITY_IMAGES, preloadCityImage } from "../../data/cityImages";
 import type { CityWithLatest } from "../../types";
 import { getAQIBand } from "../../utils/aqiHelpers";
 
@@ -69,12 +70,16 @@ export default function CitySwitcher({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
-  // Keep the active option in view when arrowing through thirty cities.
+  // Keep the active option in view when arrowing through thirty cities, and
+  // warm its photograph while we are at it: by the time the reader commits,
+  // the hero's cross-fade usually has nothing left to wait for.
   useEffect(() => {
     if (!open) return;
     document
       .getElementById(optionId(activeIndex))
       ?.scrollIntoView({ block: "nearest" });
+    const highlighted = cities[activeIndex];
+    if (highlighted) preloadCityImage(highlighted.name);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, activeIndex]);
 
@@ -223,6 +228,17 @@ export default function CitySwitcher({
                     : "border-l-transparent"
                 }`}
               >
+                <span
+                  aria-hidden
+                  className="h-7 w-10 shrink-0 bg-cover bg-center"
+                  style={{
+                    backgroundImage: CITY_IMAGES[c.name]
+                      ? `url("${CITY_IMAGES[c.name].lqip}")`
+                      : undefined,
+                    backgroundColor: CITY_IMAGES[c.name] ? undefined : "#231F1D",
+                    boxShadow: `inset 0 0 0 1px rgba(12,11,10,0.6)`,
+                  }}
+                />
                 <span
                   aria-hidden
                   className="h-2 w-2 shrink-0 rounded-full"
