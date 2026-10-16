@@ -260,9 +260,14 @@ What was there, why it read as generated, and where it went.
 | 15 | Dark navy ground `#0b1220` + dotted texture overlay | `index.css`, `tailwind.config.js` | Warm `smoke-950` ground; texture dropped — the photograph is the texture. |
 | 16 | `Inter`-class neutral grotesk (Geist) for everything, display and body alike | `index.html` | Archivo + Newsreader pairing with a real display/text split. |
 | 17 | US EPA AQI bands and colours (`#00E400`, `#FFFF00`, `#FF0000`…) on an Indian site | `aqiHelpers.ts` | CPCB bands and a palette tuned for a dark warm ground. |
-| 18 | Uniform `rounded-xl` cards with 1 px borders on all sides, 3–4 across | `Predictions.tsx`, `CityCard.tsx`, `CityRanking.tsx` | Scheduled for the next pass (ranked rows + full-bleed bands). |
-| 19 | Pulsing marker animation on the worst city (`aqi-marker-pulse`, stroke 2→7) | `index.css`, `AQIMarker.tsx` | Scheduled for the map pass — keep the emphasis, drop the throb. |
-| 20 | Relative-only timestamps (`recently`) with no timezone, and naive-UTC strings parsed as local time | `aqiHelpers.ts` | Timestamps parsed as UTC; freshness shown as `X min ago` plus an explicit IST clock. |
+| 18 | Uniform `rounded-xl` cards with 1 px borders on all sides, 3–4 across | `Predictions.tsx`, `CityCard.tsx`, `CityRanking.tsx` | Deleted. The forecast is a 30×24 hour grid; the city page is one column of evidence. |
+| 19 | Pulsing marker animation on the worst city (`aqi-marker-pulse`, stroke 2→7) | `index.css`, `AQIMarker.tsx` | Replaced by a standing ring on a value chip. Emphasis that never stops is noise. |
+| 20 | Two charts in two cards on the city page — history and forecast with separate axes, colours and ideas of "now" | `TrendChart.tsx`, `PredictionPanel.tsx` | One 48-hour timeline: observed → now → forecast with ±1σ, over CPCB band stripes. |
+| 21 | Recharts defaults — full cartesian grid, white tooltip card, unstyled ticks | all charts | One chart system in `components/charts/theme.ts`: horizontal rules only, direct labels, tabular ticks, dark flat tooltip. |
+| 22 | Relative-only timestamps (`recently`) with no timezone, and naive-UTC strings parsed as local time | `aqiHelpers.ts` | Timestamps parsed as UTC; freshness shown as `X min ago` plus an explicit IST clock. |
+| 23 | PM2.5 presented as if it were the whole story, while the API returned five other pollutants nobody ever saw | `CityCard.tsx` | "What's in the air" on the city page, each pollutant against its own CPCB standard. |
 
-Rows 18 and 19 are the map / forecasts / city-detail pass, which is deliberately
-not part of the home-page review.
+Every row is now closed. The pass order was home → map → forecasts and city
+detail, and each page was expected to answer one question rather than display
+one dataset: *what is the air doing here* (home), *where* (map), *when*
+(forecasts), *and what is it made of* (city).

@@ -16,6 +16,12 @@ import Sidebar from "../components/Layout/Sidebar";
 export default function MapView() {
   return (
     <div className="grid h-full grid-rows-[52dvh_1fr] md:grid-cols-[1fr_20rem] md:grid-rows-1">
+      {/* The map is the page, so there is nothing to put a visible heading on
+          — but a document with no h1 is a document a screen reader can't
+          summarise. */}
+      <h1 className="sr-only">
+        Live air quality across thirty Indian cities, mapped
+      </h1>
       <div className="relative min-h-0">
         <AQIMap />
       </div>
