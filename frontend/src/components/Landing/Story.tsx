@@ -17,11 +17,13 @@ import { Reveal, RevealWords } from "../motion/Reveal";
 
 export default function Story() {
   return (
-    // The one light band on the page. See the `.on-paper` block in
-    // index.css for why, and for how to take it back out.
+    // Tried on paper, put back on the dark ground. A light band mid-scroll
+    // on a continuously scrolling page reads as the page breaking rather
+    // than as a new chapter — inversion needs to signal a different *place*,
+    // which is why /how-it-works keeps it and this doesn't.
     <section
       id="how-it-works"
-      className="on-paper scroll-mt-16"
+      className="scroll-mt-16 border-t border-smoke-700 bg-smoke-950"
       aria-label="How this works"
     >
       <div className="mx-auto max-w-data px-gutter py-band sm:px-6 lg:px-gutter-lg lg:py-band-lg">
@@ -103,14 +105,14 @@ function Beat({
   children: React.ReactNode;
 }) {
   return (
-    <div className="grid gap-x-16 gap-y-5 border-b border-paper-rule py-10 first:pt-0 lg:grid-cols-[1fr_minmax(0,32rem)] lg:py-14">
+    <div className="grid gap-x-16 gap-y-5 border-b border-smoke-800 py-10 first:pt-0 lg:grid-cols-[1fr_minmax(0,32rem)] lg:py-14">
       <div>
-        <p className="u-label mb-4">{label}</p>
+        <p className="u-label mb-4 text-smoke-500">{label}</p>
         {/* These read as headlines and should be headings: a reader tabbing
             through the document outline gets the three beats, not one
             unlabelled section. The serif utilities override the global
             heading styles. */}
-        <h2 className="max-w-[22ch] font-serif text-display font-normal leading-[1.08] tracking-normal text-paper-ink sm:max-w-[20ch]">
+        <h2 className="max-w-[22ch] font-serif text-display font-normal leading-[1.08] tracking-normal text-smoke-100 sm:max-w-[20ch]">
           <RevealWords text={lead} />
         </h2>
       </div>
@@ -131,7 +133,7 @@ function StoryLink({
   return (
     <Link
       to={to}
-      className="group inline-flex items-baseline gap-2 text-body font-semibold text-paper-ink transition-colors duration-tap ease-air hover:text-black"
+      className="group inline-flex items-baseline gap-2 text-body font-semibold text-smoke-100 transition-colors duration-tap ease-air hover:text-white"
     >
       {children}
       <span
