@@ -17,6 +17,7 @@ On shutdown the scheduler is stopped cleanly.
 
 from __future__ import annotations
 
+import asyncio
 import logging
 import os
 from contextlib import asynccontextmanager
@@ -61,9 +62,19 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     logger.info("Bootstrapping AQI India Intelligence platform…")
     _bootstrap()
     scheduler.start_scheduler()
+
+    # Warm the whole-country forecast in the background. It takes minutes on a
+    # free-tier box, so it must not block startup — the health check has to go
+    # green immediately or Render fails the deploy — but it must also not wait
+    # for the first hourly fetch, or the first visitor after a cold start pays
+    # for it in front of a loading state. Fire and forget; a failure here is
+    # logged by the job and costs a recompute on the request path, nothing more.
+    warm_task = asyncio.create_task(scheduler.refresh_forecast_cache())
+
     try:
         yield
     finally:
+        warm_task.cancel()
         scheduler.shutdown_scheduler()
 
 

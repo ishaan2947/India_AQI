@@ -8,6 +8,12 @@ Two recurring jobs run in the FastAPI process:
 * `retrain_job` — every 24 hours, retrain the ML model on the up-to-date
   history.
 
+Both jobs finish by refreshing the whole-country forecast cache, because both
+invalidate it: new readings and a new model each change every prediction. That
+refresh is the reason `/api/predictions/all` can answer in milliseconds
+something that takes minutes to compute on a free-tier box — the work happens
+here, on a schedule, instead of in front of whoever loads the page first.
+
 Both jobs are wrapped to (a) build their own DB session and (b) log any
 exception without killing the scheduler thread.
 """
@@ -22,7 +28,7 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.interval import IntervalTrigger
 
 from ..database import SessionLocal
-from . import fetcher, ml_model
+from . import fetcher, forecast_cache, ml_model
 
 logger = logging.getLogger(__name__)
 
@@ -30,6 +36,22 @@ FETCH_INTERVAL_MINUTES: int = 60
 RETRAIN_INTERVAL_HOURS: int = 24
 
 _scheduler: Optional[AsyncIOScheduler] = None
+
+
+def _refresh_forecasts_sync() -> None:
+    """Recompute the cached whole-country forecast on a worker thread."""
+    db = SessionLocal()
+    try:
+        forecast_cache.refresh(db)
+    except Exception:  # pragma: no cover
+        logger.exception("Scheduler: forecast refresh failed")
+    finally:
+        db.close()
+
+
+async def refresh_forecast_cache() -> None:
+    """CPU-bound — never run it on the event loop."""
+    await asyncio.to_thread(_refresh_forecasts_sync)
 
 
 async def _fetch_job() -> None:
@@ -42,6 +64,8 @@ async def _fetch_job() -> None:
         logger.exception("Scheduler: fetch job failed")
     finally:
         db.close()
+    # New readings invalidate every forecast.
+    await refresh_forecast_cache()
 
 
 def _retrain_job_sync() -> None:
@@ -59,6 +83,8 @@ def _retrain_job_sync() -> None:
 async def _retrain_job() -> None:
     # sklearn fit is CPU-bound — push it off the event loop.
     await asyncio.to_thread(_retrain_job_sync)
+    # A new model means new predictions.
+    await refresh_forecast_cache()
 
 
 def start_scheduler() -> AsyncIOScheduler:
