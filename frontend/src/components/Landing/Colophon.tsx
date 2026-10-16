@@ -20,7 +20,10 @@ const LINKS: Array<[string, string]> = [
 
 export default function Colophon() {
   return (
-    <footer className="border-t border-smoke-700 bg-smoke-900">
+    // Paper, like the story above it: the page runs dark for the data and
+    // light for the writing, which is two acts rather than alternating
+    // stripes. See `.on-paper` in index.css.
+    <footer className="on-paper border-t border-paper-rule">
       <Reveal className="mx-auto max-w-data px-gutter py-band sm:px-6 lg:px-gutter-lg">
         <div className="grid gap-10 sm:grid-cols-[1fr_auto] sm:gap-20">
           <div className="max-w-prose">
@@ -52,12 +55,12 @@ export default function Colophon() {
                     href={href}
                     target="_blank"
                     rel="noreferrer noopener"
-                    className="group inline-flex items-baseline gap-2 text-body text-smoke-200 transition-colors duration-tap ease-air hover:text-smoke-100"
+                    className="group inline-flex items-baseline gap-2 text-body text-paper-soft transition-colors duration-tap ease-air hover:text-paper-ink"
                   >
                     {label}
                     <span
                       aria-hidden
-                      className="text-smoke-600 transition-transform duration-move ease-air group-hover:translate-x-0.5 group-hover:text-[color:var(--accent)]"
+                      className="text-paper-muted transition-transform duration-move ease-air group-hover:translate-x-0.5 group-hover:text-[color:var(--accent)]"
                     >
                       ↗
                     </span>
@@ -68,7 +71,7 @@ export default function Colophon() {
           </nav>
         </div>
 
-        <p className="mt-16 text-micro text-smoke-500">
+        <p className="mt-16 text-micro text-paper-muted">
           Air quality readings are indicative, not regulatory. For health
           decisions, check your state pollution control board.
         </p>
