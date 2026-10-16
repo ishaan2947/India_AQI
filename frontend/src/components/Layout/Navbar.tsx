@@ -1,9 +1,19 @@
+/**
+ * Masthead.
+ *
+ * What went: a gradient square standing in for a logo, an italic tagline
+ * beside it ("what to breathe before stepping outside"), and a pulsing green
+ * LIVE pill. All three were the site talking about itself.
+ *
+ * What replaced them: a text wordmark, and silence from the status indicator
+ * as long as the backend is healthy. A dot that is green 99% of the time
+ * carries no information — so this one says nothing when things are fine and
+ * speaks in words, in the AQI palette, when the API is waking or down, which
+ * is the only time a reader needs to know it exists.
+ */
+
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-
-const linkBase = "px-2 sm:px-3 py-1.5 rounded-md text-sm font-medium transition";
-const linkInactive = "text-ink-200 hover:text-ink-100 hover:bg-ink-700";
-const linkActive = "bg-ink-700 text-ink-100";
 
 // FastAPI serves its Swagger UI at /docs on the backend host. In production
 // the backend is on a different origin than the frontend, so we have to
@@ -23,11 +33,7 @@ const HEALTH_URL = `${API_HOST}/healthz`;
 
 type Health = "unknown" | "live" | "waking" | "down";
 
-/**
- * Tiny status dot in the navbar — polls /healthz and signals whether
- * the backend is awake. A real engineer's touch; lets the user know
- * up-front if the next request is going to be slow.
- */
+/** Polls /healthz so a slow first request can be explained before it happens. */
 function useBackendHealth(): Health {
   const [health, setHealth] = useState<Health>("unknown");
 
@@ -63,94 +69,66 @@ function useBackendHealth(): Health {
   return health;
 }
 
-const HEALTH_STYLES: Record<Health, { color: string; label: string }> = {
-  unknown: { color: "bg-ink-600", label: "Checking backend…" },
-  live: { color: "bg-aqi-good", label: "Backend live" },
-  waking: { color: "bg-aqi-moderate", label: "Backend waking up" },
-  down: { color: "bg-aqi-unhealthy", label: "Backend not responding" },
-};
+const NAV: Array<[string, string, boolean]> = [
+  // [path, label, visible on phones]
+  ["/", "Today", true],
+  ["/map", "Map", true],
+  ["/predictions", "Forecasts", true],
+  ["/how-it-works", "How it works", false],
+];
 
 export default function Navbar() {
   const health = useBackendHealth();
-  const style = HEALTH_STYLES[health];
 
   return (
     <header
-      className="sticky top-0 z-[2000] bg-ink-800/85 backdrop-blur-md border-b border-ink-700"
+      className="sticky top-0 z-[2000] border-b border-smoke-700 bg-smoke-950"
       style={{ paddingTop: "env(safe-area-inset-top)" }}
     >
-      <div className="h-14 px-3 sm:px-6 flex items-center justify-between gap-2">
-        <Link to="/" className="flex items-baseline gap-2 sm:gap-3 group min-w-0">
-          <span className="h-6 w-6 self-center shrink-0 rounded-md bg-gradient-to-br from-aqi-good via-aqi-moderate to-aqi-unhealthy shadow ring-1 ring-white/10" />
-          <span className="text-ink-100 font-semibold tracking-tight whitespace-nowrap">
-            AQI India
-          </span>
-          <span className="hidden lg:inline text-xs text-ink-200/70 italic truncate">
-            what to breathe before stepping outside
-          </span>
+      <div className="mx-auto flex h-14 max-w-data items-center justify-between gap-4 px-gutter sm:px-6 lg:px-gutter-lg">
+        <Link
+          to="/"
+          className="font-display text-[0.8125rem] font-bold uppercase tracking-wordmark text-smoke-100 transition-colors duration-tap ease-air hover:text-white"
+          style={{ fontVariationSettings: '"wdth" 106' }}
+        >
+          AQI&nbsp;India
         </Link>
 
-        <nav className="flex items-center gap-0.5 sm:gap-1 shrink-0">
-          <span
-            className="hidden md:flex items-center gap-1.5 mr-2 text-[11px] text-ink-200/80"
-            title={style.label}
-          >
-            <span
-              className={`inline-block h-2 w-2 rounded-full ${style.color} ${
-                health === "live" ? "animate-pulse" : ""
-              }`}
-            />
-            <span className="font-mono uppercase tracking-wider">
-              {health === "live"
-                ? "live"
-                : health === "waking"
-                ? "waking"
-                : health === "down"
-                ? "down"
-                : "—"}
-            </span>
-          </span>
+        <nav className="flex items-center gap-1 sm:gap-2">
+          <BackendNotice health={health} />
 
-          {/* Compact status dot on small screens (no label, just the colour) */}
-          <span
-            className="md:hidden mr-1"
-            title={style.label}
-            aria-label={style.label}
-          >
-            <span
-              className={`inline-block h-2 w-2 rounded-full ${style.color} ${
-                health === "live" ? "animate-pulse" : ""
-              }`}
-            />
-          </span>
+          {NAV.map(([to, label, onPhone]) => (
+            <NavLink
+              key={to}
+              to={to}
+              end={to === "/"}
+              className={({ isActive }) =>
+                `${onPhone ? "" : "hidden sm:inline-block "}u-label px-2 py-2 transition-colors duration-tap ease-air ${
+                  isActive
+                    ? "text-smoke-100"
+                    : "text-smoke-500 hover:text-smoke-200"
+                }`
+              }
+            >
+              {({ isActive }) => (
+                <span
+                  className={`border-b pb-1 transition-colors duration-tap ease-air ${
+                    isActive
+                      ? "border-[color:var(--accent)]"
+                      : "border-transparent"
+                  }`}
+                >
+                  {label}
+                </span>
+              )}
+            </NavLink>
+          ))}
 
-          {/* The logo links home too, but a wordmark is not a signpost —
-              without this the landing page is unreachable from every other
-              page unless you happen to try clicking the logo. */}
-          <NavLink
-            to="/"
-            end
-            className={({ isActive }) => `${linkBase} ${isActive ? linkActive : linkInactive}`}
-          >
-            Home
-          </NavLink>
-          <NavLink
-            to="/map"
-            className={({ isActive }) => `${linkBase} ${isActive ? linkActive : linkInactive}`}
-          >
-            Map
-          </NavLink>
-          <NavLink
-            to="/predictions"
-            className={({ isActive }) => `${linkBase} ${isActive ? linkActive : linkInactive}`}
-          >
-            Forecasts
-          </NavLink>
           <a
             href={DOCS_URL}
             target="_blank"
             rel="noreferrer noopener"
-            className={`${linkBase} ${linkInactive} hidden sm:inline-block`}
+            className="u-label hidden px-2 py-2 text-smoke-500 transition-colors duration-tap ease-air hover:text-smoke-200 lg:inline-block"
             title="Open the FastAPI Swagger UI"
           >
             API
@@ -158,5 +136,29 @@ export default function Navbar() {
         </nav>
       </div>
     </header>
+  );
+}
+
+/**
+ * Silent when healthy. "Waking" is worth saying because the next click will
+ * take thirty seconds; "offline" is worth saying because the numbers on
+ * screen are then coming from the build-time snapshot rather than from today.
+ */
+function BackendNotice({ health }: { health: Health }) {
+  if (health === "live" || health === "unknown") return null;
+
+  const waking = health === "waking";
+  return (
+    <span
+      className="u-label mr-1 hidden sm:inline-block"
+      style={{ color: waking ? "#F7E364" : "#F4705D" }}
+      title={
+        waking
+          ? "The backend is waking from sleep; the first request takes about 30 seconds."
+          : "The backend is not responding. Showing the last known readings."
+      }
+    >
+      {waking ? "Backend waking" : "Backend offline"}
+    </span>
   );
 }

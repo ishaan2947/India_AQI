@@ -1,14 +1,16 @@
 /**
- * Slim attribution footer. Lives at the bottom of the main app shell.
+ * Slim attribution strip for the app pages (map, forecasts, city detail),
+ * where the layout is a fixed-height shell and there is no room for a real
+ * colophon. The landing page suppresses it and ends with one instead — see
+ * App.tsx.
  *
- * Deliberately understated — one line of microcopy, real links, no widgets.
- * On phones it compresses to a single shorter line; full attribution at sm+.
+ * One line, real links, no widgets.
  */
 
 export default function Footer() {
   return (
     <footer
-      className="border-t border-ink-700 bg-ink-900 text-[11px] text-ink-200/70 px-3 sm:px-6 py-1.5 sm:py-2 flex items-center justify-between gap-3 whitespace-nowrap"
+      className="flex items-center justify-between gap-3 whitespace-nowrap border-t border-smoke-700 bg-smoke-950 px-gutter py-1.5 text-[11px] text-smoke-500 sm:px-6 sm:py-2"
       style={{ paddingBottom: "max(0.375rem, env(safe-area-inset-bottom))" }}
     >
       <div className="truncate">
@@ -17,30 +19,30 @@ export default function Footer() {
           href="https://github.com/ishaan2947"
           target="_blank"
           rel="noreferrer noopener"
-          className="text-ink-100 hover:underline"
+          className="text-smoke-300 transition-colors duration-tap ease-air hover:text-smoke-100"
         >
           Ishaan Nigam
         </a>
         <span className="hidden sm:inline">
-          . Air-quality data from{" "}
+          . Readings from{" "}
           <a
             href="https://waqi.info/"
             target="_blank"
             rel="noreferrer noopener"
-            className="text-ink-100 hover:underline"
+            className="text-smoke-300 transition-colors duration-tap ease-air hover:text-smoke-100"
           >
             WAQI
           </a>
-          . Forecast model retrains nightly.
+          , shown against CPCB bands. Indicative, not regulatory.
         </span>
       </div>
       <a
         href="https://github.com/ishaan2947/India_AQI"
         target="_blank"
         rel="noreferrer noopener"
-        className="shrink-0 hover:text-ink-100 transition"
+        className="shrink-0 transition-colors duration-tap ease-air hover:text-smoke-100"
       >
-        <span className="hidden sm:inline">Source on </span>GitHub →
+        <span className="hidden sm:inline">Source on </span>GitHub ↗
       </a>
     </footer>
   );
