@@ -24,8 +24,8 @@ export default defineConfig({
         short_name: "AQI India",
         description:
           "Real-time air quality monitoring and 24-hour ML forecasts for 30 Indian cities.",
-        theme_color: "#0b1220",
-        background_color: "#0b1220",
+        theme_color: "#0c0b0a",
+        background_color: "#0c0b0a",
         display: "standalone",
         orientation: "any",
         start_url: "/",
