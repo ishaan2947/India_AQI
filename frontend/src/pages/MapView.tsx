@@ -15,7 +15,7 @@ import Sidebar from "../components/Layout/Sidebar";
 
 export default function MapView() {
   return (
-    <div className="h-full grid grid-rows-[45dvh_1fr] md:grid-rows-1 md:grid-cols-[1fr_320px]">
+    <div className="grid h-full grid-rows-[52dvh_1fr] md:grid-cols-[1fr_20rem] md:grid-rows-1">
       <div className="relative min-h-0">
         <AQIMap />
       </div>

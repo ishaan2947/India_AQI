@@ -1,13 +1,16 @@
 /**
- * Full-width interactive Leaflet map centred on India.
+ * The map: thirty readings in their real spatial relationship.
  *
- * Renders one circular, AQI-coloured marker per monitored city. The
- * highest-AQI city gets a subtle CSS pulse so the eye is drawn to the
- * current hotspot. Auto-refreshes every 5 minutes.
+ * Art direction is borrowed from Windy and Apple's air-quality layer — the
+ * basemap is graded down to a near-monochrome ground (see `.leaflet-tile-pane`
+ * in index.css), every panel is a flat card with a hairline instead of a
+ * glossy rounded bubble, and the only saturated colour on screen is the data.
+ * The markers carry their own values, so the map answers "how bad is it
+ * there?" without a click.
  *
- * Clicking a marker opens its popup (with a "View detail" link inside);
- * we deliberately avoid auto-navigating away so the user can keep
- * exploring the map without losing context.
+ * The page accent follows the worst reading on screen, which is why the
+ * legend's needle and the sidebar's rules change colour from one hour to the
+ * next.
  */
 
 import { useEffect, useMemo, useState } from "react";
@@ -15,8 +18,9 @@ import { MapContainer, TileLayer, useMap } from "react-leaflet";
 
 import type { LatLngBoundsLiteral } from "leaflet";
 
+import { useAccent } from "../../hooks/useAccent";
 import { useCurrentAQI } from "../../hooks/useAQIData";
-import { getAllCategories } from "../../utils/aqiHelpers";
+import { getAQIBand, getAllCategories } from "../../utils/aqiHelpers";
 import AQIMarker from "./AQIMarker";
 
 // The subject is India, so the map is India. INDIA_BOUNDS is what we frame on
@@ -51,17 +55,20 @@ const ATTRIBUTION =
 export default function AQIMap() {
   const { data, loading, error } = useCurrentAQI();
 
-  const worstCityId = useMemo(() => {
+  const worst = useMemo(() => {
     if (!data) return null;
-    let worst: { id: number; aqi: number } | null = null;
+    let found: { id: number; aqi: number } | null = null;
     for (const city of data) {
       if (city.latest_aqi == null) continue;
-      if (!worst || city.latest_aqi > worst.aqi) {
-        worst = { id: city.id, aqi: city.latest_aqi };
+      if (!found || city.latest_aqi > found.aqi) {
+        found = { id: city.id, aqi: city.latest_aqi };
       }
     }
-    return worst?.id ?? null;
+    return found;
   }, [data]);
+
+  const worstBand = worst ? getAQIBand(worst.aqi) : null;
+  useAccent(worstBand?.textColor ?? null, worstBand?.color ?? null);
 
   return (
     <div className="relative h-full w-full">
@@ -72,6 +79,7 @@ export default function AQIMap() {
         minZoom={MIN_ZOOM}
         maxZoom={MAX_ZOOM}
         scrollWheelZoom
+        zoomControl={false}
         className="h-full w-full"
       >
         <ClampToIndia />
@@ -88,24 +96,18 @@ export default function AQIMap() {
           maxNativeZoom={MAX_ZOOM}
           noWrap
         />
+        <ZoomControl />
         {data?.map((city) => (
           <AQIMarker
             key={city.id}
             city={city}
-            isWorst={city.id === worstCityId}
+            isWorst={city.id === worst?.id}
           />
         ))}
       </MapContainer>
 
-      {loading && !data ? (
-        <ColdStartOverlay />
-      ) : null}
-
-      {error ? (
-        <div className="absolute top-4 left-4 z-[1000] bg-aqi-unhealthy/90 text-white text-sm px-3 py-2 rounded shadow max-w-md">
-          {error}
-        </div>
-      ) : null}
+      {loading && !data ? <ColdStartOverlay /> : null}
+      {error ? <ErrorNotice message={error} /> : null}
 
       <Legend />
     </div>
@@ -142,53 +144,128 @@ function ClampToIndia() {
 }
 
 /**
- * Shown only when we have no data yet. Free-tier Render takes ~30–60s to
- * wake from sleep — leave the user a hint so the loader doesn't feel broken.
+ * Our own zoom control rather than Leaflet's.
+ *
+ * Leaflet's is a pair of anchor tags carrying "+" and "−" as text content,
+ * which means fighting its stylesheet with `!important` for every state and
+ * still ending up with a browser-chrome-looking widget. Two buttons cost
+ * nothing and take the design system directly.
+ */
+function ZoomControl() {
+  const map = useMap();
+  const [zoom, setZoom] = useState(map.getZoom());
+
+  useEffect(() => {
+    const sync = () => setZoom(map.getZoom());
+    map.on("zoomend", sync);
+    return () => {
+      map.off("zoomend", sync);
+    };
+  }, [map]);
+
+  const atMin = zoom <= map.getMinZoom();
+  const atMax = zoom >= map.getMaxZoom();
+
+  const base =
+    "flex h-9 w-9 items-center justify-center text-smoke-200 transition-colors duration-tap ease-air hover:bg-smoke-800 hover:text-smoke-100 disabled:cursor-not-allowed disabled:text-smoke-600 disabled:hover:bg-transparent";
+
+  return (
+    <div className="absolute left-3 top-3 z-[1000] flex flex-col border border-smoke-700 bg-smoke-900 shadow-[0_8px_24px_rgba(0,0,0,0.5)] sm:left-4 sm:top-4">
+      <button
+        type="button"
+        onClick={() => map.zoomIn()}
+        disabled={atMax}
+        aria-label="Zoom in"
+        className={`${base} border-b border-smoke-700`}
+      >
+        <svg viewBox="0 0 14 14" aria-hidden className="h-3.5 w-3.5 stroke-current stroke-[1.5]">
+          <path d="M7 1v12M1 7h12" />
+        </svg>
+      </button>
+      <button
+        type="button"
+        onClick={() => map.zoomOut()}
+        disabled={atMin}
+        aria-label="Zoom out"
+        className={base}
+      >
+        <svg viewBox="0 0 14 14" aria-hidden className="h-3.5 w-3.5 stroke-current stroke-[1.5]">
+          <path d="M1 7h12" />
+        </svg>
+      </button>
+    </div>
+  );
+}
+
+/**
+ * Shown only when there is nothing to draw yet. Free-tier Render takes
+ * ~30–60s to wake from sleep, so the overlay says that in words rather than
+ * spinning at the reader.
  */
 function ColdStartOverlay() {
   const [showHint, setShowHint] = useState(false);
-  // After 4 s of waiting, surface the "waking up" hint.
   useEffect(() => {
     const t = window.setTimeout(() => setShowHint(true), 4000);
     return () => window.clearTimeout(t);
   }, []);
+
   return (
-    <div className="absolute inset-0 flex items-center justify-center bg-ink-900/65 pointer-events-none">
-      <div className="text-center">
-        <div className="skeleton h-9 w-56 mx-auto" />
-        {showHint ? (
-          <div className="text-ink-200 text-xs mt-3 max-w-xs leading-relaxed">
-            Waking the backend… first request after long idle takes ~30s on the
-            free tier.
-          </div>
-        ) : null}
+    <div className="pointer-events-none absolute inset-0 z-[900] flex items-center justify-center bg-smoke-950/70">
+      <div className="max-w-xs px-6 text-center">
+        <div className="skeleton mx-auto h-10 w-10 rounded-full" />
+        <p className="mt-4 font-serif text-body text-smoke-200">
+          {showHint
+            ? "Waking the backend. The free tier sleeps when nobody's looking; the first request takes about thirty seconds."
+            : "Loading readings…"}
+        </p>
       </div>
     </div>
   );
 }
 
-function Legend() {
-  const categories = getAllCategories();
+function ErrorNotice({ message }: { message: string }) {
   return (
-    <div className="absolute bottom-2 right-2 sm:bottom-4 sm:right-4 z-[1000] bg-ink-800/95 border border-ink-600 rounded-lg p-2 sm:p-3 text-[10px] sm:text-xs shadow-xl backdrop-blur-sm max-w-[calc(100%-1rem)]">
-      <div className="font-semibold text-ink-100 mb-1.5 sm:mb-2 tracking-tight">
-        AQI scale
-      </div>
-      <ul className="space-y-0.5 sm:space-y-1">
-        {categories.map((c) => (
-          <li key={c.key} className="flex items-center gap-1.5 sm:gap-2 text-ink-200">
-            <span
-              className="inline-block h-2.5 w-2.5 sm:h-3 sm:w-3 shrink-0 rounded-full border border-white/40"
-              style={{ background: c.color }}
-            />
-            <span className="font-mono tabular-nums w-12 sm:w-16">
-              {c.min}
-              {Number.isFinite(c.max) ? `–${c.max}` : "+"}
-            </span>
-            <span className="hidden sm:inline">{c.label}</span>
-          </li>
+    <div
+      role="status"
+      className="absolute left-3 top-16 z-[1000] max-w-sm border border-smoke-700 border-l-2 border-l-aqi-veryPoor bg-smoke-900 px-4 py-3 shadow-[0_8px_24px_rgba(0,0,0,0.5)] sm:left-4 sm:top-[4.5rem]"
+    >
+      <p className="u-label text-aqi-veryPoor-text">Readings unavailable</p>
+      <p className="mt-1.5 text-micro leading-relaxed text-smoke-200">{message}</p>
+    </div>
+  );
+}
+
+/**
+ * The scale as one continuous strip, matching the landing page's legend —
+ * it is a single dimension, so it should look like one object rather than six
+ * chips in a list.
+ */
+function Legend() {
+  const bands = getAllCategories();
+  return (
+    <div className="absolute bottom-6 right-3 z-[1000] w-[11.5rem] border border-smoke-700 bg-smoke-900/95 px-3 py-2.5 shadow-[0_8px_24px_rgba(0,0,0,0.5)] sm:bottom-8 sm:right-4 sm:w-[13rem]">
+      <p className="u-label">AQI · CPCB</p>
+      <div className="mt-2 flex h-2 w-full overflow-hidden">
+        {bands.map((b) => (
+          <span
+            key={b.key}
+            className="h-full"
+            style={{
+              background: b.color,
+              flexGrow: Math.min(b.max, 500) - b.min + 1,
+            }}
+          />
         ))}
-      </ul>
+      </div>
+      <div className="mt-1 flex justify-between text-[10px] text-smoke-500 tnum">
+        <span>0</span>
+        <span>200</span>
+        <span>400</span>
+        <span>500</span>
+      </div>
+      <p className="mt-1.5 text-[10px] leading-tight text-smoke-500">
+        Good to severe. Marker size follows the reading.
+      </p>
     </div>
   );
 }
