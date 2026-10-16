@@ -40,8 +40,7 @@ from sqlalchemy.pool import StaticPool
 from backend import crud, models
 from backend.database import Base, get_db
 from backend.main import app
-from backend.routers import predictions as predictions_router
-from backend.services import ml_model
+from backend.services import forecast_cache, ml_model
 from backend.services.fetcher import AQISample
 
 
@@ -124,9 +123,9 @@ def empty_prediction_cache() -> Iterator[None]:
     first test's database — a pass for entirely the wrong reason, and the
     kind of failure that only shows up when the suite is reordered.
     """
-    predictions_router.clear_prediction_cache()
+    forecast_cache.clear()
     yield
-    predictions_router.clear_prediction_cache()
+    forecast_cache.clear()
 
 
 @pytest.fixture(name="anchor_hour")
@@ -174,7 +173,12 @@ class StubTree:
         self.value = value
         self.log = log
 
-    def predict(self, X):  # noqa: N803 - matches sklearn's parameter name
+    def predict(self, X, check_input: bool = True):  # noqa: N803 - sklearn's name
+        # `check_input` exists because the real DecisionTreeRegressor takes it
+        # and the forecast loop passes it: validating the same nine floats
+        # 86,400 times is most of the cost of a whole-country forecast. A
+        # double that can't be called the way the real object is called isn't
+        # standing in for it.
         self.log.append(list(X[0]))
         return [self.value]
 
