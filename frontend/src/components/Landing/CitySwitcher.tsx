@@ -20,11 +20,27 @@
  *     the same thing it heard before.
  *   - Click anywhere outside to dismiss.
  *
- * It opens *upward*: the reading sits at the bottom of the hero band, and a
- * panel dropping down from it would open off the bottom of the screen.
+ * It prefers to open *upward*, because the reading sits at the bottom of the
+ * hero band and a panel dropping down from there would run off the screen.
+ * "Prefers", not "always": the first version always opened upward and was
+ * absolutely positioned inside the hero, so once the page was scrolled even
+ * slightly the top of the panel was clipped by the landing page's scroll
+ * container and the first few cities — Agra among them — simply weren't
+ * there. It is portalled to the body with fixed positioning now, so no
+ * ancestor's overflow can crop it, and it flips below the button when there
+ * isn't room above.
  */
 
-import { memo, useCallback, useEffect, useId, useRef, useState } from "react";
+import {
+  memo,
+  useCallback,
+  useEffect,
+  useId,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
+import { createPortal } from "react-dom";
 
 import { CITY_IMAGES, preloadCityImage, spriteCell } from "../../data/cityImages";
 import type { CityWithLatest } from "../../types";
@@ -59,6 +75,59 @@ export default function CitySwitcher({
   const listId = useId();
   const optionId = (i: number) => `${listId}-opt-${i}`;
 
+  const [position, setPosition] = useState({
+    left: 0,
+    top: 0,
+    maxHeight: 352,
+    width: 320,
+  });
+
+  /**
+   * Place the panel against the button in viewport coordinates.
+   *
+   * Above if it fits, below if it doesn't, and never taller than the space
+   * it has — a list that runs off the screen is the same bug in a different
+   * direction.
+   */
+  const reposition = useCallback(() => {
+    const button = buttonRef.current;
+    if (!button) return;
+    const rect = button.getBoundingClientRect();
+    const gap = 12;
+    const margin = 16;
+    const width = Math.min(320, window.innerWidth - margin * 2);
+    const spaceAbove = rect.top - gap - margin;
+    const spaceBelow = window.innerHeight - rect.bottom - gap - margin;
+    const preferAbove = spaceAbove >= Math.min(352, spaceBelow || 0) || spaceAbove > spaceBelow;
+    const maxHeight = Math.max(
+      180,
+      Math.min(352, preferAbove ? spaceAbove : spaceBelow),
+    );
+
+    setPosition({
+      left: Math.min(
+        Math.max(margin, rect.left),
+        window.innerWidth - width - margin,
+      ),
+      top: preferAbove ? rect.top - gap - maxHeight : rect.bottom + gap,
+      maxHeight,
+      width,
+    });
+  }, []);
+
+  useLayoutEffect(() => {
+    if (!open) return;
+    reposition();
+    // `true` so this also catches the landing page's inner scroll container,
+    // which does not bubble its scroll events.
+    window.addEventListener("scroll", reposition, true);
+    window.addEventListener("resize", reposition);
+    return () => {
+      window.removeEventListener("scroll", reposition, true);
+      window.removeEventListener("resize", reposition);
+    };
+  }, [open, reposition]);
+
   // Opening moves focus into the list; closing puts it back on the button,
   // but only when the list had it — otherwise a background re-render that
   // closes the panel would yank focus away from whatever the reader is doing.
@@ -86,7 +155,11 @@ export default function CitySwitcher({
   useEffect(() => {
     if (!open) return;
     const onPointerDown = (e: PointerEvent) => {
-      if (!rootRef.current?.contains(e.target as Node)) setOpen(false);
+      const target = e.target as Node;
+      // The panel is portalled, so "inside the component" is two elements.
+      if (rootRef.current?.contains(target)) return;
+      if (listRef.current?.contains(target)) return;
+      setOpen(false);
     };
     document.addEventListener("pointerdown", onPointerDown);
     return () => document.removeEventListener("pointerdown", onPointerDown);
@@ -200,17 +273,25 @@ export default function CitySwitcher({
         </svg>
       </button>
 
-      {open ? (
-        <ul
-          ref={listRef}
-          id={listId}
-          role="listbox"
-          tabIndex={-1}
-          aria-label="Cities"
-          aria-activedescendant={optionId(activeIndex)}
-          onKeyDown={onListKeyDown}
-          className="absolute bottom-full left-0 z-50 mb-3 max-h-[min(22rem,50dvh)] w-[min(20rem,calc(100vw-2rem))] overflow-y-auto border border-smoke-700 bg-smoke-950 py-1 shadow-[0_24px_60px_rgba(0,0,0,0.65)]"
-        >
+      {open
+        ? createPortal(
+            <ul
+              ref={listRef}
+              id={listId}
+              role="listbox"
+              tabIndex={-1}
+              aria-label="Cities"
+              aria-activedescendant={optionId(activeIndex)}
+              onKeyDown={onListKeyDown}
+              style={{
+                left: position.left,
+                top: position.top,
+                width: position.width,
+                maxHeight: position.maxHeight,
+              }}
+              // Above the masthead's z-index, since the panel can overlap it.
+              className="fixed z-[3000] overflow-y-auto overscroll-contain border border-smoke-700 bg-smoke-950 py-1 shadow-[0_24px_60px_rgba(0,0,0,0.65)]"
+            >
           {cities.map((c, i) => (
             <CityOption
               key={c.id}
@@ -222,9 +303,11 @@ export default function CitySwitcher({
               onHover={setActiveIndex}
               onPick={commit}
             />
-          ))}
-        </ul>
-      ) : null}
+              ))}
+            </ul>,
+            document.body,
+          )
+        : null}
     </div>
   );
 }
@@ -271,7 +354,10 @@ const CityOption = memo(function CityOption({
     >
       <span
         aria-hidden
-        className="h-7 w-10 shrink-0"
+        // 56x38, up from 40x28: the old size was too small to show a
+        // cityscape, which reads as blur no matter how many pixels are
+        // behind it. The sprite's cells are 2x this.
+        className="h-[38px] w-14 shrink-0"
         style={{
           ...(cell ?? { backgroundColor: "#231F1D" }),
           boxShadow: "inset 0 0 0 1px rgba(12,11,10,0.6)",
