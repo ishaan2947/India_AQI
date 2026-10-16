@@ -1,41 +1,63 @@
 /**
- * Per-city deep-dive: current snapshot card, 24h trend, and 24h forecast.
+ * One city, in full.
+ *
+ * The old page was four cards: an advice banner, a summary card, a history
+ * chart, a forecast chart. Four boxes, four borders, four headings, and the
+ * reader assembling the story themselves.
+ *
+ * The order here is the same argument the front page makes — the reading,
+ * then where it sits against the other twenty-nine, then the shape of the
+ * day, then what the air is actually made of, then what the model expects.
+ * One column of evidence rather than a grid of containers.
  */
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
-import CityCard from "../components/Dashboard/CityCard";
-import PredictionPanel from "../components/Dashboard/PredictionPanel";
-import TrendChart from "../components/Dashboard/TrendChart";
+import CityTimeline from "../components/City/CityTimeline";
+import Pollutants from "../components/City/Pollutants";
+import { Reveal } from "../components/motion/Reveal";
 import { fetchCity, fetchCityHistory } from "../api/client";
-import type { CityWithLatest } from "../types";
-import { getAQIAdvice, getAQIColor } from "../utils/aqiHelpers";
+import { useAccent } from "../hooks/useAccent";
+import { useCurrentAQI } from "../hooks/useAQIData";
+import { useCityPrediction } from "../hooks/usePredictions";
+import type { AQIReading, CityWithLatest } from "../types";
+import {
+  formatISTClock,
+  formatISTHourLabel,
+  formatTimestamp,
+  getAQIAdvice,
+  getAQIBand,
+} from "../utils/aqiHelpers";
 
 export default function CityDetail() {
   const { cityId } = useParams<{ cityId: string }>();
   const id = cityId ? Number(cityId) : null;
 
   const [city, setCity] = useState<CityWithLatest | null>(null);
-  const [trendDelta, setTrendDelta] = useState<number | null>(null);
+  const [latestReading, setLatestReading] = useState<AQIReading | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  const all = useCurrentAQI();
+  const prediction = useCityPrediction(id);
 
   useEffect(() => {
     if (id == null) return;
     let cancelled = false;
+    setCity(null);
+    setLatestReading(null);
+    setError(null);
     (async () => {
       try {
         const [c, hist] = await Promise.all([
           fetchCity(id),
-          fetchCityHistory(id, 8),
+          // The newest history row carries the full pollutant breakdown, so
+          // this doubles as the /latest call the page would otherwise make.
+          fetchCityHistory(id, 24),
         ]);
         if (cancelled) return;
         setCity(c);
-        // Compare current value with the reading ≈6h ago.
-        if (hist.length >= 2 && c.latest_aqi != null) {
-          const older = hist[0].aqi_value;
-          setTrendDelta(c.latest_aqi - older);
-        }
+        setLatestReading(hist.length > 0 ? hist[hist.length - 1] : null);
       } catch (err) {
         if (!cancelled) {
           setError(err instanceof Error ? err.message : "Failed to load city");
@@ -47,49 +69,297 @@ export default function CityDetail() {
     };
   }, [id]);
 
+  const aqi = city?.latest_aqi ?? null;
+  const band = aqi != null ? getAQIBand(aqi) : null;
+  useAccent(band?.textColor ?? null, band?.color ?? null);
+
+  // Where this city sits among the thirty — the single most useful piece of
+  // context a number like 231 can be given, and it costs one sort.
+  const rank = useMemo(() => {
+    if (!all.data || aqi == null || !city) return null;
+    const withReadings = all.data.filter((c) => c.latest_aqi != null);
+    const sorted = withReadings
+      .slice()
+      .sort((a, b) => (b.latest_aqi ?? 0) - (a.latest_aqi ?? 0));
+    const index = sorted.findIndex((c) => c.id === city.id);
+    return index < 0 ? null : { place: index + 1, of: sorted.length };
+  }, [all.data, aqi, city]);
+
+  const forecast = useMemo(() => {
+    const points = prediction.data?.points ?? [];
+    if (points.length === 0) return null;
+    const peak = points.reduce((a, b) =>
+      b.predicted_aqi > a.predicted_aqi ? b : a,
+    );
+    const trough = points.reduce((a, b) =>
+      b.predicted_aqi < a.predicted_aqi ? b : a,
+    );
+    const end = points[points.length - 1];
+    return {
+      peak,
+      trough,
+      end,
+      change: aqi != null ? end.predicted_aqi - aqi : null,
+      meanConfidence:
+        points.reduce((acc, p) => acc + p.confidence_score, 0) / points.length,
+    };
+  }, [prediction.data, aqi]);
+
   if (id == null) {
-    return <div className="p-6 text-ink-200">Invalid city id.</div>;
+    return (
+      <div className="p-6 font-serif text-body text-smoke-300">
+        Invalid city id.
+      </div>
+    );
   }
 
   return (
-    <div className="p-4 sm:p-6 space-y-4 sm:space-y-6 overflow-y-auto h-full">
-      <Link to="/map" className="text-sm text-ink-200 hover:text-ink-100">
-        ← Back to map
-      </Link>
+    <div className="h-full overflow-y-auto">
+      <div className="mx-auto max-w-data px-gutter py-8 sm:px-6 lg:px-gutter-lg lg:py-12">
+        <Link
+          to="/map"
+          className="group inline-flex items-baseline gap-2 text-micro text-smoke-500 transition-colors duration-tap ease-air hover:text-smoke-200"
+        >
+          <span
+            aria-hidden
+            className="transition-transform duration-move ease-air group-hover:-translate-x-1"
+          >
+            ←
+          </span>
+          Back to the map
+        </Link>
 
-      {error ? (
-        <div className="text-aqi-unhealthy">{error}</div>
-      ) : !city ? (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="skeleton h-40" />
-          <div className="skeleton h-40 md:col-span-2" />
-        </div>
-      ) : (
-        <>
-          {city.latest_aqi != null ? (
-            <div
-              className="flex items-start gap-3 border-l-4 rounded-r-md bg-ink-800/70 px-4 py-3"
-              style={{ borderColor: getAQIColor(city.latest_aqi) }}
+        {error ? (
+          <div className="mt-10">
+            <h1 className="font-serif text-display font-normal text-smoke-100">
+              That city didn&rsquo;t load.
+            </h1>
+            <p className="u-prose mt-4 max-w-prose">{error}</p>
+            <Link
+              to="/"
+              className="mt-6 inline-block text-body font-semibold text-smoke-100 underline decoration-smoke-600 underline-offset-4"
             >
-              <span className="text-[11px] uppercase tracking-wider text-ink-200/80 mt-0.5 shrink-0">
-                Today
-              </span>
-              <p className="text-sm text-ink-100 leading-snug">
-                {getAQIAdvice(city.latest_aqi)}
-              </p>
-            </div>
-          ) : null}
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <CityCard city={city} trendDelta={trendDelta} />
-            <div className="md:col-span-2">
-              <TrendChart cityId={city.id} cityName={city.name} />
-            </div>
+              Back to today&rsquo;s air
+            </Link>
           </div>
+        ) : !city ? (
+          <Skeleton />
+        ) : (
+          <>
+            {/* ---- The reading ---- */}
+            <header className="mt-6">
+              <p className="u-label text-smoke-500">{city.state}</p>
+              <h1 className="mt-1 text-display text-smoke-100">{city.name}</h1>
 
-          <PredictionPanel city={city} />
-        </>
-      )}
+              {aqi != null && band ? (
+                <>
+                  <div className="mt-6 flex flex-wrap items-end gap-x-6 gap-y-2 border-t border-smoke-700 pt-6">
+                    <span
+                      className="u-figure text-[clamp(4rem,11vw,8rem)] leading-[0.82]"
+                      style={{ color: band.textColor }}
+                    >
+                      {Math.round(aqi)}
+                    </span>
+                    <span className="mb-1">
+                      <span className="block font-serif text-lead text-smoke-100">
+                        {band.verdict}
+                      </span>
+                      <span
+                        className="mt-1 block u-label"
+                        style={{ color: band.textColor }}
+                      >
+                        AQI · {band.label}
+                        {rank ? ` · ${ordinal(rank.place)} worst of ${rank.of}` : ""}
+                      </span>
+                    </span>
+                  </div>
+
+                  <p className="u-prose mt-5 max-w-prose">
+                    {getAQIAdvice(aqi)}
+                  </p>
+
+                  <dl className="mt-5 flex flex-wrap items-baseline gap-x-6 gap-y-1 text-micro text-smoke-300 tnum">
+                    <Fact label="Reading for">
+                      {formatISTClock(city.latest_timestamp) ?? "unknown hour"}
+                    </Fact>
+                    <Fact label="Updated">
+                      {formatTimestamp(city.latest_timestamp)}
+                    </Fact>
+                    <Fact label="Source">
+                      {city.latest_source?.toLowerCase() === "synthetic"
+                        ? "Synthetic fallback"
+                        : "WAQI"}
+                    </Fact>
+                    <Fact label="Station">
+                      {city.lat.toFixed(2)}°N {city.lng.toFixed(2)}°E
+                    </Fact>
+                  </dl>
+                </>
+              ) : (
+                <p className="u-prose mt-6">
+                  No reading has arrived for {city.name} yet.
+                </p>
+              )}
+            </header>
+
+            {/* ---- The shape of the day ---- */}
+            <div className="mt-12 lg:mt-16">
+              <CityTimeline cityId={city.id} cityName={city.name} />
+            </div>
+
+            {/* ---- Composition + what the model expects ---- */}
+            <Reveal className="mt-14 grid gap-12 lg:grid-cols-[minmax(0,28rem)_1fr] lg:gap-20">
+              <Pollutants reading={latestReading} />
+
+              <div>
+                <h2 className="u-label">Next 24 hours</h2>
+                {forecast ? (
+                  <>
+                    <p className="u-prose mt-3">
+                      The model expects a peak of{" "}
+                      <span
+                        className="tnum"
+                        style={{
+                          color: getAQIBand(forecast.peak.predicted_aqi)
+                            .textColor,
+                        }}
+                      >
+                        {Math.round(forecast.peak.predicted_aqi)}
+                      </span>{" "}
+                      around{" "}
+                      {formatISTHourLabel(forecast.peak.prediction_for)} IST and
+                      a low of{" "}
+                      <span className="tnum text-smoke-100">
+                        {Math.round(forecast.trough.predicted_aqi)}
+                      </span>{" "}
+                      around{" "}
+                      {formatISTHourLabel(forecast.trough.prediction_for)}.
+                      {forecast.change != null ? (
+                        <>
+                          {" "}
+                          By this time tomorrow it has the air{" "}
+                          {forecast.change >= 0 ? "worse" : "better"} by{" "}
+                          <span className="tnum text-smoke-100">
+                            {Math.abs(Math.round(forecast.change))}
+                          </span>
+                          .
+                        </>
+                      ) : null}
+                    </p>
+                    <dl className="mt-5 border-t border-smoke-800">
+                      <SummaryRow
+                        label="Peak"
+                        value={`${Math.round(forecast.peak.predicted_aqi)} at ${formatISTHourLabel(
+                          forecast.peak.prediction_for,
+                        )} IST`}
+                      />
+                      <SummaryRow
+                        label="Low"
+                        value={`${Math.round(forecast.trough.predicted_aqi)} at ${formatISTHourLabel(
+                          forecast.trough.prediction_for,
+                        )} IST`}
+                      />
+                      <SummaryRow
+                        label="Tree agreement"
+                        value={`${Math.round(forecast.meanConfidence * 100)}% mean`}
+                      />
+                      <SummaryRow
+                        label="Model run"
+                        value={formatTimestamp(prediction.data?.generated_at)}
+                      />
+                    </dl>
+                  </>
+                ) : prediction.error ? (
+                  <p className="u-prose mt-3">
+                    The forecast didn&rsquo;t load — {prediction.error}
+                  </p>
+                ) : (
+                  <p className="u-prose mt-3">Running the model…</p>
+                )}
+
+                <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3">
+                  <PageLink to="/predictions">All thirty forecasts</PageLink>
+                  <PageLink to="/">Today&rsquo;s ranking</PageLink>
+                </div>
+              </div>
+            </Reveal>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function ordinal(n: number): string {
+  const rest = n % 100;
+  if (rest >= 11 && rest <= 13) return `${n}th`;
+  switch (n % 10) {
+    case 1:
+      return `${n}st`;
+    case 2:
+      return `${n}nd`;
+    case 3:
+      return `${n}rd`;
+    default:
+      return `${n}th`;
+  }
+}
+
+function Fact({
+  label,
+  children,
+}: {
+  label: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="flex items-baseline gap-2">
+      <dt className="u-label text-smoke-500">{label}</dt>
+      <dd className="text-smoke-200">{children}</dd>
+    </div>
+  );
+}
+
+function SummaryRow({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex items-baseline justify-between gap-6 border-b border-smoke-800 py-2.5">
+      <dt className="text-micro text-smoke-500">{label}</dt>
+      <dd className="text-right text-body text-smoke-100 tnum">{value}</dd>
+    </div>
+  );
+}
+
+function PageLink({ to, children }: { to: string; children: React.ReactNode }) {
+  return (
+    <Link
+      to={to}
+      className="group inline-flex items-baseline gap-2 text-body font-semibold text-smoke-100 transition-colors duration-tap ease-air hover:text-white"
+    >
+      {children}
+      <span
+        aria-hidden
+        className="text-[color:var(--accent)] transition-transform duration-move ease-air group-hover:translate-x-1"
+      >
+        →
+      </span>
+    </Link>
+  );
+}
+
+/** Matches the real layout's geometry, so nothing jumps when data lands. */
+function Skeleton() {
+  return (
+    <div className="mt-6" aria-hidden>
+      <div className="skeleton h-3 w-24" />
+      <div className="skeleton mt-3 h-12 w-64" />
+      <div className="mt-6 flex items-end gap-6 border-t border-smoke-700 pt-6">
+        <div className="skeleton h-24 w-40" />
+        <div className="space-y-2">
+          <div className="skeleton h-5 w-32" />
+          <div className="skeleton h-3 w-44" />
+        </div>
+      </div>
+      <div className="skeleton mt-12 h-[320px] w-full" />
     </div>
   );
 }
