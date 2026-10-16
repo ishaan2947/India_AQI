@@ -81,9 +81,15 @@ export default function Predictions() {
       .sort((a, b) => (b.change as number) - (a.change as number));
     // Five worsening most, five improving most — the two ends of the same
     // distribution, which is the only part of it that is news.
-    const top = byChange.slice(0, 5);
-    const bottom = byChange.slice(-5).reverse();
-    return [...top, ...bottom].map((r) => ({
+    //
+    // Deduped, because with ten or fewer cities (a partially seeded database,
+    // or most of the set missing readings) the two slices overlap and the
+    // same city would be rendered twice under the same React key.
+    const picked = new Map<number, (typeof byChange)[number]>();
+    for (const r of [...byChange.slice(0, 5), ...byChange.slice(-5).reverse()]) {
+      if (!picked.has(r.cityId)) picked.set(r.cityId, r);
+    }
+    return [...picked.values()].map((r) => ({
       cityId: r.cityId,
       city: r.city,
       now: r.now,
