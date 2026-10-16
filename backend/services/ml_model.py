@@ -26,7 +26,7 @@ import math
 import random
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Optional, Tuple
+from typing import List, Optional, Tuple
 
 import joblib
 import numpy as np
@@ -201,7 +201,20 @@ def _predict_with_confidence(
 
     Confidence is `1 - normalised_stddev` of the per-tree predictions.
     """
-    per_tree = np.array([tree.predict(feature_row)[0] for tree in model.estimators_])
+    # The variance estimate is the whole cost of a forecast: 120 trees x 24
+    # steps x 30 cities is 86,400 calls into sklearn, and at this size almost
+    # all of each call is input validation rather than tree traversal.
+    #
+    # Converting once to the dtype sklearn would convert to anyway (trees are
+    # float32 internally) and then skipping the per-call validation leaves the
+    # arithmetic identical and removes the overhead — a whole-country forecast
+    # drops from tens of seconds to a few.
+    x = np.ascontiguousarray(feature_row, dtype=np.float32)
+    per_tree = np.fromiter(
+        (tree.predict(x, check_input=False)[0] for tree in model.estimators_),
+        dtype=np.float64,
+        count=len(model.estimators_),
+    )
     mean_pred = float(per_tree.mean())
     std_pred = float(per_tree.std())
 
@@ -276,7 +289,11 @@ def predict_city(
     return out
 
 
-def predict_all(db: Session) -> list[tuple[int, str, list[tuple[datetime, float, float]]]]:
+#: One city's forecast as `(city_id, city_name, [(when, aqi, confidence)])`.
+CityForecast = Tuple[int, str, List[Tuple[datetime, float, float]]]
+
+
+def predict_all(db: Session) -> List[CityForecast]:
     """Forecast every city. Returns `(city_id, city_name, points)` triples."""
     out: list[tuple[int, str, list[tuple[datetime, float, float]]]] = []
     for city in crud.list_cities(db):
