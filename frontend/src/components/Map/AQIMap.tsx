@@ -49,8 +49,6 @@ const MAX_ZOOM = 16;
 const ESRI = "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas";
 const BASE_TILES = `${ESRI}/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}`;
 const LABEL_TILES = `${ESRI}/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}`;
-const HILLSHADE_TILES =
-  "https://server.arcgisonline.com/ArcGIS/rest/services/Elevation/World_Hillshade/MapServer/tile/{z}/{y}/{x}";
 const ATTRIBUTION =
   'Tiles &copy; <a href="https://www.esri.com/">Esri</a> &middot; Esri, HERE, ' +
   'Garmin, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
@@ -104,16 +102,6 @@ export default function AQIMap() {
           url={BASE_TILES}
           maxZoom={MAX_ZOOM}
           maxNativeZoom={MAX_ZOOM}
-          noWrap
-        />
-        {/* Terrain relief, barely there: the plains stay flat and the
-            Himalaya, the Ghats and the Deccan edge pick up a little shape, so
-            the country reads as a place rather than a silhouette. */}
-        <TileLayer
-          url={HILLSHADE_TILES}
-          className="map-hillshade"
-          maxZoom={MAX_ZOOM}
-          maxNativeZoom={13}
           noWrap
         />
         <TileLayer

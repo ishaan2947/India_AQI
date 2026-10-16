@@ -394,13 +394,34 @@ table {
   outline: none;
 }
 
-/* Basemap grade. Esri's dark canvas is a cool neutral grey; this pulls the
-   saturation most of the way out, warms what's left toward the page ground
-   and drops it a stop and a half, so a 236 chip is the brightest thing on
-   screen by a wide margin. Applied to the tile pane only — markers, popups
-   and controls live in sibling panes and stay untouched. */
+/* Basemap grade, and how the sea gets its colour.
+ *
+ * Measured, after getting this wrong twice.
+ *
+ * The first pass used brightness(0.42) to make the value chips pop, which
+ * crushed Esri's canvas to near-black: on a coastal tile, water came out
+ * #020201 and land #10100e — a separation of 24 where the raw tile has 48.
+ * India had no coastline and the sea didn't read as sea, which is exactly
+ * what made the map look wrong.
+ *
+ * The second pass lifted the brightness and tried to tint the water with a
+ * `lighten` overlay. The idea is sound — every serious dark style (Mapbox
+ * Dark, CARTO Dark Matter, Windy, Apple) gives water a cool blue-black
+ * against neutral land, because that hue difference is what lets a coastline
+ * read without drawing one — but blending against a filtered, separately
+ * composited tile layer is unreliable, and it flooded the whole map with the
+ * tint instead.
+ *
+ * What actually works needs no overlay at all. Esri's water is already
+ * faintly blue (#222327, blue-over-red +5) and its land is neutral grey
+ * (#3f3f41, +2). Saturation multiplies distance from grey, so it amplifies
+ * the water's hue and leaves the land alone: at saturate(4), water lands at
+ * #151926 (+17) and land at #303037 (+7). Separation stays at 40, the sea is
+ * unmistakably sea, and the only saturated thing on the screen is still the
+ * data.
+ */
 .leaflet-tile-pane {
-  filter: brightness(0.42) saturate(0.3) sepia(0.2) contrast(1.12);
+  filter: brightness(0.82) saturate(4) contrast(1.04);
 }
 
 /* ---------------------------------------------------------------- */
@@ -505,13 +526,11 @@ table {
 /* Terrain and labels.                                               */
 /* ---------------------------------------------------------------- */
 
-/* Hillshade, blended into the ground rather than laid over it. soft-light
-   keeps the basemap's values and only bends them where there is relief. */
-.map-hillshade {
-  mix-blend-mode: soft-light;
-  opacity: 0.4;
-  filter: grayscale(1) contrast(1.15);
-}
+/* A hillshade layer lived here. Removed after measuring: over water the
+   relief data is flat, and soft-light against it lifted the ocean from
+   #171826 to #484847 — washing out the ground it was supposed to add depth
+   to, and raising it above the water tint so the sea stopped reading as sea.
+   It also doubled the tile requests. Depth is not worth a flat map. */
 
 /* Labels are a separate raster layer; opacity is driven by zoom from
    AQIMap, and this keeps them from ever out-shouting the data. */
