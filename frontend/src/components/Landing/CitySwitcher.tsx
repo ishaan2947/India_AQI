@@ -128,11 +128,16 @@ export default function CitySwitcher({
     if (!open) return;
     reposition();
     // Capture phase, so this also sees the landing page's inner scroll
-    // container, whose scroll events never reach window.
-    window.addEventListener("scroll", reposition, true);
+    // container, whose scroll events never reach window. Scrolling *inside*
+    // the list doesn't move the button, so it doesn't need a recalculation.
+    const onAnyScroll = (e: Event) => {
+      if (e.target === listRef.current) return;
+      reposition();
+    };
+    window.addEventListener("scroll", onAnyScroll, true);
     window.addEventListener("resize", reposition);
     return () => {
-      window.removeEventListener("scroll", reposition, true);
+      window.removeEventListener("scroll", onAnyScroll, true);
       window.removeEventListener("resize", reposition);
     };
   }, [open, reposition]);
@@ -326,7 +331,13 @@ export default function CitySwitcher({
                 ) : null}
               </div>
 
-              <div className="relative min-h-0 flex-1">
+              {/* A flex column, not a block: the list below sizes itself by
+                  flexing, because a percentage height resolves against a
+                  parent's *specified* height and this one's is auto. With
+                  `h-full` the list measured 1857px inside a 369px box — it
+                  overflowed its parent instead of scrolling inside itself,
+                  and the panel stopped being scrollable at all. */}
+              <div className="relative flex min-h-0 flex-auto flex-col">
                 {/* Edge fades: the honest way to say "there is more" when the
                     scrollbar is a hairline. */}
                 {edges.top ? (
@@ -348,7 +359,12 @@ export default function CitySwitcher({
                   role="listbox"
                   aria-label="Cities"
                   onScroll={syncEdges}
-                  className="h-full overflow-y-auto overscroll-contain py-1"
+                  // flex-auto, not flex-1: with `flex: 1 1 0%` the
+                  // hypothetical size is zero, so a *short* list would
+                  // collapse the panel to its header. `auto` takes the
+                  // content height, which the max-height then shrinks when
+                  // there are thirty of them.
+                  className="min-h-0 flex-auto overflow-y-auto overscroll-contain py-1"
                 >
                   {matches.map((c, i) => (
                     <CityOption
