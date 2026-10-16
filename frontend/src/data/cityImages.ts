@@ -31,6 +31,34 @@ export interface CityImage {
   source: string;
   /** Where to anchor the crop, e.g. "center 58%". */
   objectPosition: string;
+  /** This city's cell in the shared thumbnail sprite. */
+  thumb?: { col: number; row: number };
+  thumbGrid?: { cols: number; rows: number };
+}
+
+/**
+ * One sprite holds every city's thumbnail.
+ *
+ * The dropdown shows thirty of them at once. As thirty files that is thirty
+ * requests the instant the list opens; as one sprite it is a single 31KB
+ * image, and every cell is a real photograph rather than a blown-up blur.
+ */
+export const THUMB_SPRITE = "/cities/thumbs.webp";
+
+/** The background-size / background-position pair for one city's cell. */
+export function spriteCell(image: CityImage): {
+  backgroundImage: string;
+  backgroundSize: string;
+  backgroundPosition: string;
+} | null {
+  if (!image.thumb || !image.thumbGrid) return null;
+  const { cols, rows } = image.thumbGrid;
+  const { col, row } = image.thumb;
+  return {
+    backgroundImage: `url("${THUMB_SPRITE}")`,
+    backgroundSize: `${cols * 100}% ${rows * 100}%`,
+    backgroundPosition: `${(col / (cols - 1)) * 100}% ${(row / (rows - 1)) * 100}%`,
+  };
 }
 
 export const CITY_IMAGES: Record<string, CityImage> = json as Record<

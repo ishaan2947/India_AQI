@@ -10,7 +10,15 @@
     "licenseUrl": "https://unsplash.com/license",
     "sourceUrl": "https://unsplash.com/photos/DDiLYt_F88w",
     "source": "(kept by hand)",
-    "objectPosition": "center 58%"
+    "objectPosition": "center 58%",
+    "thumb": {
+      "col": 0,
+      "row": 0
+    },
+    "thumbGrid": {
+      "cols": 6,
+      "rows": 5
+    }
   },
   "Ahmedabad": {
     "slug": "ahmedabad",
@@ -24,7 +32,15 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sabarmati_1_Madhur.jpg",
     "source": "Sabarmati Riverfront",
     "objectPosition": "center 50%",
-    "fileTitle": "Sabarmati 1 Madhur"
+    "fileTitle": "Sabarmati 1 Madhur",
+    "thumb": {
+      "col": 1,
+      "row": 0
+    },
+    "thumbGrid": {
+      "cols": 6,
+      "rows": 5
+    }
   },
   "Amritsar": {
     "slug": "amritsar",
@@ -38,7 +54,15 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:The_Golden_Temple_of_Amrithsar_7.jpg",
     "source": "Golden Temple",
     "objectPosition": "center 50%",
-    "fileTitle": "The Golden Temple of Amrithsar 7"
+    "fileTitle": "The Golden Temple of Amrithsar 7",
+    "thumb": {
+      "col": 2,
+      "row": 0
+    },
+    "thumbGrid": {
+      "cols": 6,
+      "rows": 5
+    }
   },
   "Bangalore": {
     "slug": "bangalore",
@@ -52,7 +76,15 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lighting_of_Vidhana_Soudha.jpg",
     "source": "Vidhana Soudha",
     "objectPosition": "center 50%",
-    "fileTitle": "Lighting of Vidhana Soudha"
+    "fileTitle": "Lighting of Vidhana Soudha",
+    "thumb": {
+      "col": 3,
+      "row": 0
+    },
+    "thumbGrid": {
+      "cols": 6,
+      "rows": 5
+    }
   },
   "Bhopal": {
     "slug": "bhopal",
@@ -66,7 +98,15 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Upper_Lake,_Bhopal,_M.P.jpg",
     "source": "Upper Lake, Bhopal",
     "objectPosition": "center 50%",
-    "fileTitle": "Upper Lake, Bhopal, M.P"
+    "fileTitle": "Upper Lake, Bhopal, M.P",
+    "thumb": {
+      "col": 4,
+      "row": 0
+    },
+    "thumbGrid": {
+      "cols": 6,
+      "rows": 5
+    }
   },
   "Chandigarh": {
     "slug": "chandigarh",
@@ -80,7 +120,15 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sukhna_Lake_image.jpg",
     "source": "Sukhna Lake",
     "objectPosition": "center 50%",
-    "fileTitle": "Sukhna Lake image"
+    "fileTitle": "Sukhna Lake image",
+    "thumb": {
+      "col": 5,
+      "row": 0
+    },
+    "thumbGrid": {
+      "cols": 6,
+      "rows": 5
+    }
   },
   "Chennai": {
     "slug": "chennai",
@@ -94,7 +142,15 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chennai_-_bird%27s-eye_view.jpg",
     "source": "Marina Beach",
     "objectPosition": "center 50%",
-    "fileTitle": "Chennai - bird's-eye view"
+    "fileTitle": "Chennai - bird's-eye view",
+    "thumb": {
+      "col": 0,
+      "row": 1
+    },
+    "thumbGrid": {
+      "cols": 6,
+      "rows": 5
+    }
   },
   "Coimbatore": {
     "slug": "coimbatore",
@@ -108,7 +164,15 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:PERUR_PATTEESHWARAR_TEMPLE.jpg",
     "source": "Coimbatore",
     "objectPosition": "center 50%",
-    "fileTitle": "PERUR PATTEESHWARAR TEMPLE"
+    "fileTitle": "PERUR PATTEESHWARAR TEMPLE",
+    "thumb": {
+      "col": 1,
+      "row": 1
+    },
+    "thumbGrid": {
+      "cols": 6,
+      "rows": 5
+    }
   },
   "Delhi": {
     "slug": "delhi",
@@ -122,7 +186,15 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:India_Gate_from_Rajpath.jpg",
     "source": "India Gate",
     "objectPosition": "center 50%",
-    "fileTitle": "India Gate from Rajpath"
+    "fileTitle": "India Gate from Rajpath",
+    "thumb": {
+      "col": 2,
+      "row": 1
+    },
+    "thumbGrid": {
+      "cols": 6,
+      "rows": 5
+    }
   },
   "Guwahati": {
     "slug": "guwahati",
@@ -136,7 +208,15 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kamakhya_Temple_-_DEV_8829.jpg",
     "source": "Kamakhya Temple",
     "objectPosition": "center 50%",
-    "fileTitle": "Kamakhya Temple - DEV 8829"
+    "fileTitle": "Kamakhya Temple - DEV 8829",
+    "thumb": {
+      "col": 3,
+      "row": 1
+    },
+    "thumbGrid": {
+      "cols": 6,
+      "rows": 5
+    }
   },
   "Hyderabad": {
     "slug": "hyderabad",
@@ -150,7 +230,15 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Charminar_at_Hyderabad_Telangana_India.jpg",
     "source": "Charminar",
     "objectPosition": "center 50%",
-    "fileTitle": "Charminar at Hyderabad Telangana India"
+    "fileTitle": "Charminar at Hyderabad Telangana India",
+    "thumb": {
+      "col": 4,
+      "row": 1
+    },
+    "thumbGrid": {
+      "cols": 6,
+      "rows": 5
+    }
   },
   "Indore": {
     "slug": "indore",
@@ -164,7 +252,15 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Indore_Rajwada01.jpg",
     "source": "Rajwada",
     "objectPosition": "center 50%",
-    "fileTitle": "Indore Rajwada01"
+    "fileTitle": "Indore Rajwada01",
+    "thumb": {
+      "col": 5,
+      "row": 1
+    },
+    "thumbGrid": {
+      "cols": 6,
+      "rows": 5
+    }
   },
   "Jaipur": {
     "slug": "jaipur",
@@ -178,7 +274,15 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:East_facade_Hawa_Mahal_Jaipur_from_ground_level_(July_2022)_-_img_01.jpg",
     "source": "Hawa Mahal",
     "objectPosition": "center 50%",
-    "fileTitle": "East facade Hawa Mahal Jaipur from ground level (July 2022) - img 01"
+    "fileTitle": "East facade Hawa Mahal Jaipur from ground level (July 2022) - img 01",
+    "thumb": {
+      "col": 0,
+      "row": 2
+    },
+    "thumbGrid": {
+      "cols": 6,
+      "rows": 5
+    }
   },
   "Jodhpur": {
     "slug": "jodhpur",
@@ -192,7 +296,15 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jodhpur_mehrangarh_fort_(enhanced).jpg",
     "source": "Mehrangarh",
     "objectPosition": "center 50%",
-    "fileTitle": "Jodhpur mehrangarh fort (enhanced)"
+    "fileTitle": "Jodhpur mehrangarh fort (enhanced)",
+    "thumb": {
+      "col": 1,
+      "row": 2
+    },
+    "thumbGrid": {
+      "cols": 6,
+      "rows": 5
+    }
   },
   "Kanpur": {
     "slug": "kanpur",
@@ -206,7 +318,15 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kanpur_Central_Railway_Station_Building_(Cant_Side_View).jpg",
     "source": "Kanpur",
     "objectPosition": "center 50%",
-    "fileTitle": "Kanpur Central Railway Station Building (Cant Side View)"
+    "fileTitle": "Kanpur Central Railway Station Building (Cant Side View)",
+    "thumb": {
+      "col": 2,
+      "row": 2
+    },
+    "thumbGrid": {
+      "cols": 6,
+      "rows": 5
+    }
   },
   "Kochi": {
     "slug": "kochi",
@@ -220,7 +340,15 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kochi,_Fishing_nets_at_sunset,_Kerala,_India.jpg",
     "source": "Fort Kochi",
     "objectPosition": "center 50%",
-    "fileTitle": "Kochi, Fishing nets at sunset, Kerala, India"
+    "fileTitle": "Kochi, Fishing nets at sunset, Kerala, India",
+    "thumb": {
+      "col": 3,
+      "row": 2
+    },
+    "thumbGrid": {
+      "cols": 6,
+      "rows": 5
+    }
   },
   "Kolkata": {
     "slug": "kolkata",
@@ -234,7 +362,15 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Victoria_Memorial_situated_in_Kolkata.jpg",
     "source": "Victoria Memorial, Kolkata",
     "objectPosition": "center 50%",
-    "fileTitle": "Victoria Memorial situated in Kolkata"
+    "fileTitle": "Victoria Memorial situated in Kolkata",
+    "thumb": {
+      "col": 4,
+      "row": 2
+    },
+    "thumbGrid": {
+      "cols": 6,
+      "rows": 5
+    }
   },
   "Lucknow": {
     "slug": "lucknow",
@@ -248,7 +384,15 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Bada_Imambada(Outer_view).jpg",
     "source": "Bara Imambara",
     "objectPosition": "center 50%",
-    "fileTitle": "Bada Imambada(Outer view)"
+    "fileTitle": "Bada Imambada(Outer view)",
+    "thumb": {
+      "col": 5,
+      "row": 2
+    },
+    "thumbGrid": {
+      "cols": 6,
+      "rows": 5
+    }
   },
   "Ludhiana": {
     "slug": "ludhiana",
@@ -262,7 +406,15 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mohinder_Singh_Randhawa_Library.jpg",
     "source": "Ludhiana",
     "objectPosition": "center 50%",
-    "fileTitle": "Mohinder Singh Randhawa Library"
+    "fileTitle": "Mohinder Singh Randhawa Library",
+    "thumb": {
+      "col": 0,
+      "row": 3
+    },
+    "thumbGrid": {
+      "cols": 6,
+      "rows": 5
+    }
   },
   "Meerut": {
     "slug": "meerut",
@@ -276,7 +428,15 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mustafa_Castle_--_night_shot.jpg",
     "source": "Meerut",
     "objectPosition": "center 50%",
-    "fileTitle": "Mustafa Castle -- night shot"
+    "fileTitle": "Mustafa Castle -- night shot",
+    "thumb": {
+      "col": 1,
+      "row": 3
+    },
+    "thumbGrid": {
+      "cols": 6,
+      "rows": 5
+    }
   },
   "Mumbai": {
     "slug": "mumbai",
@@ -290,7 +450,15 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mumbai_03-2016_27_skyline_at_Marine_Drive.jpg",
     "source": "Marine Drive, Mumbai",
     "objectPosition": "center 50%",
-    "fileTitle": "Mumbai 03-2016 27 skyline at Marine Drive"
+    "fileTitle": "Mumbai 03-2016 27 skyline at Marine Drive",
+    "thumb": {
+      "col": 2,
+      "row": 3
+    },
+    "thumbGrid": {
+      "cols": 6,
+      "rows": 5
+    }
   },
   "Nagpur": {
     "slug": "nagpur",
@@ -304,7 +472,15 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Dheekshabhoomi_in_Nagpur.jpg",
     "source": "Deekshabhoomi",
     "objectPosition": "center 50%",
-    "fileTitle": "Dheekshabhoomi in Nagpur"
+    "fileTitle": "Dheekshabhoomi in Nagpur",
+    "thumb": {
+      "col": 3,
+      "row": 3
+    },
+    "thumbGrid": {
+      "cols": 6,
+      "rows": 5
+    }
   },
   "Patna": {
     "slug": "patna",
@@ -318,7 +494,15 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Golghar_%E0%A5%AA.jpg",
     "source": "Golghar",
     "objectPosition": "center 50%",
-    "fileTitle": "Golghar ४"
+    "fileTitle": "Golghar ४",
+    "thumb": {
+      "col": 4,
+      "row": 3
+    },
+    "thumbGrid": {
+      "cols": 6,
+      "rows": 5
+    }
   },
   "Pune": {
     "slug": "pune",
@@ -332,7 +516,15 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Front_view_of_Shaniwar_Wada_illuminated.jpg",
     "source": "Shaniwar Wada",
     "objectPosition": "center 50%",
-    "fileTitle": "Front view of Shaniwar Wada illuminated"
+    "fileTitle": "Front view of Shaniwar Wada illuminated",
+    "thumb": {
+      "col": 5,
+      "row": 3
+    },
+    "thumbGrid": {
+      "cols": 6,
+      "rows": 5
+    }
   },
   "Raipur": {
     "slug": "raipur",
@@ -346,7 +538,15 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Naya_Raipur,_Sector_19.png",
     "source": "Nava Raipur",
     "objectPosition": "center 50%",
-    "fileTitle": "Naya Raipur, Sector 19"
+    "fileTitle": "Naya Raipur, Sector 19",
+    "thumb": {
+      "col": 0,
+      "row": 4
+    },
+    "thumbGrid": {
+      "cols": 6,
+      "rows": 5
+    }
   },
   "Ranchi": {
     "slug": "ranchi",
@@ -360,7 +560,15 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Suspension_Bridge_Gonda_Hill_-_Ranchi_9305.JPG",
     "source": "Ranchi",
     "objectPosition": "center 50%",
-    "fileTitle": "Suspension Bridge Gonda Hill - Ranchi 9305"
+    "fileTitle": "Suspension Bridge Gonda Hill - Ranchi 9305",
+    "thumb": {
+      "col": 1,
+      "row": 4
+    },
+    "thumbGrid": {
+      "cols": 6,
+      "rows": 5
+    }
   },
   "Surat": {
     "slug": "surat",
@@ -374,7 +582,15 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Surat_Diamond_Bourse_Aerial_View.jpg",
     "source": "Surat",
     "objectPosition": "center 50%",
-    "fileTitle": "Surat Diamond Bourse Aerial View"
+    "fileTitle": "Surat Diamond Bourse Aerial View",
+    "thumb": {
+      "col": 2,
+      "row": 4
+    },
+    "thumbGrid": {
+      "cols": 6,
+      "rows": 5
+    }
   },
   "Vadodara": {
     "slug": "vadodara",
@@ -388,7 +604,15 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lakshmi_Vilas_Palace,_Vadodara.jpg",
     "source": "Laxmi Vilas Palace",
     "objectPosition": "center 50%",
-    "fileTitle": "Lakshmi Vilas Palace, Vadodara"
+    "fileTitle": "Lakshmi Vilas Palace, Vadodara",
+    "thumb": {
+      "col": 3,
+      "row": 4
+    },
+    "thumbGrid": {
+      "cols": 6,
+      "rows": 5
+    }
   },
   "Varanasi": {
     "slug": "varanasi",
@@ -402,7 +626,15 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Dasaswamedh_ghat-varanasi_india-andres_larin.jpg",
     "source": "Dashashwamedh Ghat",
     "objectPosition": "center 50%",
-    "fileTitle": "Dasaswamedh ghat-varanasi india-andres larin"
+    "fileTitle": "Dasaswamedh ghat-varanasi india-andres larin",
+    "thumb": {
+      "col": 4,
+      "row": 4
+    },
+    "thumbGrid": {
+      "cols": 6,
+      "rows": 5
+    }
   },
   "Visakhapatnam": {
     "slug": "visakhapatnam",
@@ -416,6 +648,14 @@
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ropeway_on_Kailsagiri_hill.jpg",
     "source": "Kailasagiri",
     "objectPosition": "center 50%",
-    "fileTitle": "Ropeway on Kailsagiri hill"
+    "fileTitle": "Ropeway on Kailsagiri hill",
+    "thumb": {
+      "col": 5,
+      "row": 4
+    },
+    "thumbGrid": {
+      "cols": 6,
+      "rows": 5
+    }
   }
 }
