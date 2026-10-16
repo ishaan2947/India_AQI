@@ -34,8 +34,8 @@ export default function Colophon() {
               >
                 Ishaan Nigam
               </a>
-              , a software engineer at PwC on the Sightline AI team and a 2025
-              computer science graduate of Texas A&amp;M. The backend is
+              , a software engineer at Amazon and a 2025 computer science
+              graduate of Texas A&amp;M. The backend is
               FastAPI on Render's free tier, the frontend is Vite on Vercel,
               and the whole thing costs nothing a month to run — which is most
               of why it is built the way it is.{" "}
