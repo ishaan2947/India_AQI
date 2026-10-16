@@ -11,6 +11,7 @@ from sqlalchemy.orm import Session
 from .. import crud, schemas
 from ..database import get_db
 from ..services.fetcher import fetch_all_cities
+from .predictions import clear_prediction_cache
 
 logger = logging.getLogger(__name__)
 
@@ -72,6 +73,9 @@ def city_latest(city_id: int, db: Session = Depends(get_db)) -> schemas.AQIReadi
 async def admin_refresh(db: Session = Depends(get_db)) -> schemas.RefreshResponse:
     """Force an immediate fetch of new AQI data for all cities."""
     stored = await fetch_all_cities(db)
+    # New readings change every forecast, so the cached whole-country bundle
+    # is stale the moment this returns.
+    clear_prediction_cache()
     return schemas.RefreshResponse(
         stored_readings=stored,
         message=f"Stored {stored} new readings",

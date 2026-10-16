@@ -40,6 +40,7 @@ from sqlalchemy.pool import StaticPool
 from backend import crud, models
 from backend.database import Base, get_db
 from backend.main import app
+from backend.routers import predictions as predictions_router
 from backend.services import ml_model
 from backend.services.fetcher import AQISample
 
@@ -111,6 +112,21 @@ def isolated_model(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     """
     monkeypatch.setattr(ml_model, "MODEL_PATH", tmp_path / "model.joblib")
     monkeypatch.setattr(ml_model, "_loaded_model", None)
+
+
+@pytest.fixture(autouse=True)
+def empty_prediction_cache() -> Iterator[None]:
+    """
+    Drop the whole-country forecast cache around every test.
+
+    `/api/predictions/all` caches its (expensive) result in a module global.
+    Without this, the second test to hit that endpoint would be served the
+    first test's database — a pass for entirely the wrong reason, and the
+    kind of failure that only shows up when the suite is reordered.
+    """
+    predictions_router.clear_prediction_cache()
+    yield
+    predictions_router.clear_prediction_cache()
 
 
 @pytest.fixture(name="anchor_hour")
