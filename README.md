@@ -308,7 +308,7 @@ Free tier on both providers; total cost: **$0/month**.
    - Click **Deploy**. First build takes ~1 min.
 
 3. **Wire CORS back to Render**
-   - Copy your Vercel production URL (e.g. `https://india-aqi.vercel.app`).
+   - Copy your Vercel production URL (e.g. `https://your-project.vercel.app`).
    - On Render → your service → Environment → set `CORS_ORIGINS` to that URL.
    - Render redeploys automatically. You're live.
 
