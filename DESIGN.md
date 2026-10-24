@@ -203,6 +203,23 @@ One curve, four durations, and a rule that every motion is bound to a value.
   itself.
 - **Bars:** grow from zero on first intersection over `--t-move`, because the
   growth *is* the value.
+- **Arrivals** (`useArrive`): for data that is in the DOM on the first frame
+  because it came from the bundled snapshot — the city masthead, the forecast
+  grid, the movers. `--t-move`, 8 px, staggered 40–60 ms in *reading* order.
+  Deliberately shorter and smaller than a reveal: a 680 ms fade on content the
+  page already has would spend the speed the snapshot bought and make a fast
+  page feel slow. A reveal answers "this scrolled into view"; an arrival
+  answers "the page is composing itself".
+- **Settles** (`useSettle`): when the live call replaces a seeded value with a
+  *different* one, the figure dips to 30 % with no transition and eases back
+  over `--t-move`. Nothing moves, so tabular figures neither reflow nor shift
+  their line. This is the one motion that exists for honesty rather than
+  polish — silently swapping a number the reader has already read is worse
+  than not animating at all. It is keyed on the rendered value, never on the
+  response that carried it: `/api/predictions/all` stamps `generated_at` per
+  request, so keying on that would dip on every poll that changed nothing. A
+  refresh that confirms the snapshot is perfectly still, which is the common
+  case and the correct one.
 - **`prefers-reduced-motion: reduce`:** no transitions, no stagger, no scroll
   binding. Haze jumps straight to today's real density — the information is
   preserved, the animation is not. Nothing is ever hidden behind an animation

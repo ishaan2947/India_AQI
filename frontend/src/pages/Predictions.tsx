@@ -21,6 +21,7 @@ import ForecastGrid, {
   type SortKey,
 } from "../components/Forecast/ForecastGrid";
 import Movers, { type Mover } from "../components/Forecast/Movers";
+import { useArrive, useSettle } from "../components/motion/Arrive";
 import { Reveal, RevealWords } from "../components/motion/Reveal";
 import { useAccent } from "../hooks/useAccent";
 import { useCurrentAQI } from "../hooks/useAQIData";
@@ -71,6 +72,20 @@ export default function Predictions() {
   const band = worstHour ? getAQIBand(worstHour.peak) : null;
   useAccent(band?.textColor ?? null, band?.color ?? null);
 
+  // The sentence itself is the settle key, not the response it came from.
+  // /api/predictions/all stamps generated_at per request, so keying on that
+  // would dip the headline on every poll that changed nothing.
+  const headline = worstHour
+    ? `${worstHour.city} peaks at ${Math.round(worstHour.peak)} around ${formatISTHourLabel(worstHour.peakAt)}.`
+    : null;
+  const settleHeadline = useSettle(headline);
+
+  // The grid and the movers are drawn from the bundled snapshot on the first
+  // frame, so they fade up rather than appearing fully formed. The header
+  // above them already has its own reveal.
+  const arriveGrid = useArrive(0);
+  const arriveMovers = useArrive(60);
+
   const rising = rows.filter((r) => (r.change ?? 0) > 3).length;
   const falling = rows.filter((r) => (r.change ?? 0) < -3).length;
 
@@ -106,12 +121,10 @@ export default function Predictions() {
           <p className="u-label text-smoke-500">Next 24 hours · forecast</p>
           {worstHour && band ? (
             <>
-              <h1 className="mt-3 max-w-[20ch] font-serif text-display font-normal leading-[1.06] text-smoke-100">
-                <RevealWords
-                  text={`${worstHour.city} peaks at ${Math.round(
-                    worstHour.peak,
-                  )} around ${formatISTHourLabel(worstHour.peakAt)}.`}
-                />
+              <h1
+                className={`mt-3 max-w-[20ch] font-serif text-display font-normal leading-[1.06] text-smoke-100 ${settleHeadline}`}
+              >
+                <RevealWords text={headline ?? ""} />
               </h1>
               <Reveal delay={90}>
                 <p className="u-prose mt-5 max-w-prose">
@@ -140,7 +153,11 @@ export default function Predictions() {
         </header>
 
         {/* ---- The grid ---- */}
-        <section className="mt-12 lg:mt-16" aria-labelledby="grid-heading">
+        <section
+          style={arriveGrid.style}
+          className={`${arriveGrid.className} mt-12 lg:mt-16`}
+          aria-labelledby="grid-heading"
+        >
           <div className="flex flex-wrap items-end justify-between gap-4 border-b border-smoke-700 pb-3">
             <div>
               <h2 id="grid-heading" className="text-head text-smoke-100">
@@ -181,7 +198,10 @@ export default function Predictions() {
         </section>
 
         {/* ---- Movers + the model's own caveat ---- */}
-        <section className="mt-14 grid gap-12 lg:grid-cols-[1fr_minmax(0,26rem)] lg:gap-20">
+        <section
+          style={arriveMovers.style}
+          className={`${arriveMovers.className} mt-14 grid gap-12 lg:grid-cols-[1fr_minmax(0,26rem)] lg:gap-20`}
+        >
           <div>
             <h2 className="text-head text-smoke-100">
               Biggest movers, next 24 hours

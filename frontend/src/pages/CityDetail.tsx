@@ -16,6 +16,7 @@ import { Link, useParams } from "react-router-dom";
 
 import CityTimeline from "../components/City/CityTimeline";
 import Pollutants from "../components/City/Pollutants";
+import { useArrive, useSettle } from "../components/motion/Arrive";
 import { Reveal } from "../components/motion/Reveal";
 import { fetchCity, fetchCityHistory } from "../api/client";
 import { citySnapshot } from "../data/snapshot";
@@ -132,6 +133,21 @@ export default function CityDetail() {
     };
   }, [prediction.data, aqi]);
 
+  // The masthead is painted from the snapshot on the first frame, so it
+  // arrives as a short staggered gesture rather than appearing all at once.
+  // Reading order, not visual weight: where you are, then what it is called,
+  // then the number, then what to do about it, then the provenance.
+  const arriveState = useArrive(0);
+  const arriveName = useArrive(40);
+  const arriveNumber = useArrive(90);
+  const arriveAdvice = useArrive(140);
+  const arriveFacts = useArrive(190);
+
+  // Keyed on the rounded figure, which is what is actually on screen: the
+  // ladder's three rungs normally agree to the integer, so a refresh that
+  // confirms the snapshot stays perfectly still.
+  const settleAqi = useSettle(aqi == null ? null : Math.round(aqi));
+
   if (id == null) {
     return (
       <div className="p-6 font-serif text-body text-smoke-300">
@@ -175,14 +191,27 @@ export default function CityDetail() {
           <>
             {/* ---- The reading ---- */}
             <header className="mt-6">
-              <p className="u-label text-smoke-500">{city.state}</p>
-              <h1 className="mt-1 text-display text-smoke-100">{city.name}</h1>
+              <p
+                style={arriveState.style}
+                className={`${arriveState.className} u-label text-smoke-500`}
+              >
+                {city.state}
+              </p>
+              <h1
+                style={arriveName.style}
+                className={`${arriveName.className} mt-1 text-display text-smoke-100`}
+              >
+                {city.name}
+              </h1>
 
               {aqi != null && band ? (
                 <>
-                  <div className="mt-6 flex flex-wrap items-end gap-x-6 gap-y-2 border-t border-smoke-700 pt-6">
+                  <div
+                    style={arriveNumber.style}
+                    className={`${arriveNumber.className} mt-6 flex flex-wrap items-end gap-x-6 gap-y-2 border-t border-smoke-700 pt-6`}
+                  >
                     <span
-                      className="u-figure text-[clamp(4rem,11vw,8rem)] leading-[0.82]"
+                      className={`u-figure text-[clamp(4rem,11vw,8rem)] leading-[0.82] ${settleAqi}`}
                       style={{ color: band.textColor }}
                     >
                       {Math.round(aqi)}
@@ -201,11 +230,17 @@ export default function CityDetail() {
                     </span>
                   </div>
 
-                  <p className="u-prose mt-5 max-w-prose">
+                  <p
+                    style={arriveAdvice.style}
+                    className={`${arriveAdvice.className} u-prose mt-5 max-w-prose`}
+                  >
                     {getAQIAdvice(aqi)}
                   </p>
 
-                  <dl className="mt-5 flex flex-wrap items-baseline gap-x-6 gap-y-1 text-micro text-smoke-300 tnum">
+                  <dl
+                    style={arriveFacts.style}
+                    className={`${arriveFacts.className} mt-5 flex flex-wrap items-baseline gap-x-6 gap-y-1 text-micro text-smoke-300 tnum`}
+                  >
                     <Fact label="Reading for">
                       {formatISTClock(city.latest_timestamp) ?? "unknown hour"}
                     </Fact>
