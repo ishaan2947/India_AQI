@@ -1,0 +1,3845 @@
+{
+  "generated_at": "2026-10-24T01:12:11.953426",
+  "predictions": [
+    {
+      "city_id": 17,
+      "city_name": "Agra",
+      "generated_at": "2026-10-24T01:12:11.953426",
+      "horizon_hours": 24,
+      "points": [
+        {
+          "prediction_for": "2026-10-24T02:00:00",
+          "predicted_aqi": 223.6,
+          "confidence_score": 0.892
+        },
+        {
+          "prediction_for": "2026-10-24T03:00:00",
+          "predicted_aqi": 244.3,
+          "confidence_score": 0.902
+        },
+        {
+          "prediction_for": "2026-10-24T04:00:00",
+          "predicted_aqi": 269.6,
+          "confidence_score": 0.927
+        },
+        {
+          "prediction_for": "2026-10-24T05:00:00",
+          "predicted_aqi": 293.6,
+          "confidence_score": 0.944
+        },
+        {
+          "prediction_for": "2026-10-24T06:00:00",
+          "predicted_aqi": 298.1,
+          "confidence_score": 0.939
+        },
+        {
+          "prediction_for": "2026-10-24T07:00:00",
+          "predicted_aqi": 280.8,
+          "confidence_score": 0.896
+        },
+        {
+          "prediction_for": "2026-10-24T08:00:00",
+          "predicted_aqi": 266.8,
+          "confidence_score": 0.889
+        },
+        {
+          "prediction_for": "2026-10-24T09:00:00",
+          "predicted_aqi": 237.4,
+          "confidence_score": 0.933
+        },
+        {
+          "prediction_for": "2026-10-24T10:00:00",
+          "predicted_aqi": 216.8,
+          "confidence_score": 0.933
+        },
+        {
+          "prediction_for": "2026-10-24T11:00:00",
+          "predicted_aqi": 213.8,
+          "confidence_score": 0.932
+        },
+        {
+          "prediction_for": "2026-10-24T12:00:00",
+          "predicted_aqi": 215.8,
+          "confidence_score": 0.935
+        },
+        {
+          "prediction_for": "2026-10-24T13:00:00",
+          "predicted_aqi": 218.8,
+          "confidence_score": 0.925
+        },
+        {
+          "prediction_for": "2026-10-24T14:00:00",
+          "predicted_aqi": 225.4,
+          "confidence_score": 0.923
+        },
+        {
+          "prediction_for": "2026-10-24T15:00:00",
+          "predicted_aqi": 244.4,
+          "confidence_score": 0.915
+        },
+        {
+          "prediction_for": "2026-10-24T16:00:00",
+          "predicted_aqi": 261.5,
+          "confidence_score": 0.922
+        },
+        {
+          "prediction_for": "2026-10-24T17:00:00",
+          "predicted_aqi": 269.4,
+          "confidence_score": 0.935
+        },
+        {
+          "prediction_for": "2026-10-24T18:00:00",
+          "predicted_aqi": 274,
+          "confidence_score": 0.918
+        },
+        {
+          "prediction_for": "2026-10-24T19:00:00",
+          "predicted_aqi": 255.9,
+          "confidence_score": 0.893
+        },
+        {
+          "prediction_for": "2026-10-24T20:00:00",
+          "predicted_aqi": 242.7,
+          "confidence_score": 0.874
+        },
+        {
+          "prediction_for": "2026-10-24T21:00:00",
+          "predicted_aqi": 232.4,
+          "confidence_score": 0.882
+        },
+        {
+          "prediction_for": "2026-10-24T22:00:00",
+          "predicted_aqi": 228.1,
+          "confidence_score": 0.884
+        },
+        {
+          "prediction_for": "2026-10-24T23:00:00",
+          "predicted_aqi": 242.6,
+          "confidence_score": 0.902
+        },
+        {
+          "prediction_for": "2026-10-25T00:00:00",
+          "predicted_aqi": 272.5,
+          "confidence_score": 0.902
+        },
+        {
+          "prediction_for": "2026-10-25T01:00:00",
+          "predicted_aqi": 293.1,
+          "confidence_score": 0.911
+        }
+      ]
+    },
+    {
+      "city_id": 8,
+      "city_name": "Ahmedabad",
+      "generated_at": "2026-10-24T01:12:11.953426",
+      "horizon_hours": 24,
+      "points": [
+        {
+          "prediction_for": "2026-10-24T02:00:00",
+          "predicted_aqi": 224.1,
+          "confidence_score": 0.907
+        },
+        {
+          "prediction_for": "2026-10-24T03:00:00",
+          "predicted_aqi": 250.2,
+          "confidence_score": 0.905
+        },
+        {
+          "prediction_for": "2026-10-24T04:00:00",
+          "predicted_aqi": 258.9,
+          "confidence_score": 0.921
+        },
+        {
+          "prediction_for": "2026-10-24T05:00:00",
+          "predicted_aqi": 274.2,
+          "confidence_score": 0.911
+        },
+        {
+          "prediction_for": "2026-10-24T06:00:00",
+          "predicted_aqi": 280.4,
+          "confidence_score": 0.925
+        },
+        {
+          "prediction_for": "2026-10-24T07:00:00",
+          "predicted_aqi": 275.8,
+          "confidence_score": 0.897
+        },
+        {
+          "prediction_for": "2026-10-24T08:00:00",
+          "predicted_aqi": 259.9,
+          "confidence_score": 0.873
+        },
+        {
+          "prediction_for": "2026-10-24T09:00:00",
+          "predicted_aqi": 224.4,
+          "confidence_score": 0.916
+        },
+        {
+          "prediction_for": "2026-10-24T10:00:00",
+          "predicted_aqi": 205.1,
+          "confidence_score": 0.94
+        },
+        {
+          "prediction_for": "2026-10-24T11:00:00",
+          "predicted_aqi": 200.9,
+          "confidence_score": 0.947
+        },
+        {
+          "prediction_for": "2026-10-24T12:00:00",
+          "predicted_aqi": 204.6,
+          "confidence_score": 0.932
+        },
+        {
+          "prediction_for": "2026-10-24T13:00:00",
+          "predicted_aqi": 212.1,
+          "confidence_score": 0.91
+        },
+        {
+          "prediction_for": "2026-10-24T14:00:00",
+          "predicted_aqi": 226.8,
+          "confidence_score": 0.918
+        },
+        {
+          "prediction_for": "2026-10-24T15:00:00",
+          "predicted_aqi": 239.7,
+          "confidence_score": 0.907
+        },
+        {
+          "prediction_for": "2026-10-24T16:00:00",
+          "predicted_aqi": 256.3,
+          "confidence_score": 0.921
+        },
+        {
+          "prediction_for": "2026-10-24T17:00:00",
+          "predicted_aqi": 264.4,
+          "confidence_score": 0.925
+        },
+        {
+          "prediction_for": "2026-10-24T18:00:00",
+          "predicted_aqi": 267.7,
+          "confidence_score": 0.913
+        },
+        {
+          "prediction_for": "2026-10-24T19:00:00",
+          "predicted_aqi": 250.2,
+          "confidence_score": 0.881
+        },
+        {
+          "prediction_for": "2026-10-24T20:00:00",
+          "predicted_aqi": 231.5,
+          "confidence_score": 0.859
+        },
+        {
+          "prediction_for": "2026-10-24T21:00:00",
+          "predicted_aqi": 217.3,
+          "confidence_score": 0.872
+        },
+        {
+          "prediction_for": "2026-10-24T22:00:00",
+          "predicted_aqi": 214.4,
+          "confidence_score": 0.903
+        },
+        {
+          "prediction_for": "2026-10-24T23:00:00",
+          "predicted_aqi": 220.5,
+          "confidence_score": 0.901
+        },
+        {
+          "prediction_for": "2026-10-25T00:00:00",
+          "predicted_aqi": 236.3,
+          "confidence_score": 0.9
+        },
+        {
+          "prediction_for": "2026-10-25T01:00:00",
+          "predicted_aqi": 269,
+          "confidence_score": 0.926
+        }
+      ]
+    },
+    {
+      "city_id": 19,
+      "city_name": "Amritsar",
+      "generated_at": "2026-10-24T01:12:11.953426",
+      "horizon_hours": 24,
+      "points": [
+        {
+          "prediction_for": "2026-10-24T02:00:00",
+          "predicted_aqi": 144.3,
+          "confidence_score": 0.802
+        },
+        {
+          "prediction_for": "2026-10-24T03:00:00",
+          "predicted_aqi": 188.3,
+          "confidence_score": 0.851
+        },
+        {
+          "prediction_for": "2026-10-24T04:00:00",
+          "predicted_aqi": 198.2,
+          "confidence_score": 0.889
+        },
+        {
+          "prediction_for": "2026-10-24T05:00:00",
+          "predicted_aqi": 202.7,
+          "confidence_score": 0.892
+        },
+        {
+          "prediction_for": "2026-10-24T06:00:00",
+          "predicted_aqi": 209.6,
+          "confidence_score": 0.851
+        },
+        {
+          "prediction_for": "2026-10-24T07:00:00",
+          "predicted_aqi": 210.2,
+          "confidence_score": 0.85
+        },
+        {
+          "prediction_for": "2026-10-24T08:00:00",
+          "predicted_aqi": 203.9,
+          "confidence_score": 0.843
+        },
+        {
+          "prediction_for": "2026-10-24T09:00:00",
+          "predicted_aqi": 156.5,
+          "confidence_score": 0.885
+        },
+        {
+          "prediction_for": "2026-10-24T10:00:00",
+          "predicted_aqi": 144.7,
+          "confidence_score": 0.91
+        },
+        {
+          "prediction_for": "2026-10-24T11:00:00",
+          "predicted_aqi": 143.3,
+          "confidence_score": 0.88
+        },
+        {
+          "prediction_for": "2026-10-24T12:00:00",
+          "predicted_aqi": 149.9,
+          "confidence_score": 0.858
+        },
+        {
+          "prediction_for": "2026-10-24T13:00:00",
+          "predicted_aqi": 154.7,
+          "confidence_score": 0.874
+        },
+        {
+          "prediction_for": "2026-10-24T14:00:00",
+          "predicted_aqi": 159.5,
+          "confidence_score": 0.856
+        },
+        {
+          "prediction_for": "2026-10-24T15:00:00",
+          "predicted_aqi": 164.4,
+          "confidence_score": 0.869
+        },
+        {
+          "prediction_for": "2026-10-24T16:00:00",
+          "predicted_aqi": 169.3,
+          "confidence_score": 0.855
+        },
+        {
+          "prediction_for": "2026-10-24T17:00:00",
+          "predicted_aqi": 186.8,
+          "confidence_score": 0.856
+        },
+        {
+          "prediction_for": "2026-10-24T18:00:00",
+          "predicted_aqi": 194.2,
+          "confidence_score": 0.88
+        },
+        {
+          "prediction_for": "2026-10-24T19:00:00",
+          "predicted_aqi": 187.5,
+          "confidence_score": 0.833
+        },
+        {
+          "prediction_for": "2026-10-24T20:00:00",
+          "predicted_aqi": 174.6,
+          "confidence_score": 0.818
+        },
+        {
+          "prediction_for": "2026-10-24T21:00:00",
+          "predicted_aqi": 161.6,
+          "confidence_score": 0.824
+        },
+        {
+          "prediction_for": "2026-10-24T22:00:00",
+          "predicted_aqi": 143.7,
+          "confidence_score": 0.829
+        },
+        {
+          "prediction_for": "2026-10-24T23:00:00",
+          "predicted_aqi": 133.7,
+          "confidence_score": 0.781
+        },
+        {
+          "prediction_for": "2026-10-25T00:00:00",
+          "predicted_aqi": 151.7,
+          "confidence_score": 0.786
+        },
+        {
+          "prediction_for": "2026-10-25T01:00:00",
+          "predicted_aqi": 193.3,
+          "confidence_score": 0.875
+        }
+      ]
+    },
+    {
+      "city_id": 3,
+      "city_name": "Bangalore",
+      "generated_at": "2026-10-24T01:12:11.953426",
+      "horizon_hours": 24,
+      "points": [
+        {
+          "prediction_for": "2026-10-24T02:00:00",
+          "predicted_aqi": 95.9,
+          "confidence_score": 0.864
+        },
+        {
+          "prediction_for": "2026-10-24T03:00:00",
+          "predicted_aqi": 112.4,
+          "confidence_score": 0.801
+        },
+        {
+          "prediction_for": "2026-10-24T04:00:00",
+          "predicted_aqi": 126.5,
+          "confidence_score": 0.86
+        },
+        {
+          "prediction_for": "2026-10-24T05:00:00",
+          "predicted_aqi": 155.9,
+          "confidence_score": 0.907
+        },
+        {
+          "prediction_for": "2026-10-24T06:00:00",
+          "predicted_aqi": 157.6,
+          "confidence_score": 0.843
+        },
+        {
+          "prediction_for": "2026-10-24T07:00:00",
+          "predicted_aqi": 160.9,
+          "confidence_score": 0.787
+        },
+        {
+          "prediction_for": "2026-10-24T08:00:00",
+          "predicted_aqi": 173.7,
+          "confidence_score": 0.805
+        },
+        {
+          "prediction_for": "2026-10-24T09:00:00",
+          "predicted_aqi": 126,
+          "confidence_score": 0.799
+        },
+        {
+          "prediction_for": "2026-10-24T10:00:00",
+          "predicted_aqi": 89.8,
+          "confidence_score": 0.896
+        },
+        {
+          "prediction_for": "2026-10-24T11:00:00",
+          "predicted_aqi": 83.6,
+          "confidence_score": 0.909
+        },
+        {
+          "prediction_for": "2026-10-24T12:00:00",
+          "predicted_aqi": 88.8,
+          "confidence_score": 0.906
+        },
+        {
+          "prediction_for": "2026-10-24T13:00:00",
+          "predicted_aqi": 90.7,
+          "confidence_score": 0.882
+        },
+        {
+          "prediction_for": "2026-10-24T14:00:00",
+          "predicted_aqi": 92.9,
+          "confidence_score": 0.851
+        },
+        {
+          "prediction_for": "2026-10-24T15:00:00",
+          "predicted_aqi": 100.3,
+          "confidence_score": 0.843
+        },
+        {
+          "prediction_for": "2026-10-24T16:00:00",
+          "predicted_aqi": 110.9,
+          "confidence_score": 0.845
+        },
+        {
+          "prediction_for": "2026-10-24T17:00:00",
+          "predicted_aqi": 126.7,
+          "confidence_score": 0.875
+        },
+        {
+          "prediction_for": "2026-10-24T18:00:00",
+          "predicted_aqi": 144.8,
+          "confidence_score": 0.869
+        },
+        {
+          "prediction_for": "2026-10-24T19:00:00",
+          "predicted_aqi": 154.5,
+          "confidence_score": 0.827
+        },
+        {
+          "prediction_for": "2026-10-24T20:00:00",
+          "predicted_aqi": 158.4,
+          "confidence_score": 0.841
+        },
+        {
+          "prediction_for": "2026-10-24T21:00:00",
+          "predicted_aqi": 131.1,
+          "confidence_score": 0.831
+        },
+        {
+          "prediction_for": "2026-10-24T22:00:00",
+          "predicted_aqi": 103.2,
+          "confidence_score": 0.781
+        },
+        {
+          "prediction_for": "2026-10-24T23:00:00",
+          "predicted_aqi": 99.8,
+          "confidence_score": 0.717
+        },
+        {
+          "prediction_for": "2026-10-25T00:00:00",
+          "predicted_aqi": 125.6,
+          "confidence_score": 0.796
+        },
+        {
+          "prediction_for": "2026-10-25T01:00:00",
+          "predicted_aqi": 137.3,
+          "confidence_score": 0.859
+        }
+      ]
+    },
+    {
+      "city_id": 15,
+      "city_name": "Bhopal",
+      "generated_at": "2026-10-24T01:12:11.953426",
+      "horizon_hours": 24,
+      "points": [
+        {
+          "prediction_for": "2026-10-24T02:00:00",
+          "predicted_aqi": 260.5,
+          "confidence_score": 0.886
+        },
+        {
+          "prediction_for": "2026-10-24T03:00:00",
+          "predicted_aqi": 266.7,
+          "confidence_score": 0.889
+        },
+        {
+          "prediction_for": "2026-10-24T04:00:00",
+          "predicted_aqi": 282.4,
+          "confidence_score": 0.907
+        },
+        {
+          "prediction_for": "2026-10-24T05:00:00",
+          "predicted_aqi": 285.9,
+          "confidence_score": 0.928
+        },
+        {
+          "prediction_for": "2026-10-24T06:00:00",
+          "predicted_aqi": 285.2,
+          "confidence_score": 0.925
+        },
+        {
+          "prediction_for": "2026-10-24T07:00:00",
+          "predicted_aqi": 276.9,
+          "confidence_score": 0.904
+        },
+        {
+          "prediction_for": "2026-10-24T08:00:00",
+          "predicted_aqi": 270.8,
+          "confidence_score": 0.901
+        },
+        {
+          "prediction_for": "2026-10-24T09:00:00",
+          "predicted_aqi": 246.9,
+          "confidence_score": 0.94
+        },
+        {
+          "prediction_for": "2026-10-24T10:00:00",
+          "predicted_aqi": 237.6,
+          "confidence_score": 0.952
+        },
+        {
+          "prediction_for": "2026-10-24T11:00:00",
+          "predicted_aqi": 236.4,
+          "confidence_score": 0.93
+        },
+        {
+          "prediction_for": "2026-10-24T12:00:00",
+          "predicted_aqi": 242.4,
+          "confidence_score": 0.931
+        },
+        {
+          "prediction_for": "2026-10-24T13:00:00",
+          "predicted_aqi": 252,
+          "confidence_score": 0.94
+        },
+        {
+          "prediction_for": "2026-10-24T14:00:00",
+          "predicted_aqi": 259.9,
+          "confidence_score": 0.936
+        },
+        {
+          "prediction_for": "2026-10-24T15:00:00",
+          "predicted_aqi": 262,
+          "confidence_score": 0.927
+        },
+        {
+          "prediction_for": "2026-10-24T16:00:00",
+          "predicted_aqi": 264.5,
+          "confidence_score": 0.931
+        },
+        {
+          "prediction_for": "2026-10-24T17:00:00",
+          "predicted_aqi": 261,
+          "confidence_score": 0.92
+        },
+        {
+          "prediction_for": "2026-10-24T18:00:00",
+          "predicted_aqi": 260.5,
+          "confidence_score": 0.909
+        },
+        {
+          "prediction_for": "2026-10-24T19:00:00",
+          "predicted_aqi": 261.7,
+          "confidence_score": 0.903
+        },
+        {
+          "prediction_for": "2026-10-24T20:00:00",
+          "predicted_aqi": 261.1,
+          "confidence_score": 0.903
+        },
+        {
+          "prediction_for": "2026-10-24T21:00:00",
+          "predicted_aqi": 255.6,
+          "confidence_score": 0.912
+        },
+        {
+          "prediction_for": "2026-10-24T22:00:00",
+          "predicted_aqi": 250.5,
+          "confidence_score": 0.915
+        },
+        {
+          "prediction_for": "2026-10-24T23:00:00",
+          "predicted_aqi": 250.3,
+          "confidence_score": 0.912
+        },
+        {
+          "prediction_for": "2026-10-25T00:00:00",
+          "predicted_aqi": 270.6,
+          "confidence_score": 0.892
+        },
+        {
+          "prediction_for": "2026-10-25T01:00:00",
+          "predicted_aqi": 285.7,
+          "confidence_score": 0.911
+        }
+      ]
+    },
+    {
+      "city_id": 25,
+      "city_name": "Chandigarh",
+      "generated_at": "2026-10-24T01:12:11.953426",
+      "horizon_hours": 24,
+      "points": [
+        {
+          "prediction_for": "2026-10-24T02:00:00",
+          "predicted_aqi": 93.2,
+          "confidence_score": 0.81
+        },
+        {
+          "prediction_for": "2026-10-24T03:00:00",
+          "predicted_aqi": 113,
+          "confidence_score": 0.774
+        },
+        {
+          "prediction_for": "2026-10-24T04:00:00",
+          "predicted_aqi": 132.5,
+          "confidence_score": 0.882
+        },
+        {
+          "prediction_for": "2026-10-24T05:00:00",
+          "predicted_aqi": 153.1,
+          "confidence_score": 0.928
+        },
+        {
+          "prediction_for": "2026-10-24T06:00:00",
+          "predicted_aqi": 158.2,
+          "confidence_score": 0.834
+        },
+        {
+          "prediction_for": "2026-10-24T07:00:00",
+          "predicted_aqi": 152.9,
+          "confidence_score": 0.75
+        },
+        {
+          "prediction_for": "2026-10-24T08:00:00",
+          "predicted_aqi": 151.4,
+          "confidence_score": 0.735
+        },
+        {
+          "prediction_for": "2026-10-24T09:00:00",
+          "predicted_aqi": 112.2,
+          "confidence_score": 0.819
+        },
+        {
+          "prediction_for": "2026-10-24T10:00:00",
+          "predicted_aqi": 87.8,
+          "confidence_score": 0.886
+        },
+        {
+          "prediction_for": "2026-10-24T11:00:00",
+          "predicted_aqi": 81.6,
+          "confidence_score": 0.893
+        },
+        {
+          "prediction_for": "2026-10-24T12:00:00",
+          "predicted_aqi": 78.3,
+          "confidence_score": 0.853
+        },
+        {
+          "prediction_for": "2026-10-24T13:00:00",
+          "predicted_aqi": 81.1,
+          "confidence_score": 0.862
+        },
+        {
+          "prediction_for": "2026-10-24T14:00:00",
+          "predicted_aqi": 84.4,
+          "confidence_score": 0.857
+        },
+        {
+          "prediction_for": "2026-10-24T15:00:00",
+          "predicted_aqi": 93.9,
+          "confidence_score": 0.831
+        },
+        {
+          "prediction_for": "2026-10-24T16:00:00",
+          "predicted_aqi": 103.5,
+          "confidence_score": 0.819
+        },
+        {
+          "prediction_for": "2026-10-24T17:00:00",
+          "predicted_aqi": 120.7,
+          "confidence_score": 0.886
+        },
+        {
+          "prediction_for": "2026-10-24T18:00:00",
+          "predicted_aqi": 144.7,
+          "confidence_score": 0.895
+        },
+        {
+          "prediction_for": "2026-10-24T19:00:00",
+          "predicted_aqi": 136.9,
+          "confidence_score": 0.892
+        },
+        {
+          "prediction_for": "2026-10-24T20:00:00",
+          "predicted_aqi": 121.2,
+          "confidence_score": 0.828
+        },
+        {
+          "prediction_for": "2026-10-24T21:00:00",
+          "predicted_aqi": 91.3,
+          "confidence_score": 0.773
+        },
+        {
+          "prediction_for": "2026-10-24T22:00:00",
+          "predicted_aqi": 85.8,
+          "confidence_score": 0.818
+        },
+        {
+          "prediction_for": "2026-10-24T23:00:00",
+          "predicted_aqi": 89.4,
+          "confidence_score": 0.753
+        },
+        {
+          "prediction_for": "2026-10-25T00:00:00",
+          "predicted_aqi": 104.3,
+          "confidence_score": 0.815
+        },
+        {
+          "prediction_for": "2026-10-25T01:00:00",
+          "predicted_aqi": 129.7,
+          "confidence_score": 0.882
+        }
+      ]
+    },
+    {
+      "city_id": 4,
+      "city_name": "Chennai",
+      "generated_at": "2026-10-24T01:12:11.953426",
+      "horizon_hours": 24,
+      "points": [
+        {
+          "prediction_for": "2026-10-24T02:00:00",
+          "predicted_aqi": 246.6,
+          "confidence_score": 0.871
+        },
+        {
+          "prediction_for": "2026-10-24T03:00:00",
+          "predicted_aqi": 260.4,
+          "confidence_score": 0.885
+        },
+        {
+          "prediction_for": "2026-10-24T04:00:00",
+          "predicted_aqi": 285.9,
+          "confidence_score": 0.901
+        },
+        {
+          "prediction_for": "2026-10-24T05:00:00",
+          "predicted_aqi": 296.6,
+          "confidence_score": 0.931
+        },
+        {
+          "prediction_for": "2026-10-24T06:00:00",
+          "predicted_aqi": 287.7,
+          "confidence_score": 0.922
+        },
+        {
+          "prediction_for": "2026-10-24T07:00:00",
+          "predicted_aqi": 275,
+          "confidence_score": 0.894
+        },
+        {
+          "prediction_for": "2026-10-24T08:00:00",
+          "predicted_aqi": 268.3,
+          "confidence_score": 0.884
+        },
+        {
+          "prediction_for": "2026-10-24T09:00:00",
+          "predicted_aqi": 241.3,
+          "confidence_score": 0.93
+        },
+        {
+          "prediction_for": "2026-10-24T10:00:00",
+          "predicted_aqi": 230.8,
+          "confidence_score": 0.948
+        },
+        {
+          "prediction_for": "2026-10-24T11:00:00",
+          "predicted_aqi": 232.5,
+          "confidence_score": 0.928
+        },
+        {
+          "prediction_for": "2026-10-24T12:00:00",
+          "predicted_aqi": 247.5,
+          "confidence_score": 0.92
+        },
+        {
+          "prediction_for": "2026-10-24T13:00:00",
+          "predicted_aqi": 258.8,
+          "confidence_score": 0.924
+        },
+        {
+          "prediction_for": "2026-10-24T14:00:00",
+          "predicted_aqi": 263.8,
+          "confidence_score": 0.916
+        },
+        {
+          "prediction_for": "2026-10-24T15:00:00",
+          "predicted_aqi": 262.4,
+          "confidence_score": 0.907
+        },
+        {
+          "prediction_for": "2026-10-24T16:00:00",
+          "predicted_aqi": 249.2,
+          "confidence_score": 0.902
+        },
+        {
+          "prediction_for": "2026-10-24T17:00:00",
+          "predicted_aqi": 246.6,
+          "confidence_score": 0.899
+        },
+        {
+          "prediction_for": "2026-10-24T18:00:00",
+          "predicted_aqi": 251.3,
+          "confidence_score": 0.888
+        },
+        {
+          "prediction_for": "2026-10-24T19:00:00",
+          "predicted_aqi": 276,
+          "confidence_score": 0.92
+        },
+        {
+          "prediction_for": "2026-10-24T20:00:00",
+          "predicted_aqi": 287.4,
+          "confidence_score": 0.944
+        },
+        {
+          "prediction_for": "2026-10-24T21:00:00",
+          "predicted_aqi": 274.3,
+          "confidence_score": 0.931
+        },
+        {
+          "prediction_for": "2026-10-24T22:00:00",
+          "predicted_aqi": 251.2,
+          "confidence_score": 0.926
+        },
+        {
+          "prediction_for": "2026-10-24T23:00:00",
+          "predicted_aqi": 232.4,
+          "confidence_score": 0.921
+        },
+        {
+          "prediction_for": "2026-10-25T00:00:00",
+          "predicted_aqi": 253.4,
+          "confidence_score": 0.866
+        },
+        {
+          "prediction_for": "2026-10-25T01:00:00",
+          "predicted_aqi": 280.3,
+          "confidence_score": 0.899
+        }
+      ]
+    },
+    {
+      "city_id": 23,
+      "city_name": "Coimbatore",
+      "generated_at": "2026-10-24T01:12:11.953426",
+      "horizon_hours": 24,
+      "points": [
+        {
+          "prediction_for": "2026-10-24T02:00:00",
+          "predicted_aqi": 134.2,
+          "confidence_score": 0.808
+        },
+        {
+          "prediction_for": "2026-10-24T03:00:00",
+          "predicted_aqi": 146.1,
+          "confidence_score": 0.872
+        },
+        {
+          "prediction_for": "2026-10-24T04:00:00",
+          "predicted_aqi": 182.7,
+          "confidence_score": 0.881
+        },
+        {
+          "prediction_for": "2026-10-24T05:00:00",
+          "predicted_aqi": 200.1,
+          "confidence_score": 0.899
+        },
+        {
+          "prediction_for": "2026-10-24T06:00:00",
+          "predicted_aqi": 206,
+          "confidence_score": 0.896
+        },
+        {
+          "prediction_for": "2026-10-24T07:00:00",
+          "predicted_aqi": 205.7,
+          "confidence_score": 0.851
+        },
+        {
+          "prediction_for": "2026-10-24T08:00:00",
+          "predicted_aqi": 199,
+          "confidence_score": 0.836
+        },
+        {
+          "prediction_for": "2026-10-24T09:00:00",
+          "predicted_aqi": 149.8,
+          "confidence_score": 0.905
+        },
+        {
+          "prediction_for": "2026-10-24T10:00:00",
+          "predicted_aqi": 133.2,
+          "confidence_score": 0.919
+        },
+        {
+          "prediction_for": "2026-10-24T11:00:00",
+          "predicted_aqi": 123.6,
+          "confidence_score": 0.915
+        },
+        {
+          "prediction_for": "2026-10-24T12:00:00",
+          "predicted_aqi": 122.3,
+          "confidence_score": 0.911
+        },
+        {
+          "prediction_for": "2026-10-24T13:00:00",
+          "predicted_aqi": 126.2,
+          "confidence_score": 0.892
+        },
+        {
+          "prediction_for": "2026-10-24T14:00:00",
+          "predicted_aqi": 135.4,
+          "confidence_score": 0.911
+        },
+        {
+          "prediction_for": "2026-10-24T15:00:00",
+          "predicted_aqi": 140.4,
+          "confidence_score": 0.866
+        },
+        {
+          "prediction_for": "2026-10-24T16:00:00",
+          "predicted_aqi": 148.4,
+          "confidence_score": 0.853
+        },
+        {
+          "prediction_for": "2026-10-24T17:00:00",
+          "predicted_aqi": 168.9,
+          "confidence_score": 0.878
+        },
+        {
+          "prediction_for": "2026-10-24T18:00:00",
+          "predicted_aqi": 192.3,
+          "confidence_score": 0.912
+        },
+        {
+          "prediction_for": "2026-10-24T19:00:00",
+          "predicted_aqi": 189.2,
+          "confidence_score": 0.875
+        },
+        {
+          "prediction_for": "2026-10-24T20:00:00",
+          "predicted_aqi": 166.2,
+          "confidence_score": 0.804
+        },
+        {
+          "prediction_for": "2026-10-24T21:00:00",
+          "predicted_aqi": 141,
+          "confidence_score": 0.813
+        },
+        {
+          "prediction_for": "2026-10-24T22:00:00",
+          "predicted_aqi": 118.5,
+          "confidence_score": 0.869
+        },
+        {
+          "prediction_for": "2026-10-24T23:00:00",
+          "predicted_aqi": 116.6,
+          "confidence_score": 0.846
+        },
+        {
+          "prediction_for": "2026-10-25T00:00:00",
+          "predicted_aqi": 140.3,
+          "confidence_score": 0.847
+        },
+        {
+          "prediction_for": "2026-10-25T01:00:00",
+          "predicted_aqi": 180.4,
+          "confidence_score": 0.849
+        }
+      ]
+    },
+    {
+      "city_id": 1,
+      "city_name": "Delhi",
+      "generated_at": "2026-10-24T01:12:11.953426",
+      "horizon_hours": 24,
+      "points": [
+        {
+          "prediction_for": "2026-10-24T02:00:00",
+          "predicted_aqi": 230.5,
+          "confidence_score": 0.903
+        },
+        {
+          "prediction_for": "2026-10-24T03:00:00",
+          "predicted_aqi": 268.5,
+          "confidence_score": 0.909
+        },
+        {
+          "prediction_for": "2026-10-24T04:00:00",
+          "predicted_aqi": 291.7,
+          "confidence_score": 0.911
+        },
+        {
+          "prediction_for": "2026-10-24T05:00:00",
+          "predicted_aqi": 304,
+          "confidence_score": 0.935
+        },
+        {
+          "prediction_for": "2026-10-24T06:00:00",
+          "predicted_aqi": 284,
+          "confidence_score": 0.907
+        },
+        {
+          "prediction_for": "2026-10-24T07:00:00",
+          "predicted_aqi": 272.6,
+          "confidence_score": 0.887
+        },
+        {
+          "prediction_for": "2026-10-24T08:00:00",
+          "predicted_aqi": 263.5,
+          "confidence_score": 0.871
+        },
+        {
+          "prediction_for": "2026-10-24T09:00:00",
+          "predicted_aqi": 238.1,
+          "confidence_score": 0.926
+        },
+        {
+          "prediction_for": "2026-10-24T10:00:00",
+          "predicted_aqi": 224.7,
+          "confidence_score": 0.929
+        },
+        {
+          "prediction_for": "2026-10-24T11:00:00",
+          "predicted_aqi": 219.1,
+          "confidence_score": 0.93
+        },
+        {
+          "prediction_for": "2026-10-24T12:00:00",
+          "predicted_aqi": 222.6,
+          "confidence_score": 0.946
+        },
+        {
+          "prediction_for": "2026-10-24T13:00:00",
+          "predicted_aqi": 230.8,
+          "confidence_score": 0.926
+        },
+        {
+          "prediction_for": "2026-10-24T14:00:00",
+          "predicted_aqi": 248.9,
+          "confidence_score": 0.906
+        },
+        {
+          "prediction_for": "2026-10-24T15:00:00",
+          "predicted_aqi": 260.4,
+          "confidence_score": 0.907
+        },
+        {
+          "prediction_for": "2026-10-24T16:00:00",
+          "predicted_aqi": 268.1,
+          "confidence_score": 0.933
+        },
+        {
+          "prediction_for": "2026-10-24T17:00:00",
+          "predicted_aqi": 274.5,
+          "confidence_score": 0.924
+        },
+        {
+          "prediction_for": "2026-10-24T18:00:00",
+          "predicted_aqi": 265.1,
+          "confidence_score": 0.91
+        },
+        {
+          "prediction_for": "2026-10-24T19:00:00",
+          "predicted_aqi": 258.2,
+          "confidence_score": 0.895
+        },
+        {
+          "prediction_for": "2026-10-24T20:00:00",
+          "predicted_aqi": 251.4,
+          "confidence_score": 0.886
+        },
+        {
+          "prediction_for": "2026-10-24T21:00:00",
+          "predicted_aqi": 244.1,
+          "confidence_score": 0.891
+        },
+        {
+          "prediction_for": "2026-10-24T22:00:00",
+          "predicted_aqi": 240.7,
+          "confidence_score": 0.896
+        },
+        {
+          "prediction_for": "2026-10-24T23:00:00",
+          "predicted_aqi": 254.9,
+          "confidence_score": 0.89
+        },
+        {
+          "prediction_for": "2026-10-25T00:00:00",
+          "predicted_aqi": 284.3,
+          "confidence_score": 0.908
+        },
+        {
+          "prediction_for": "2026-10-25T01:00:00",
+          "predicted_aqi": 292.9,
+          "confidence_score": 0.909
+        }
+      ]
+    },
+    {
+      "city_id": 26,
+      "city_name": "Guwahati",
+      "generated_at": "2026-10-24T01:12:11.953426",
+      "horizon_hours": 24,
+      "points": [
+        {
+          "prediction_for": "2026-10-24T02:00:00",
+          "predicted_aqi": 138.3,
+          "confidence_score": 0.847
+        },
+        {
+          "prediction_for": "2026-10-24T03:00:00",
+          "predicted_aqi": 175.7,
+          "confidence_score": 0.866
+        },
+        {
+          "prediction_for": "2026-10-24T04:00:00",
+          "predicted_aqi": 197,
+          "confidence_score": 0.891
+        },
+        {
+          "prediction_for": "2026-10-24T05:00:00",
+          "predicted_aqi": 202.5,
+          "confidence_score": 0.889
+        },
+        {
+          "prediction_for": "2026-10-24T06:00:00",
+          "predicted_aqi": 205,
+          "confidence_score": 0.851
+        },
+        {
+          "prediction_for": "2026-10-24T07:00:00",
+          "predicted_aqi": 206.2,
+          "confidence_score": 0.847
+        },
+        {
+          "prediction_for": "2026-10-24T08:00:00",
+          "predicted_aqi": 198.9,
+          "confidence_score": 0.838
+        },
+        {
+          "prediction_for": "2026-10-24T09:00:00",
+          "predicted_aqi": 150.3,
+          "confidence_score": 0.91
+        },
+        {
+          "prediction_for": "2026-10-24T10:00:00",
+          "predicted_aqi": 134.2,
+          "confidence_score": 0.919
+        },
+        {
+          "prediction_for": "2026-10-24T11:00:00",
+          "predicted_aqi": 123,
+          "confidence_score": 0.897
+        },
+        {
+          "prediction_for": "2026-10-24T12:00:00",
+          "predicted_aqi": 123.7,
+          "confidence_score": 0.915
+        },
+        {
+          "prediction_for": "2026-10-24T13:00:00",
+          "predicted_aqi": 129.6,
+          "confidence_score": 0.9
+        },
+        {
+          "prediction_for": "2026-10-24T14:00:00",
+          "predicted_aqi": 134,
+          "confidence_score": 0.908
+        },
+        {
+          "prediction_for": "2026-10-24T15:00:00",
+          "predicted_aqi": 136.2,
+          "confidence_score": 0.875
+        },
+        {
+          "prediction_for": "2026-10-24T16:00:00",
+          "predicted_aqi": 146.3,
+          "confidence_score": 0.857
+        },
+        {
+          "prediction_for": "2026-10-24T17:00:00",
+          "predicted_aqi": 168.3,
+          "confidence_score": 0.881
+        },
+        {
+          "prediction_for": "2026-10-24T18:00:00",
+          "predicted_aqi": 190.8,
+          "confidence_score": 0.91
+        },
+        {
+          "prediction_for": "2026-10-24T19:00:00",
+          "predicted_aqi": 189,
+          "confidence_score": 0.872
+        },
+        {
+          "prediction_for": "2026-10-24T20:00:00",
+          "predicted_aqi": 168.5,
+          "confidence_score": 0.812
+        },
+        {
+          "prediction_for": "2026-10-24T21:00:00",
+          "predicted_aqi": 141.3,
+          "confidence_score": 0.821
+        },
+        {
+          "prediction_for": "2026-10-24T22:00:00",
+          "predicted_aqi": 118.8,
+          "confidence_score": 0.868
+        },
+        {
+          "prediction_for": "2026-10-24T23:00:00",
+          "predicted_aqi": 118,
+          "confidence_score": 0.841
+        },
+        {
+          "prediction_for": "2026-10-25T00:00:00",
+          "predicted_aqi": 142.8,
+          "confidence_score": 0.846
+        },
+        {
+          "prediction_for": "2026-10-25T01:00:00",
+          "predicted_aqi": 188.4,
+          "confidence_score": 0.862
+        }
+      ]
+    },
+    {
+      "city_id": 6,
+      "city_name": "Hyderabad",
+      "generated_at": "2026-10-24T01:12:11.953426",
+      "horizon_hours": 24,
+      "points": [
+        {
+          "prediction_for": "2026-10-24T02:00:00",
+          "predicted_aqi": 92.4,
+          "confidence_score": 0.821
+        },
+        {
+          "prediction_for": "2026-10-24T03:00:00",
+          "predicted_aqi": 105.9,
+          "confidence_score": 0.774
+        },
+        {
+          "prediction_for": "2026-10-24T04:00:00",
+          "predicted_aqi": 126.7,
+          "confidence_score": 0.86
+        },
+        {
+          "prediction_for": "2026-10-24T05:00:00",
+          "predicted_aqi": 153.1,
+          "confidence_score": 0.907
+        },
+        {
+          "prediction_for": "2026-10-24T06:00:00",
+          "predicted_aqi": 152.1,
+          "confidence_score": 0.863
+        },
+        {
+          "prediction_for": "2026-10-24T07:00:00",
+          "predicted_aqi": 156.9,
+          "confidence_score": 0.802
+        },
+        {
+          "prediction_for": "2026-10-24T08:00:00",
+          "predicted_aqi": 147.3,
+          "confidence_score": 0.746
+        },
+        {
+          "prediction_for": "2026-10-24T09:00:00",
+          "predicted_aqi": 114.3,
+          "confidence_score": 0.818
+        },
+        {
+          "prediction_for": "2026-10-24T10:00:00",
+          "predicted_aqi": 89.8,
+          "confidence_score": 0.884
+        },
+        {
+          "prediction_for": "2026-10-24T11:00:00",
+          "predicted_aqi": 82.8,
+          "confidence_score": 0.899
+        },
+        {
+          "prediction_for": "2026-10-24T12:00:00",
+          "predicted_aqi": 76.6,
+          "confidence_score": 0.846
+        },
+        {
+          "prediction_for": "2026-10-24T13:00:00",
+          "predicted_aqi": 80.4,
+          "confidence_score": 0.848
+        },
+        {
+          "prediction_for": "2026-10-24T14:00:00",
+          "predicted_aqi": 86.3,
+          "confidence_score": 0.855
+        },
+        {
+          "prediction_for": "2026-10-24T15:00:00",
+          "predicted_aqi": 97.7,
+          "confidence_score": 0.859
+        },
+        {
+          "prediction_for": "2026-10-24T16:00:00",
+          "predicted_aqi": 106.7,
+          "confidence_score": 0.819
+        },
+        {
+          "prediction_for": "2026-10-24T17:00:00",
+          "predicted_aqi": 122.6,
+          "confidence_score": 0.873
+        },
+        {
+          "prediction_for": "2026-10-24T18:00:00",
+          "predicted_aqi": 147.1,
+          "confidence_score": 0.915
+        },
+        {
+          "prediction_for": "2026-10-24T19:00:00",
+          "predicted_aqi": 136.9,
+          "confidence_score": 0.889
+        },
+        {
+          "prediction_for": "2026-10-24T20:00:00",
+          "predicted_aqi": 122,
+          "confidence_score": 0.818
+        },
+        {
+          "prediction_for": "2026-10-24T21:00:00",
+          "predicted_aqi": 90.5,
+          "confidence_score": 0.773
+        },
+        {
+          "prediction_for": "2026-10-24T22:00:00",
+          "predicted_aqi": 86.7,
+          "confidence_score": 0.821
+        },
+        {
+          "prediction_for": "2026-10-24T23:00:00",
+          "predicted_aqi": 91,
+          "confidence_score": 0.788
+        },
+        {
+          "prediction_for": "2026-10-25T00:00:00",
+          "predicted_aqi": 108,
+          "confidence_score": 0.811
+        },
+        {
+          "prediction_for": "2026-10-25T01:00:00",
+          "predicted_aqi": 122.7,
+          "confidence_score": 0.85
+        }
+      ]
+    },
+    {
+      "city_id": 14,
+      "city_name": "Indore",
+      "generated_at": "2026-10-24T01:12:11.953426",
+      "horizon_hours": 24,
+      "points": [
+        {
+          "prediction_for": "2026-10-24T02:00:00",
+          "predicted_aqi": 98.2,
+          "confidence_score": 0.848
+        },
+        {
+          "prediction_for": "2026-10-24T03:00:00",
+          "predicted_aqi": 114.9,
+          "confidence_score": 0.833
+        },
+        {
+          "prediction_for": "2026-10-24T04:00:00",
+          "predicted_aqi": 126.9,
+          "confidence_score": 0.851
+        },
+        {
+          "prediction_for": "2026-10-24T05:00:00",
+          "predicted_aqi": 156.2,
+          "confidence_score": 0.912
+        },
+        {
+          "prediction_for": "2026-10-24T06:00:00",
+          "predicted_aqi": 163,
+          "confidence_score": 0.834
+        },
+        {
+          "prediction_for": "2026-10-24T07:00:00",
+          "predicted_aqi": 178.1,
+          "confidence_score": 0.863
+        },
+        {
+          "prediction_for": "2026-10-24T08:00:00",
+          "predicted_aqi": 187.1,
+          "confidence_score": 0.881
+        },
+        {
+          "prediction_for": "2026-10-24T09:00:00",
+          "predicted_aqi": 140.3,
+          "confidence_score": 0.869
+        },
+        {
+          "prediction_for": "2026-10-24T10:00:00",
+          "predicted_aqi": 108.4,
+          "confidence_score": 0.864
+        },
+        {
+          "prediction_for": "2026-10-24T11:00:00",
+          "predicted_aqi": 93.5,
+          "confidence_score": 0.859
+        },
+        {
+          "prediction_for": "2026-10-24T12:00:00",
+          "predicted_aqi": 90.8,
+          "confidence_score": 0.859
+        },
+        {
+          "prediction_for": "2026-10-24T13:00:00",
+          "predicted_aqi": 98.8,
+          "confidence_score": 0.849
+        },
+        {
+          "prediction_for": "2026-10-24T14:00:00",
+          "predicted_aqi": 104.6,
+          "confidence_score": 0.812
+        },
+        {
+          "prediction_for": "2026-10-24T15:00:00",
+          "predicted_aqi": 115.2,
+          "confidence_score": 0.835
+        },
+        {
+          "prediction_for": "2026-10-24T16:00:00",
+          "predicted_aqi": 129.3,
+          "confidence_score": 0.839
+        },
+        {
+          "prediction_for": "2026-10-24T17:00:00",
+          "predicted_aqi": 148.9,
+          "confidence_score": 0.926
+        },
+        {
+          "prediction_for": "2026-10-24T18:00:00",
+          "predicted_aqi": 177.3,
+          "confidence_score": 0.939
+        },
+        {
+          "prediction_for": "2026-10-24T19:00:00",
+          "predicted_aqi": 173.3,
+          "confidence_score": 0.917
+        },
+        {
+          "prediction_for": "2026-10-24T20:00:00",
+          "predicted_aqi": 157.6,
+          "confidence_score": 0.838
+        },
+        {
+          "prediction_for": "2026-10-24T21:00:00",
+          "predicted_aqi": 123.5,
+          "confidence_score": 0.849
+        },
+        {
+          "prediction_for": "2026-10-24T22:00:00",
+          "predicted_aqi": 101.9,
+          "confidence_score": 0.872
+        },
+        {
+          "prediction_for": "2026-10-24T23:00:00",
+          "predicted_aqi": 97.6,
+          "confidence_score": 0.821
+        },
+        {
+          "prediction_for": "2026-10-25T00:00:00",
+          "predicted_aqi": 126.8,
+          "confidence_score": 0.821
+        },
+        {
+          "prediction_for": "2026-10-25T01:00:00",
+          "predicted_aqi": 134.5,
+          "confidence_score": 0.833
+        }
+      ]
+    },
+    {
+      "city_id": 9,
+      "city_name": "Jaipur",
+      "generated_at": "2026-10-24T01:12:11.953426",
+      "horizon_hours": 24,
+      "points": [
+        {
+          "prediction_for": "2026-10-24T02:00:00",
+          "predicted_aqi": 126.5,
+          "confidence_score": 0.77
+        },
+        {
+          "prediction_for": "2026-10-24T03:00:00",
+          "predicted_aqi": 136.2,
+          "confidence_score": 0.826
+        },
+        {
+          "prediction_for": "2026-10-24T04:00:00",
+          "predicted_aqi": 156.7,
+          "confidence_score": 0.848
+        },
+        {
+          "prediction_for": "2026-10-24T05:00:00",
+          "predicted_aqi": 185.6,
+          "confidence_score": 0.91
+        },
+        {
+          "prediction_for": "2026-10-24T06:00:00",
+          "predicted_aqi": 194.9,
+          "confidence_score": 0.902
+        },
+        {
+          "prediction_for": "2026-10-24T07:00:00",
+          "predicted_aqi": 200.8,
+          "confidence_score": 0.869
+        },
+        {
+          "prediction_for": "2026-10-24T08:00:00",
+          "predicted_aqi": 190.5,
+          "confidence_score": 0.818
+        },
+        {
+          "prediction_for": "2026-10-24T09:00:00",
+          "predicted_aqi": 136,
+          "confidence_score": 0.856
+        },
+        {
+          "prediction_for": "2026-10-24T10:00:00",
+          "predicted_aqi": 116.7,
+          "confidence_score": 0.899
+        },
+        {
+          "prediction_for": "2026-10-24T11:00:00",
+          "predicted_aqi": 110,
+          "confidence_score": 0.937
+        },
+        {
+          "prediction_for": "2026-10-24T12:00:00",
+          "predicted_aqi": 111.9,
+          "confidence_score": 0.884
+        },
+        {
+          "prediction_for": "2026-10-24T13:00:00",
+          "predicted_aqi": 115.8,
+          "confidence_score": 0.859
+        },
+        {
+          "prediction_for": "2026-10-24T14:00:00",
+          "predicted_aqi": 120.9,
+          "confidence_score": 0.863
+        },
+        {
+          "prediction_for": "2026-10-24T15:00:00",
+          "predicted_aqi": 137.1,
+          "confidence_score": 0.843
+        },
+        {
+          "prediction_for": "2026-10-24T16:00:00",
+          "predicted_aqi": 147.4,
+          "confidence_score": 0.845
+        },
+        {
+          "prediction_for": "2026-10-24T17:00:00",
+          "predicted_aqi": 161.6,
+          "confidence_score": 0.903
+        },
+        {
+          "prediction_for": "2026-10-24T18:00:00",
+          "predicted_aqi": 175.6,
+          "confidence_score": 0.905
+        },
+        {
+          "prediction_for": "2026-10-24T19:00:00",
+          "predicted_aqi": 174.4,
+          "confidence_score": 0.856
+        },
+        {
+          "prediction_for": "2026-10-24T20:00:00",
+          "predicted_aqi": 169.4,
+          "confidence_score": 0.818
+        },
+        {
+          "prediction_for": "2026-10-24T21:00:00",
+          "predicted_aqi": 133.5,
+          "confidence_score": 0.831
+        },
+        {
+          "prediction_for": "2026-10-24T22:00:00",
+          "predicted_aqi": 110.9,
+          "confidence_score": 0.885
+        },
+        {
+          "prediction_for": "2026-10-24T23:00:00",
+          "predicted_aqi": 107.8,
+          "confidence_score": 0.852
+        },
+        {
+          "prediction_for": "2026-10-25T00:00:00",
+          "predicted_aqi": 133.4,
+          "confidence_score": 0.815
+        },
+        {
+          "prediction_for": "2026-10-25T01:00:00",
+          "predicted_aqi": 140.9,
+          "confidence_score": 0.855
+        }
+      ]
+    },
+    {
+      "city_id": 29,
+      "city_name": "Jodhpur",
+      "generated_at": "2026-10-24T01:12:11.953426",
+      "horizon_hours": 24,
+      "points": [
+        {
+          "prediction_for": "2026-10-24T02:00:00",
+          "predicted_aqi": 143.8,
+          "confidence_score": 0.814
+        },
+        {
+          "prediction_for": "2026-10-24T03:00:00",
+          "predicted_aqi": 188.8,
+          "confidence_score": 0.858
+        },
+        {
+          "prediction_for": "2026-10-24T04:00:00",
+          "predicted_aqi": 200.3,
+          "confidence_score": 0.894
+        },
+        {
+          "prediction_for": "2026-10-24T05:00:00",
+          "predicted_aqi": 200,
+          "confidence_score": 0.883
+        },
+        {
+          "prediction_for": "2026-10-24T06:00:00",
+          "predicted_aqi": 205.2,
+          "confidence_score": 0.849
+        },
+        {
+          "prediction_for": "2026-10-24T07:00:00",
+          "predicted_aqi": 207.1,
+          "confidence_score": 0.849
+        },
+        {
+          "prediction_for": "2026-10-24T08:00:00",
+          "predicted_aqi": 203.3,
+          "confidence_score": 0.844
+        },
+        {
+          "prediction_for": "2026-10-24T09:00:00",
+          "predicted_aqi": 156.7,
+          "confidence_score": 0.875
+        },
+        {
+          "prediction_for": "2026-10-24T10:00:00",
+          "predicted_aqi": 138.7,
+          "confidence_score": 0.898
+        },
+        {
+          "prediction_for": "2026-10-24T11:00:00",
+          "predicted_aqi": 128.2,
+          "confidence_score": 0.894
+        },
+        {
+          "prediction_for": "2026-10-24T12:00:00",
+          "predicted_aqi": 124.7,
+          "confidence_score": 0.913
+        },
+        {
+          "prediction_for": "2026-10-24T13:00:00",
+          "predicted_aqi": 124.2,
+          "confidence_score": 0.893
+        },
+        {
+          "prediction_for": "2026-10-24T14:00:00",
+          "predicted_aqi": 132.4,
+          "confidence_score": 0.901
+        },
+        {
+          "prediction_for": "2026-10-24T15:00:00",
+          "predicted_aqi": 137.1,
+          "confidence_score": 0.903
+        },
+        {
+          "prediction_for": "2026-10-24T16:00:00",
+          "predicted_aqi": 145.3,
+          "confidence_score": 0.85
+        },
+        {
+          "prediction_for": "2026-10-24T17:00:00",
+          "predicted_aqi": 167.6,
+          "confidence_score": 0.879
+        },
+        {
+          "prediction_for": "2026-10-24T18:00:00",
+          "predicted_aqi": 190.7,
+          "confidence_score": 0.91
+        },
+        {
+          "prediction_for": "2026-10-24T19:00:00",
+          "predicted_aqi": 198.4,
+          "confidence_score": 0.903
+        },
+        {
+          "prediction_for": "2026-10-24T20:00:00",
+          "predicted_aqi": 183.9,
+          "confidence_score": 0.852
+        },
+        {
+          "prediction_for": "2026-10-24T21:00:00",
+          "predicted_aqi": 162.9,
+          "confidence_score": 0.825
+        },
+        {
+          "prediction_for": "2026-10-24T22:00:00",
+          "predicted_aqi": 134.7,
+          "confidence_score": 0.847
+        },
+        {
+          "prediction_for": "2026-10-24T23:00:00",
+          "predicted_aqi": 119.3,
+          "confidence_score": 0.848
+        },
+        {
+          "prediction_for": "2026-10-25T00:00:00",
+          "predicted_aqi": 144.2,
+          "confidence_score": 0.813
+        },
+        {
+          "prediction_for": "2026-10-25T01:00:00",
+          "predicted_aqi": 187.8,
+          "confidence_score": 0.85
+        }
+      ]
+    },
+    {
+      "city_id": 11,
+      "city_name": "Kanpur",
+      "generated_at": "2026-10-24T01:12:11.953426",
+      "horizon_hours": 24,
+      "points": [
+        {
+          "prediction_for": "2026-10-24T02:00:00",
+          "predicted_aqi": 130.2,
+          "confidence_score": 0.777
+        },
+        {
+          "prediction_for": "2026-10-24T03:00:00",
+          "predicted_aqi": 137.5,
+          "confidence_score": 0.846
+        },
+        {
+          "prediction_for": "2026-10-24T04:00:00",
+          "predicted_aqi": 160.8,
+          "confidence_score": 0.856
+        },
+        {
+          "prediction_for": "2026-10-24T05:00:00",
+          "predicted_aqi": 187.1,
+          "confidence_score": 0.904
+        },
+        {
+          "prediction_for": "2026-10-24T06:00:00",
+          "predicted_aqi": 196.8,
+          "confidence_score": 0.899
+        },
+        {
+          "prediction_for": "2026-10-24T07:00:00",
+          "predicted_aqi": 209.5,
+          "confidence_score": 0.887
+        },
+        {
+          "prediction_for": "2026-10-24T08:00:00",
+          "predicted_aqi": 198.2,
+          "confidence_score": 0.824
+        },
+        {
+          "prediction_for": "2026-10-24T09:00:00",
+          "predicted_aqi": 146.2,
+          "confidence_score": 0.893
+        },
+        {
+          "prediction_for": "2026-10-24T10:00:00",
+          "predicted_aqi": 124.4,
+          "confidence_score": 0.902
+        },
+        {
+          "prediction_for": "2026-10-24T11:00:00",
+          "predicted_aqi": 112.3,
+          "confidence_score": 0.927
+        },
+        {
+          "prediction_for": "2026-10-24T12:00:00",
+          "predicted_aqi": 111.4,
+          "confidence_score": 0.914
+        },
+        {
+          "prediction_for": "2026-10-24T13:00:00",
+          "predicted_aqi": 116.4,
+          "confidence_score": 0.872
+        },
+        {
+          "prediction_for": "2026-10-24T14:00:00",
+          "predicted_aqi": 121.2,
+          "confidence_score": 0.864
+        },
+        {
+          "prediction_for": "2026-10-24T15:00:00",
+          "predicted_aqi": 133.1,
+          "confidence_score": 0.855
+        },
+        {
+          "prediction_for": "2026-10-24T16:00:00",
+          "predicted_aqi": 139.6,
+          "confidence_score": 0.883
+        },
+        {
+          "prediction_for": "2026-10-24T17:00:00",
+          "predicted_aqi": 161.8,
+          "confidence_score": 0.9
+        },
+        {
+          "prediction_for": "2026-10-24T18:00:00",
+          "predicted_aqi": 182.4,
+          "confidence_score": 0.916
+        },
+        {
+          "prediction_for": "2026-10-24T19:00:00",
+          "predicted_aqi": 188.9,
+          "confidence_score": 0.868
+        },
+        {
+          "prediction_for": "2026-10-24T20:00:00",
+          "predicted_aqi": 175.1,
+          "confidence_score": 0.831
+        },
+        {
+          "prediction_for": "2026-10-24T21:00:00",
+          "predicted_aqi": 142.3,
+          "confidence_score": 0.827
+        },
+        {
+          "prediction_for": "2026-10-24T22:00:00",
+          "predicted_aqi": 113.5,
+          "confidence_score": 0.894
+        },
+        {
+          "prediction_for": "2026-10-24T23:00:00",
+          "predicted_aqi": 110.3,
+          "confidence_score": 0.856
+        },
+        {
+          "prediction_for": "2026-10-25T00:00:00",
+          "predicted_aqi": 132.6,
+          "confidence_score": 0.829
+        },
+        {
+          "prediction_for": "2026-10-25T01:00:00",
+          "predicted_aqi": 142.8,
+          "confidence_score": 0.835
+        }
+      ]
+    },
+    {
+      "city_id": 24,
+      "city_name": "Kochi",
+      "generated_at": "2026-10-24T01:12:11.953426",
+      "horizon_hours": 24,
+      "points": [
+        {
+          "prediction_for": "2026-10-24T02:00:00",
+          "predicted_aqi": 257.1,
+          "confidence_score": 0.881
+        },
+        {
+          "prediction_for": "2026-10-24T03:00:00",
+          "predicted_aqi": 283.2,
+          "confidence_score": 0.899
+        },
+        {
+          "prediction_for": "2026-10-24T04:00:00",
+          "predicted_aqi": 286.9,
+          "confidence_score": 0.914
+        },
+        {
+          "prediction_for": "2026-10-24T05:00:00",
+          "predicted_aqi": 286.7,
+          "confidence_score": 0.934
+        },
+        {
+          "prediction_for": "2026-10-24T06:00:00",
+          "predicted_aqi": 276.5,
+          "confidence_score": 0.91
+        },
+        {
+          "prediction_for": "2026-10-24T07:00:00",
+          "predicted_aqi": 272.8,
+          "confidence_score": 0.899
+        },
+        {
+          "prediction_for": "2026-10-24T08:00:00",
+          "predicted_aqi": 266.5,
+          "confidence_score": 0.893
+        },
+        {
+          "prediction_for": "2026-10-24T09:00:00",
+          "predicted_aqi": 248.5,
+          "confidence_score": 0.932
+        },
+        {
+          "prediction_for": "2026-10-24T10:00:00",
+          "predicted_aqi": 239,
+          "confidence_score": 0.945
+        },
+        {
+          "prediction_for": "2026-10-24T11:00:00",
+          "predicted_aqi": 235.2,
+          "confidence_score": 0.927
+        },
+        {
+          "prediction_for": "2026-10-24T12:00:00",
+          "predicted_aqi": 242.1,
+          "confidence_score": 0.917
+        },
+        {
+          "prediction_for": "2026-10-24T13:00:00",
+          "predicted_aqi": 252.7,
+          "confidence_score": 0.929
+        },
+        {
+          "prediction_for": "2026-10-24T14:00:00",
+          "predicted_aqi": 262.8,
+          "confidence_score": 0.927
+        },
+        {
+          "prediction_for": "2026-10-24T15:00:00",
+          "predicted_aqi": 265.6,
+          "confidence_score": 0.918
+        },
+        {
+          "prediction_for": "2026-10-24T16:00:00",
+          "predicted_aqi": 267.5,
+          "confidence_score": 0.931
+        },
+        {
+          "prediction_for": "2026-10-24T17:00:00",
+          "predicted_aqi": 259.3,
+          "confidence_score": 0.917
+        },
+        {
+          "prediction_for": "2026-10-24T18:00:00",
+          "predicted_aqi": 257.6,
+          "confidence_score": 0.906
+        },
+        {
+          "prediction_for": "2026-10-24T19:00:00",
+          "predicted_aqi": 260.2,
+          "confidence_score": 0.897
+        },
+        {
+          "prediction_for": "2026-10-24T20:00:00",
+          "predicted_aqi": 261.3,
+          "confidence_score": 0.896
+        },
+        {
+          "prediction_for": "2026-10-24T21:00:00",
+          "predicted_aqi": 255.6,
+          "confidence_score": 0.906
+        },
+        {
+          "prediction_for": "2026-10-24T22:00:00",
+          "predicted_aqi": 249.6,
+          "confidence_score": 0.907
+        },
+        {
+          "prediction_for": "2026-10-24T23:00:00",
+          "predicted_aqi": 248.5,
+          "confidence_score": 0.908
+        },
+        {
+          "prediction_for": "2026-10-25T00:00:00",
+          "predicted_aqi": 268.4,
+          "confidence_score": 0.893
+        },
+        {
+          "prediction_for": "2026-10-25T01:00:00",
+          "predicted_aqi": 285.1,
+          "confidence_score": 0.912
+        }
+      ]
+    },
+    {
+      "city_id": 5,
+      "city_name": "Kolkata",
+      "generated_at": "2026-10-24T01:12:11.953426",
+      "horizon_hours": 24,
+      "points": [
+        {
+          "prediction_for": "2026-10-24T02:00:00",
+          "predicted_aqi": 99.8,
+          "confidence_score": 0.844
+        },
+        {
+          "prediction_for": "2026-10-24T03:00:00",
+          "predicted_aqi": 117.7,
+          "confidence_score": 0.821
+        },
+        {
+          "prediction_for": "2026-10-24T04:00:00",
+          "predicted_aqi": 130,
+          "confidence_score": 0.839
+        },
+        {
+          "prediction_for": "2026-10-24T05:00:00",
+          "predicted_aqi": 156.5,
+          "confidence_score": 0.889
+        },
+        {
+          "prediction_for": "2026-10-24T06:00:00",
+          "predicted_aqi": 177.2,
+          "confidence_score": 0.897
+        },
+        {
+          "prediction_for": "2026-10-24T07:00:00",
+          "predicted_aqi": 187.9,
+          "confidence_score": 0.91
+        },
+        {
+          "prediction_for": "2026-10-24T08:00:00",
+          "predicted_aqi": 190.4,
+          "confidence_score": 0.86
+        },
+        {
+          "prediction_for": "2026-10-24T09:00:00",
+          "predicted_aqi": 132.4,
+          "confidence_score": 0.852
+        },
+        {
+          "prediction_for": "2026-10-24T10:00:00",
+          "predicted_aqi": 106.1,
+          "confidence_score": 0.879
+        },
+        {
+          "prediction_for": "2026-10-24T11:00:00",
+          "predicted_aqi": 99.6,
+          "confidence_score": 0.884
+        },
+        {
+          "prediction_for": "2026-10-24T12:00:00",
+          "predicted_aqi": 98.1,
+          "confidence_score": 0.873
+        },
+        {
+          "prediction_for": "2026-10-24T13:00:00",
+          "predicted_aqi": 103.5,
+          "confidence_score": 0.875
+        },
+        {
+          "prediction_for": "2026-10-24T14:00:00",
+          "predicted_aqi": 115.8,
+          "confidence_score": 0.859
+        },
+        {
+          "prediction_for": "2026-10-24T15:00:00",
+          "predicted_aqi": 128.5,
+          "confidence_score": 0.851
+        },
+        {
+          "prediction_for": "2026-10-24T16:00:00",
+          "predicted_aqi": 135.9,
+          "confidence_score": 0.876
+        },
+        {
+          "prediction_for": "2026-10-24T17:00:00",
+          "predicted_aqi": 158.2,
+          "confidence_score": 0.921
+        },
+        {
+          "prediction_for": "2026-10-24T18:00:00",
+          "predicted_aqi": 174,
+          "confidence_score": 0.937
+        },
+        {
+          "prediction_for": "2026-10-24T19:00:00",
+          "predicted_aqi": 168.7,
+          "confidence_score": 0.884
+        },
+        {
+          "prediction_for": "2026-10-24T20:00:00",
+          "predicted_aqi": 156.3,
+          "confidence_score": 0.832
+        },
+        {
+          "prediction_for": "2026-10-24T21:00:00",
+          "predicted_aqi": 124.6,
+          "confidence_score": 0.852
+        },
+        {
+          "prediction_for": "2026-10-24T22:00:00",
+          "predicted_aqi": 103.3,
+          "confidence_score": 0.883
+        },
+        {
+          "prediction_for": "2026-10-24T23:00:00",
+          "predicted_aqi": 98.8,
+          "confidence_score": 0.83
+        },
+        {
+          "prediction_for": "2026-10-25T00:00:00",
+          "predicted_aqi": 127.3,
+          "confidence_score": 0.806
+        },
+        {
+          "prediction_for": "2026-10-25T01:00:00",
+          "predicted_aqi": 136.3,
+          "confidence_score": 0.832
+        }
+      ]
+    },
+    {
+      "city_id": 10,
+      "city_name": "Lucknow",
+      "generated_at": "2026-10-24T01:12:11.953426",
+      "horizon_hours": 24,
+      "points": [
+        {
+          "prediction_for": "2026-10-24T02:00:00",
+          "predicted_aqi": 146.6,
+          "confidence_score": 0.761
+        },
+        {
+          "prediction_for": "2026-10-24T03:00:00",
+          "predicted_aqi": 198.6,
+          "confidence_score": 0.839
+        },
+        {
+          "prediction_for": "2026-10-24T04:00:00",
+          "predicted_aqi": 203.2,
+          "confidence_score": 0.869
+        },
+        {
+          "prediction_for": "2026-10-24T05:00:00",
+          "predicted_aqi": 206.4,
+          "confidence_score": 0.873
+        },
+        {
+          "prediction_for": "2026-10-24T06:00:00",
+          "predicted_aqi": 212.1,
+          "confidence_score": 0.859
+        },
+        {
+          "prediction_for": "2026-10-24T07:00:00",
+          "predicted_aqi": 213.2,
+          "confidence_score": 0.865
+        },
+        {
+          "prediction_for": "2026-10-24T08:00:00",
+          "predicted_aqi": 207.8,
+          "confidence_score": 0.853
+        },
+        {
+          "prediction_for": "2026-10-24T09:00:00",
+          "predicted_aqi": 161,
+          "confidence_score": 0.874
+        },
+        {
+          "prediction_for": "2026-10-24T10:00:00",
+          "predicted_aqi": 146.8,
+          "confidence_score": 0.941
+        },
+        {
+          "prediction_for": "2026-10-24T11:00:00",
+          "predicted_aqi": 146.9,
+          "confidence_score": 0.901
+        },
+        {
+          "prediction_for": "2026-10-24T12:00:00",
+          "predicted_aqi": 151.6,
+          "confidence_score": 0.906
+        },
+        {
+          "prediction_for": "2026-10-24T13:00:00",
+          "predicted_aqi": 154.4,
+          "confidence_score": 0.886
+        },
+        {
+          "prediction_for": "2026-10-24T14:00:00",
+          "predicted_aqi": 156.5,
+          "confidence_score": 0.88
+        },
+        {
+          "prediction_for": "2026-10-24T15:00:00",
+          "predicted_aqi": 161.5,
+          "confidence_score": 0.865
+        },
+        {
+          "prediction_for": "2026-10-24T16:00:00",
+          "predicted_aqi": 165.3,
+          "confidence_score": 0.865
+        },
+        {
+          "prediction_for": "2026-10-24T17:00:00",
+          "predicted_aqi": 183.7,
+          "confidence_score": 0.867
+        },
+        {
+          "prediction_for": "2026-10-24T18:00:00",
+          "predicted_aqi": 193.4,
+          "confidence_score": 0.884
+        },
+        {
+          "prediction_for": "2026-10-24T19:00:00",
+          "predicted_aqi": 193.7,
+          "confidence_score": 0.87
+        },
+        {
+          "prediction_for": "2026-10-24T20:00:00",
+          "predicted_aqi": 177.5,
+          "confidence_score": 0.827
+        },
+        {
+          "prediction_for": "2026-10-24T21:00:00",
+          "predicted_aqi": 165.1,
+          "confidence_score": 0.84
+        },
+        {
+          "prediction_for": "2026-10-24T22:00:00",
+          "predicted_aqi": 143.1,
+          "confidence_score": 0.834
+        },
+        {
+          "prediction_for": "2026-10-24T23:00:00",
+          "predicted_aqi": 136.6,
+          "confidence_score": 0.778
+        },
+        {
+          "prediction_for": "2026-10-25T00:00:00",
+          "predicted_aqi": 167.7,
+          "confidence_score": 0.786
+        },
+        {
+          "prediction_for": "2026-10-25T01:00:00",
+          "predicted_aqi": 199.7,
+          "confidence_score": 0.867
+        }
+      ]
+    },
+    {
+      "city_id": 16,
+      "city_name": "Ludhiana",
+      "generated_at": "2026-10-24T01:12:11.953426",
+      "horizon_hours": 24,
+      "points": [
+        {
+          "prediction_for": "2026-10-24T02:00:00",
+          "predicted_aqi": 100.7,
+          "confidence_score": 0.858
+        },
+        {
+          "prediction_for": "2026-10-24T03:00:00",
+          "predicted_aqi": 123.5,
+          "confidence_score": 0.859
+        },
+        {
+          "prediction_for": "2026-10-24T04:00:00",
+          "predicted_aqi": 137.6,
+          "confidence_score": 0.86
+        },
+        {
+          "prediction_for": "2026-10-24T05:00:00",
+          "predicted_aqi": 162.5,
+          "confidence_score": 0.894
+        },
+        {
+          "prediction_for": "2026-10-24T06:00:00",
+          "predicted_aqi": 189,
+          "confidence_score": 0.935
+        },
+        {
+          "prediction_for": "2026-10-24T07:00:00",
+          "predicted_aqi": 194.8,
+          "confidence_score": 0.92
+        },
+        {
+          "prediction_for": "2026-10-24T08:00:00",
+          "predicted_aqi": 191.3,
+          "confidence_score": 0.864
+        },
+        {
+          "prediction_for": "2026-10-24T09:00:00",
+          "predicted_aqi": 134.4,
+          "confidence_score": 0.85
+        },
+        {
+          "prediction_for": "2026-10-24T10:00:00",
+          "predicted_aqi": 108.3,
+          "confidence_score": 0.884
+        },
+        {
+          "prediction_for": "2026-10-24T11:00:00",
+          "predicted_aqi": 102.6,
+          "confidence_score": 0.906
+        },
+        {
+          "prediction_for": "2026-10-24T12:00:00",
+          "predicted_aqi": 102,
+          "confidence_score": 0.879
+        },
+        {
+          "prediction_for": "2026-10-24T13:00:00",
+          "predicted_aqi": 105.8,
+          "confidence_score": 0.894
+        },
+        {
+          "prediction_for": "2026-10-24T14:00:00",
+          "predicted_aqi": 116,
+          "confidence_score": 0.872
+        },
+        {
+          "prediction_for": "2026-10-24T15:00:00",
+          "predicted_aqi": 129,
+          "confidence_score": 0.849
+        },
+        {
+          "prediction_for": "2026-10-24T16:00:00",
+          "predicted_aqi": 136.1,
+          "confidence_score": 0.873
+        },
+        {
+          "prediction_for": "2026-10-24T17:00:00",
+          "predicted_aqi": 159.8,
+          "confidence_score": 0.92
+        },
+        {
+          "prediction_for": "2026-10-24T18:00:00",
+          "predicted_aqi": 174.7,
+          "confidence_score": 0.931
+        },
+        {
+          "prediction_for": "2026-10-24T19:00:00",
+          "predicted_aqi": 166.9,
+          "confidence_score": 0.873
+        },
+        {
+          "prediction_for": "2026-10-24T20:00:00",
+          "predicted_aqi": 153.5,
+          "confidence_score": 0.819
+        },
+        {
+          "prediction_for": "2026-10-24T21:00:00",
+          "predicted_aqi": 124.1,
+          "confidence_score": 0.845
+        },
+        {
+          "prediction_for": "2026-10-24T22:00:00",
+          "predicted_aqi": 103.9,
+          "confidence_score": 0.88
+        },
+        {
+          "prediction_for": "2026-10-24T23:00:00",
+          "predicted_aqi": 99.1,
+          "confidence_score": 0.82
+        },
+        {
+          "prediction_for": "2026-10-25T00:00:00",
+          "predicted_aqi": 131.6,
+          "confidence_score": 0.828
+        },
+        {
+          "prediction_for": "2026-10-25T01:00:00",
+          "predicted_aqi": 138.9,
+          "confidence_score": 0.851
+        }
+      ]
+    },
+    {
+      "city_id": 30,
+      "city_name": "Meerut",
+      "generated_at": "2026-10-24T01:12:11.953426",
+      "horizon_hours": 24,
+      "points": [
+        {
+          "prediction_for": "2026-10-24T02:00:00",
+          "predicted_aqi": 136.3,
+          "confidence_score": 0.791
+        },
+        {
+          "prediction_for": "2026-10-24T03:00:00",
+          "predicted_aqi": 160.3,
+          "confidence_score": 0.865
+        },
+        {
+          "prediction_for": "2026-10-24T04:00:00",
+          "predicted_aqi": 191.3,
+          "confidence_score": 0.899
+        },
+        {
+          "prediction_for": "2026-10-24T05:00:00",
+          "predicted_aqi": 202.5,
+          "confidence_score": 0.901
+        },
+        {
+          "prediction_for": "2026-10-24T06:00:00",
+          "predicted_aqi": 208.8,
+          "confidence_score": 0.886
+        },
+        {
+          "prediction_for": "2026-10-24T07:00:00",
+          "predicted_aqi": 205.2,
+          "confidence_score": 0.84
+        },
+        {
+          "prediction_for": "2026-10-24T08:00:00",
+          "predicted_aqi": 199.2,
+          "confidence_score": 0.836
+        },
+        {
+          "prediction_for": "2026-10-24T09:00:00",
+          "predicted_aqi": 147.9,
+          "confidence_score": 0.895
+        },
+        {
+          "prediction_for": "2026-10-24T10:00:00",
+          "predicted_aqi": 129.6,
+          "confidence_score": 0.903
+        },
+        {
+          "prediction_for": "2026-10-24T11:00:00",
+          "predicted_aqi": 114.6,
+          "confidence_score": 0.928
+        },
+        {
+          "prediction_for": "2026-10-24T12:00:00",
+          "predicted_aqi": 113.8,
+          "confidence_score": 0.909
+        },
+        {
+          "prediction_for": "2026-10-24T13:00:00",
+          "predicted_aqi": 124,
+          "confidence_score": 0.919
+        },
+        {
+          "prediction_for": "2026-10-24T14:00:00",
+          "predicted_aqi": 129.6,
+          "confidence_score": 0.916
+        },
+        {
+          "prediction_for": "2026-10-24T15:00:00",
+          "predicted_aqi": 136.9,
+          "confidence_score": 0.898
+        },
+        {
+          "prediction_for": "2026-10-24T16:00:00",
+          "predicted_aqi": 146,
+          "confidence_score": 0.847
+        },
+        {
+          "prediction_for": "2026-10-24T17:00:00",
+          "predicted_aqi": 167.8,
+          "confidence_score": 0.878
+        },
+        {
+          "prediction_for": "2026-10-24T18:00:00",
+          "predicted_aqi": 189.6,
+          "confidence_score": 0.917
+        },
+        {
+          "prediction_for": "2026-10-24T19:00:00",
+          "predicted_aqi": 188.5,
+          "confidence_score": 0.871
+        },
+        {
+          "prediction_for": "2026-10-24T20:00:00",
+          "predicted_aqi": 169,
+          "confidence_score": 0.82
+        },
+        {
+          "prediction_for": "2026-10-24T21:00:00",
+          "predicted_aqi": 141.2,
+          "confidence_score": 0.821
+        },
+        {
+          "prediction_for": "2026-10-24T22:00:00",
+          "predicted_aqi": 118.5,
+          "confidence_score": 0.869
+        },
+        {
+          "prediction_for": "2026-10-24T23:00:00",
+          "predicted_aqi": 115.9,
+          "confidence_score": 0.844
+        },
+        {
+          "prediction_for": "2026-10-25T00:00:00",
+          "predicted_aqi": 141.7,
+          "confidence_score": 0.847
+        },
+        {
+          "prediction_for": "2026-10-25T01:00:00",
+          "predicted_aqi": 186.9,
+          "confidence_score": 0.859
+        }
+      ]
+    },
+    {
+      "city_id": 2,
+      "city_name": "Mumbai",
+      "generated_at": "2026-10-24T01:12:11.953426",
+      "horizon_hours": 24,
+      "points": [
+        {
+          "prediction_for": "2026-10-24T02:00:00",
+          "predicted_aqi": 92.9,
+          "confidence_score": 0.831
+        },
+        {
+          "prediction_for": "2026-10-24T03:00:00",
+          "predicted_aqi": 108.1,
+          "confidence_score": 0.782
+        },
+        {
+          "prediction_for": "2026-10-24T04:00:00",
+          "predicted_aqi": 126.8,
+          "confidence_score": 0.857
+        },
+        {
+          "prediction_for": "2026-10-24T05:00:00",
+          "predicted_aqi": 154,
+          "confidence_score": 0.918
+        },
+        {
+          "prediction_for": "2026-10-24T06:00:00",
+          "predicted_aqi": 153.3,
+          "confidence_score": 0.86
+        },
+        {
+          "prediction_for": "2026-10-24T07:00:00",
+          "predicted_aqi": 159.2,
+          "confidence_score": 0.803
+        },
+        {
+          "prediction_for": "2026-10-24T08:00:00",
+          "predicted_aqi": 147.3,
+          "confidence_score": 0.748
+        },
+        {
+          "prediction_for": "2026-10-24T09:00:00",
+          "predicted_aqi": 113.9,
+          "confidence_score": 0.8
+        },
+        {
+          "prediction_for": "2026-10-24T10:00:00",
+          "predicted_aqi": 90.5,
+          "confidence_score": 0.891
+        },
+        {
+          "prediction_for": "2026-10-24T11:00:00",
+          "predicted_aqi": 81.6,
+          "confidence_score": 0.908
+        },
+        {
+          "prediction_for": "2026-10-24T12:00:00",
+          "predicted_aqi": 84.7,
+          "confidence_score": 0.883
+        },
+        {
+          "prediction_for": "2026-10-24T13:00:00",
+          "predicted_aqi": 87.4,
+          "confidence_score": 0.885
+        },
+        {
+          "prediction_for": "2026-10-24T14:00:00",
+          "predicted_aqi": 93.1,
+          "confidence_score": 0.891
+        },
+        {
+          "prediction_for": "2026-10-24T15:00:00",
+          "predicted_aqi": 97.4,
+          "confidence_score": 0.838
+        },
+        {
+          "prediction_for": "2026-10-24T16:00:00",
+          "predicted_aqi": 109.5,
+          "confidence_score": 0.843
+        },
+        {
+          "prediction_for": "2026-10-24T17:00:00",
+          "predicted_aqi": 125,
+          "confidence_score": 0.877
+        },
+        {
+          "prediction_for": "2026-10-24T18:00:00",
+          "predicted_aqi": 144.7,
+          "confidence_score": 0.874
+        },
+        {
+          "prediction_for": "2026-10-24T19:00:00",
+          "predicted_aqi": 135.9,
+          "confidence_score": 0.877
+        },
+        {
+          "prediction_for": "2026-10-24T20:00:00",
+          "predicted_aqi": 122.8,
+          "confidence_score": 0.767
+        },
+        {
+          "prediction_for": "2026-10-24T21:00:00",
+          "predicted_aqi": 92.2,
+          "confidence_score": 0.75
+        },
+        {
+          "prediction_for": "2026-10-24T22:00:00",
+          "predicted_aqi": 85,
+          "confidence_score": 0.823
+        },
+        {
+          "prediction_for": "2026-10-24T23:00:00",
+          "predicted_aqi": 91.8,
+          "confidence_score": 0.778
+        },
+        {
+          "prediction_for": "2026-10-25T00:00:00",
+          "predicted_aqi": 109.1,
+          "confidence_score": 0.813
+        },
+        {
+          "prediction_for": "2026-10-25T01:00:00",
+          "predicted_aqi": 122.6,
+          "confidence_score": 0.851
+        }
+      ]
+    },
+    {
+      "city_id": 12,
+      "city_name": "Nagpur",
+      "generated_at": "2026-10-24T01:12:11.953426",
+      "horizon_hours": 24,
+      "points": [
+        {
+          "prediction_for": "2026-10-24T02:00:00",
+          "predicted_aqi": 131.9,
+          "confidence_score": 0.791
+        },
+        {
+          "prediction_for": "2026-10-24T03:00:00",
+          "predicted_aqi": 137.7,
+          "confidence_score": 0.834
+        },
+        {
+          "prediction_for": "2026-10-24T04:00:00",
+          "predicted_aqi": 160.5,
+          "confidence_score": 0.853
+        },
+        {
+          "prediction_for": "2026-10-24T05:00:00",
+          "predicted_aqi": 186.7,
+          "confidence_score": 0.911
+        },
+        {
+          "prediction_for": "2026-10-24T06:00:00",
+          "predicted_aqi": 195.8,
+          "confidence_score": 0.903
+        },
+        {
+          "prediction_for": "2026-10-24T07:00:00",
+          "predicted_aqi": 202.2,
+          "confidence_score": 0.877
+        },
+        {
+          "prediction_for": "2026-10-24T08:00:00",
+          "predicted_aqi": 191.7,
+          "confidence_score": 0.82
+        },
+        {
+          "prediction_for": "2026-10-24T09:00:00",
+          "predicted_aqi": 138.2,
+          "confidence_score": 0.868
+        },
+        {
+          "prediction_for": "2026-10-24T10:00:00",
+          "predicted_aqi": 118.2,
+          "confidence_score": 0.9
+        },
+        {
+          "prediction_for": "2026-10-24T11:00:00",
+          "predicted_aqi": 110.6,
+          "confidence_score": 0.943
+        },
+        {
+          "prediction_for": "2026-10-24T12:00:00",
+          "predicted_aqi": 110.4,
+          "confidence_score": 0.902
+        },
+        {
+          "prediction_for": "2026-10-24T13:00:00",
+          "predicted_aqi": 113,
+          "confidence_score": 0.875
+        },
+        {
+          "prediction_for": "2026-10-24T14:00:00",
+          "predicted_aqi": 119.4,
+          "confidence_score": 0.87
+        },
+        {
+          "prediction_for": "2026-10-24T15:00:00",
+          "predicted_aqi": 134.5,
+          "confidence_score": 0.85
+        },
+        {
+          "prediction_for": "2026-10-24T16:00:00",
+          "predicted_aqi": 142.3,
+          "confidence_score": 0.883
+        },
+        {
+          "prediction_for": "2026-10-24T17:00:00",
+          "predicted_aqi": 161.1,
+          "confidence_score": 0.912
+        },
+        {
+          "prediction_for": "2026-10-24T18:00:00",
+          "predicted_aqi": 178.1,
+          "confidence_score": 0.926
+        },
+        {
+          "prediction_for": "2026-10-24T19:00:00",
+          "predicted_aqi": 173.4,
+          "confidence_score": 0.864
+        },
+        {
+          "prediction_for": "2026-10-24T20:00:00",
+          "predicted_aqi": 160.9,
+          "confidence_score": 0.815
+        },
+        {
+          "prediction_for": "2026-10-24T21:00:00",
+          "predicted_aqi": 129.5,
+          "confidence_score": 0.844
+        },
+        {
+          "prediction_for": "2026-10-24T22:00:00",
+          "predicted_aqi": 110.7,
+          "confidence_score": 0.87
+        },
+        {
+          "prediction_for": "2026-10-24T23:00:00",
+          "predicted_aqi": 105.1,
+          "confidence_score": 0.85
+        },
+        {
+          "prediction_for": "2026-10-25T00:00:00",
+          "predicted_aqi": 132.9,
+          "confidence_score": 0.833
+        },
+        {
+          "prediction_for": "2026-10-25T01:00:00",
+          "predicted_aqi": 140.2,
+          "confidence_score": 0.854
+        }
+      ]
+    },
+    {
+      "city_id": 13,
+      "city_name": "Patna",
+      "generated_at": "2026-10-24T01:12:11.953426",
+      "horizon_hours": 24,
+      "points": [
+        {
+          "prediction_for": "2026-10-24T02:00:00",
+          "predicted_aqi": 93,
+          "confidence_score": 0.82
+        },
+        {
+          "prediction_for": "2026-10-24T03:00:00",
+          "predicted_aqi": 110.8,
+          "confidence_score": 0.797
+        },
+        {
+          "prediction_for": "2026-10-24T04:00:00",
+          "predicted_aqi": 126.1,
+          "confidence_score": 0.869
+        },
+        {
+          "prediction_for": "2026-10-24T05:00:00",
+          "predicted_aqi": 153.4,
+          "confidence_score": 0.921
+        },
+        {
+          "prediction_for": "2026-10-24T06:00:00",
+          "predicted_aqi": 157.9,
+          "confidence_score": 0.883
+        },
+        {
+          "prediction_for": "2026-10-24T07:00:00",
+          "predicted_aqi": 153.6,
+          "confidence_score": 0.789
+        },
+        {
+          "prediction_for": "2026-10-24T08:00:00",
+          "predicted_aqi": 148.3,
+          "confidence_score": 0.74
+        },
+        {
+          "prediction_for": "2026-10-24T09:00:00",
+          "predicted_aqi": 113.2,
+          "confidence_score": 0.803
+        },
+        {
+          "prediction_for": "2026-10-24T10:00:00",
+          "predicted_aqi": 88.9,
+          "confidence_score": 0.882
+        },
+        {
+          "prediction_for": "2026-10-24T11:00:00",
+          "predicted_aqi": 80.3,
+          "confidence_score": 0.893
+        },
+        {
+          "prediction_for": "2026-10-24T12:00:00",
+          "predicted_aqi": 76.3,
+          "confidence_score": 0.834
+        },
+        {
+          "prediction_for": "2026-10-24T13:00:00",
+          "predicted_aqi": 78.6,
+          "confidence_score": 0.841
+        },
+        {
+          "prediction_for": "2026-10-24T14:00:00",
+          "predicted_aqi": 83.9,
+          "confidence_score": 0.847
+        },
+        {
+          "prediction_for": "2026-10-24T15:00:00",
+          "predicted_aqi": 94.2,
+          "confidence_score": 0.829
+        },
+        {
+          "prediction_for": "2026-10-24T16:00:00",
+          "predicted_aqi": 105,
+          "confidence_score": 0.825
+        },
+        {
+          "prediction_for": "2026-10-24T17:00:00",
+          "predicted_aqi": 121.1,
+          "confidence_score": 0.883
+        },
+        {
+          "prediction_for": "2026-10-24T18:00:00",
+          "predicted_aqi": 146.9,
+          "confidence_score": 0.915
+        },
+        {
+          "prediction_for": "2026-10-24T19:00:00",
+          "predicted_aqi": 137.4,
+          "confidence_score": 0.902
+        },
+        {
+          "prediction_for": "2026-10-24T20:00:00",
+          "predicted_aqi": 122.2,
+          "confidence_score": 0.831
+        },
+        {
+          "prediction_for": "2026-10-24T21:00:00",
+          "predicted_aqi": 91.3,
+          "confidence_score": 0.773
+        },
+        {
+          "prediction_for": "2026-10-24T22:00:00",
+          "predicted_aqi": 87,
+          "confidence_score": 0.819
+        },
+        {
+          "prediction_for": "2026-10-24T23:00:00",
+          "predicted_aqi": 90.4,
+          "confidence_score": 0.77
+        },
+        {
+          "prediction_for": "2026-10-25T00:00:00",
+          "predicted_aqi": 108.4,
+          "confidence_score": 0.811
+        },
+        {
+          "prediction_for": "2026-10-25T01:00:00",
+          "predicted_aqi": 122.3,
+          "confidence_score": 0.866
+        }
+      ]
+    },
+    {
+      "city_id": 7,
+      "city_name": "Pune",
+      "generated_at": "2026-10-24T01:12:11.953426",
+      "horizon_hours": 24,
+      "points": [
+        {
+          "prediction_for": "2026-10-24T02:00:00",
+          "predicted_aqi": 100.5,
+          "confidence_score": 0.85
+        },
+        {
+          "prediction_for": "2026-10-24T03:00:00",
+          "predicted_aqi": 119.9,
+          "confidence_score": 0.832
+        },
+        {
+          "prediction_for": "2026-10-24T04:00:00",
+          "predicted_aqi": 132.5,
+          "confidence_score": 0.828
+        },
+        {
+          "prediction_for": "2026-10-24T05:00:00",
+          "predicted_aqi": 157.2,
+          "confidence_score": 0.89
+        },
+        {
+          "prediction_for": "2026-10-24T06:00:00",
+          "predicted_aqi": 182.9,
+          "confidence_score": 0.929
+        },
+        {
+          "prediction_for": "2026-10-24T07:00:00",
+          "predicted_aqi": 189.1,
+          "confidence_score": 0.91
+        },
+        {
+          "prediction_for": "2026-10-24T08:00:00",
+          "predicted_aqi": 190.8,
+          "confidence_score": 0.86
+        },
+        {
+          "prediction_for": "2026-10-24T09:00:00",
+          "predicted_aqi": 134.8,
+          "confidence_score": 0.853
+        },
+        {
+          "prediction_for": "2026-10-24T10:00:00",
+          "predicted_aqi": 108.1,
+          "confidence_score": 0.881
+        },
+        {
+          "prediction_for": "2026-10-24T11:00:00",
+          "predicted_aqi": 102.4,
+          "confidence_score": 0.904
+        },
+        {
+          "prediction_for": "2026-10-24T12:00:00",
+          "predicted_aqi": 101.5,
+          "confidence_score": 0.88
+        },
+        {
+          "prediction_for": "2026-10-24T13:00:00",
+          "predicted_aqi": 104.4,
+          "confidence_score": 0.886
+        },
+        {
+          "prediction_for": "2026-10-24T14:00:00",
+          "predicted_aqi": 115.2,
+          "confidence_score": 0.861
+        },
+        {
+          "prediction_for": "2026-10-24T15:00:00",
+          "predicted_aqi": 128.7,
+          "confidence_score": 0.851
+        },
+        {
+          "prediction_for": "2026-10-24T16:00:00",
+          "predicted_aqi": 135.8,
+          "confidence_score": 0.876
+        },
+        {
+          "prediction_for": "2026-10-24T17:00:00",
+          "predicted_aqi": 158,
+          "confidence_score": 0.921
+        },
+        {
+          "prediction_for": "2026-10-24T18:00:00",
+          "predicted_aqi": 174.5,
+          "confidence_score": 0.943
+        },
+        {
+          "prediction_for": "2026-10-24T19:00:00",
+          "predicted_aqi": 169.5,
+          "confidence_score": 0.885
+        },
+        {
+          "prediction_for": "2026-10-24T20:00:00",
+          "predicted_aqi": 156.6,
+          "confidence_score": 0.835
+        },
+        {
+          "prediction_for": "2026-10-24T21:00:00",
+          "predicted_aqi": 124.9,
+          "confidence_score": 0.853
+        },
+        {
+          "prediction_for": "2026-10-24T22:00:00",
+          "predicted_aqi": 103.7,
+          "confidence_score": 0.885
+        },
+        {
+          "prediction_for": "2026-10-24T23:00:00",
+          "predicted_aqi": 98.9,
+          "confidence_score": 0.831
+        },
+        {
+          "prediction_for": "2026-10-25T00:00:00",
+          "predicted_aqi": 127.7,
+          "confidence_score": 0.809
+        },
+        {
+          "prediction_for": "2026-10-25T01:00:00",
+          "predicted_aqi": 135.6,
+          "confidence_score": 0.829
+        }
+      ]
+    },
+    {
+      "city_id": 28,
+      "city_name": "Raipur",
+      "generated_at": "2026-10-24T01:12:11.953426",
+      "horizon_hours": 24,
+      "points": [
+        {
+          "prediction_for": "2026-10-24T02:00:00",
+          "predicted_aqi": 137.1,
+          "confidence_score": 0.836
+        },
+        {
+          "prediction_for": "2026-10-24T03:00:00",
+          "predicted_aqi": 163.4,
+          "confidence_score": 0.864
+        },
+        {
+          "prediction_for": "2026-10-24T04:00:00",
+          "predicted_aqi": 190.5,
+          "confidence_score": 0.898
+        },
+        {
+          "prediction_for": "2026-10-24T05:00:00",
+          "predicted_aqi": 196.3,
+          "confidence_score": 0.904
+        },
+        {
+          "prediction_for": "2026-10-24T06:00:00",
+          "predicted_aqi": 207.9,
+          "confidence_score": 0.88
+        },
+        {
+          "prediction_for": "2026-10-24T07:00:00",
+          "predicted_aqi": 205.1,
+          "confidence_score": 0.838
+        },
+        {
+          "prediction_for": "2026-10-24T08:00:00",
+          "predicted_aqi": 198.8,
+          "confidence_score": 0.832
+        },
+        {
+          "prediction_for": "2026-10-24T09:00:00",
+          "predicted_aqi": 147.8,
+          "confidence_score": 0.895
+        },
+        {
+          "prediction_for": "2026-10-24T10:00:00",
+          "predicted_aqi": 129.7,
+          "confidence_score": 0.903
+        },
+        {
+          "prediction_for": "2026-10-24T11:00:00",
+          "predicted_aqi": 116,
+          "confidence_score": 0.929
+        },
+        {
+          "prediction_for": "2026-10-24T12:00:00",
+          "predicted_aqi": 115.8,
+          "confidence_score": 0.91
+        },
+        {
+          "prediction_for": "2026-10-24T13:00:00",
+          "predicted_aqi": 125,
+          "confidence_score": 0.91
+        },
+        {
+          "prediction_for": "2026-10-24T14:00:00",
+          "predicted_aqi": 130.8,
+          "confidence_score": 0.908
+        },
+        {
+          "prediction_for": "2026-10-24T15:00:00",
+          "predicted_aqi": 136.3,
+          "confidence_score": 0.898
+        },
+        {
+          "prediction_for": "2026-10-24T16:00:00",
+          "predicted_aqi": 145.9,
+          "confidence_score": 0.849
+        },
+        {
+          "prediction_for": "2026-10-24T17:00:00",
+          "predicted_aqi": 167.8,
+          "confidence_score": 0.877
+        },
+        {
+          "prediction_for": "2026-10-24T18:00:00",
+          "predicted_aqi": 189.3,
+          "confidence_score": 0.91
+        },
+        {
+          "prediction_for": "2026-10-24T19:00:00",
+          "predicted_aqi": 188.4,
+          "confidence_score": 0.869
+        },
+        {
+          "prediction_for": "2026-10-24T20:00:00",
+          "predicted_aqi": 169,
+          "confidence_score": 0.82
+        },
+        {
+          "prediction_for": "2026-10-24T21:00:00",
+          "predicted_aqi": 141.3,
+          "confidence_score": 0.822
+        },
+        {
+          "prediction_for": "2026-10-24T22:00:00",
+          "predicted_aqi": 117.2,
+          "confidence_score": 0.879
+        },
+        {
+          "prediction_for": "2026-10-24T23:00:00",
+          "predicted_aqi": 116.8,
+          "confidence_score": 0.847
+        },
+        {
+          "prediction_for": "2026-10-25T00:00:00",
+          "predicted_aqi": 141.5,
+          "confidence_score": 0.853
+        },
+        {
+          "prediction_for": "2026-10-25T01:00:00",
+          "predicted_aqi": 187.1,
+          "confidence_score": 0.861
+        }
+      ]
+    },
+    {
+      "city_id": 27,
+      "city_name": "Ranchi",
+      "generated_at": "2026-10-24T01:12:11.953426",
+      "horizon_hours": 24,
+      "points": [
+        {
+          "prediction_for": "2026-10-24T02:00:00",
+          "predicted_aqi": 253.3,
+          "confidence_score": 0.887
+        },
+        {
+          "prediction_for": "2026-10-24T03:00:00",
+          "predicted_aqi": 278.1,
+          "confidence_score": 0.909
+        },
+        {
+          "prediction_for": "2026-10-24T04:00:00",
+          "predicted_aqi": 288.3,
+          "confidence_score": 0.907
+        },
+        {
+          "prediction_for": "2026-10-24T05:00:00",
+          "predicted_aqi": 290.4,
+          "confidence_score": 0.938
+        },
+        {
+          "prediction_for": "2026-10-24T06:00:00",
+          "predicted_aqi": 281.3,
+          "confidence_score": 0.924
+        },
+        {
+          "prediction_for": "2026-10-24T07:00:00",
+          "predicted_aqi": 274.6,
+          "confidence_score": 0.906
+        },
+        {
+          "prediction_for": "2026-10-24T08:00:00",
+          "predicted_aqi": 268.4,
+          "confidence_score": 0.901
+        },
+        {
+          "prediction_for": "2026-10-24T09:00:00",
+          "predicted_aqi": 247,
+          "confidence_score": 0.935
+        },
+        {
+          "prediction_for": "2026-10-24T10:00:00",
+          "predicted_aqi": 237.8,
+          "confidence_score": 0.947
+        },
+        {
+          "prediction_for": "2026-10-24T11:00:00",
+          "predicted_aqi": 234.5,
+          "confidence_score": 0.93
+        },
+        {
+          "prediction_for": "2026-10-24T12:00:00",
+          "predicted_aqi": 241,
+          "confidence_score": 0.928
+        },
+        {
+          "prediction_for": "2026-10-24T13:00:00",
+          "predicted_aqi": 251.7,
+          "confidence_score": 0.934
+        },
+        {
+          "prediction_for": "2026-10-24T14:00:00",
+          "predicted_aqi": 261.3,
+          "confidence_score": 0.93
+        },
+        {
+          "prediction_for": "2026-10-24T15:00:00",
+          "predicted_aqi": 264,
+          "confidence_score": 0.921
+        },
+        {
+          "prediction_for": "2026-10-24T16:00:00",
+          "predicted_aqi": 267.3,
+          "confidence_score": 0.93
+        },
+        {
+          "prediction_for": "2026-10-24T17:00:00",
+          "predicted_aqi": 260.1,
+          "confidence_score": 0.918
+        },
+        {
+          "prediction_for": "2026-10-24T18:00:00",
+          "predicted_aqi": 258.7,
+          "confidence_score": 0.905
+        },
+        {
+          "prediction_for": "2026-10-24T19:00:00",
+          "predicted_aqi": 260.5,
+          "confidence_score": 0.897
+        },
+        {
+          "prediction_for": "2026-10-24T20:00:00",
+          "predicted_aqi": 260.7,
+          "confidence_score": 0.896
+        },
+        {
+          "prediction_for": "2026-10-24T21:00:00",
+          "predicted_aqi": 256,
+          "confidence_score": 0.905
+        },
+        {
+          "prediction_for": "2026-10-24T22:00:00",
+          "predicted_aqi": 250.5,
+          "confidence_score": 0.909
+        },
+        {
+          "prediction_for": "2026-10-24T23:00:00",
+          "predicted_aqi": 248.7,
+          "confidence_score": 0.906
+        },
+        {
+          "prediction_for": "2026-10-25T00:00:00",
+          "predicted_aqi": 263.2,
+          "confidence_score": 0.889
+        },
+        {
+          "prediction_for": "2026-10-25T01:00:00",
+          "predicted_aqi": 284.5,
+          "confidence_score": 0.915
+        }
+      ]
+    },
+    {
+      "city_id": 21,
+      "city_name": "Surat",
+      "generated_at": "2026-10-24T01:12:11.953426",
+      "horizon_hours": 24,
+      "points": [
+        {
+          "prediction_for": "2026-10-24T02:00:00",
+          "predicted_aqi": 133.2,
+          "confidence_score": 0.814
+        },
+        {
+          "prediction_for": "2026-10-24T03:00:00",
+          "predicted_aqi": 143.7,
+          "confidence_score": 0.875
+        },
+        {
+          "prediction_for": "2026-10-24T04:00:00",
+          "predicted_aqi": 181.7,
+          "confidence_score": 0.884
+        },
+        {
+          "prediction_for": "2026-10-24T05:00:00",
+          "predicted_aqi": 201.1,
+          "confidence_score": 0.903
+        },
+        {
+          "prediction_for": "2026-10-24T06:00:00",
+          "predicted_aqi": 205.8,
+          "confidence_score": 0.894
+        },
+        {
+          "prediction_for": "2026-10-24T07:00:00",
+          "predicted_aqi": 204.9,
+          "confidence_score": 0.85
+        },
+        {
+          "prediction_for": "2026-10-24T08:00:00",
+          "predicted_aqi": 199.2,
+          "confidence_score": 0.833
+        },
+        {
+          "prediction_for": "2026-10-24T09:00:00",
+          "predicted_aqi": 149.6,
+          "confidence_score": 0.906
+        },
+        {
+          "prediction_for": "2026-10-24T10:00:00",
+          "predicted_aqi": 132.5,
+          "confidence_score": 0.917
+        },
+        {
+          "prediction_for": "2026-10-24T11:00:00",
+          "predicted_aqi": 118.9,
+          "confidence_score": 0.917
+        },
+        {
+          "prediction_for": "2026-10-24T12:00:00",
+          "predicted_aqi": 118.8,
+          "confidence_score": 0.915
+        },
+        {
+          "prediction_for": "2026-10-24T13:00:00",
+          "predicted_aqi": 125.3,
+          "confidence_score": 0.9
+        },
+        {
+          "prediction_for": "2026-10-24T14:00:00",
+          "predicted_aqi": 133.5,
+          "confidence_score": 0.893
+        },
+        {
+          "prediction_for": "2026-10-24T15:00:00",
+          "predicted_aqi": 137,
+          "confidence_score": 0.889
+        },
+        {
+          "prediction_for": "2026-10-24T16:00:00",
+          "predicted_aqi": 147.8,
+          "confidence_score": 0.857
+        },
+        {
+          "prediction_for": "2026-10-24T17:00:00",
+          "predicted_aqi": 169.5,
+          "confidence_score": 0.882
+        },
+        {
+          "prediction_for": "2026-10-24T18:00:00",
+          "predicted_aqi": 190.4,
+          "confidence_score": 0.908
+        },
+        {
+          "prediction_for": "2026-10-24T19:00:00",
+          "predicted_aqi": 189.1,
+          "confidence_score": 0.869
+        },
+        {
+          "prediction_for": "2026-10-24T20:00:00",
+          "predicted_aqi": 165.6,
+          "confidence_score": 0.803
+        },
+        {
+          "prediction_for": "2026-10-24T21:00:00",
+          "predicted_aqi": 139.7,
+          "confidence_score": 0.811
+        },
+        {
+          "prediction_for": "2026-10-24T22:00:00",
+          "predicted_aqi": 118,
+          "confidence_score": 0.88
+        },
+        {
+          "prediction_for": "2026-10-24T23:00:00",
+          "predicted_aqi": 116.6,
+          "confidence_score": 0.835
+        },
+        {
+          "prediction_for": "2026-10-25T00:00:00",
+          "predicted_aqi": 140.5,
+          "confidence_score": 0.838
+        },
+        {
+          "prediction_for": "2026-10-25T01:00:00",
+          "predicted_aqi": 180.9,
+          "confidence_score": 0.854
+        }
+      ]
+    },
+    {
+      "city_id": 20,
+      "city_name": "Vadodara",
+      "generated_at": "2026-10-24T01:12:11.953426",
+      "horizon_hours": 24,
+      "points": [
+        {
+          "prediction_for": "2026-10-24T02:00:00",
+          "predicted_aqi": 92.3,
+          "confidence_score": 0.793
+        },
+        {
+          "prediction_for": "2026-10-24T03:00:00",
+          "predicted_aqi": 109.6,
+          "confidence_score": 0.749
+        },
+        {
+          "prediction_for": "2026-10-24T04:00:00",
+          "predicted_aqi": 131.9,
+          "confidence_score": 0.878
+        },
+        {
+          "prediction_for": "2026-10-24T05:00:00",
+          "predicted_aqi": 153.1,
+          "confidence_score": 0.935
+        },
+        {
+          "prediction_for": "2026-10-24T06:00:00",
+          "predicted_aqi": 152.7,
+          "confidence_score": 0.851
+        },
+        {
+          "prediction_for": "2026-10-24T07:00:00",
+          "predicted_aqi": 158.5,
+          "confidence_score": 0.779
+        },
+        {
+          "prediction_for": "2026-10-24T08:00:00",
+          "predicted_aqi": 148.6,
+          "confidence_score": 0.731
+        },
+        {
+          "prediction_for": "2026-10-24T09:00:00",
+          "predicted_aqi": 112.8,
+          "confidence_score": 0.797
+        },
+        {
+          "prediction_for": "2026-10-24T10:00:00",
+          "predicted_aqi": 87.1,
+          "confidence_score": 0.881
+        },
+        {
+          "prediction_for": "2026-10-24T11:00:00",
+          "predicted_aqi": 78.7,
+          "confidence_score": 0.875
+        },
+        {
+          "prediction_for": "2026-10-24T12:00:00",
+          "predicted_aqi": 73.6,
+          "confidence_score": 0.822
+        },
+        {
+          "prediction_for": "2026-10-24T13:00:00",
+          "predicted_aqi": 75.6,
+          "confidence_score": 0.841
+        },
+        {
+          "prediction_for": "2026-10-24T14:00:00",
+          "predicted_aqi": 82.4,
+          "confidence_score": 0.855
+        },
+        {
+          "prediction_for": "2026-10-24T15:00:00",
+          "predicted_aqi": 89.7,
+          "confidence_score": 0.852
+        },
+        {
+          "prediction_for": "2026-10-24T16:00:00",
+          "predicted_aqi": 100.4,
+          "confidence_score": 0.863
+        },
+        {
+          "prediction_for": "2026-10-24T17:00:00",
+          "predicted_aqi": 117.7,
+          "confidence_score": 0.871
+        },
+        {
+          "prediction_for": "2026-10-24T18:00:00",
+          "predicted_aqi": 144.6,
+          "confidence_score": 0.918
+        },
+        {
+          "prediction_for": "2026-10-24T19:00:00",
+          "predicted_aqi": 138.1,
+          "confidence_score": 0.9
+        },
+        {
+          "prediction_for": "2026-10-24T20:00:00",
+          "predicted_aqi": 123.6,
+          "confidence_score": 0.839
+        },
+        {
+          "prediction_for": "2026-10-24T21:00:00",
+          "predicted_aqi": 91,
+          "confidence_score": 0.771
+        },
+        {
+          "prediction_for": "2026-10-24T22:00:00",
+          "predicted_aqi": 85.6,
+          "confidence_score": 0.801
+        },
+        {
+          "prediction_for": "2026-10-24T23:00:00",
+          "predicted_aqi": 88.1,
+          "confidence_score": 0.746
+        },
+        {
+          "prediction_for": "2026-10-25T00:00:00",
+          "predicted_aqi": 102.2,
+          "confidence_score": 0.821
+        },
+        {
+          "prediction_for": "2026-10-25T01:00:00",
+          "predicted_aqi": 127,
+          "confidence_score": 0.876
+        }
+      ]
+    },
+    {
+      "city_id": 18,
+      "city_name": "Varanasi",
+      "generated_at": "2026-10-24T01:12:11.953426",
+      "horizon_hours": 24,
+      "points": [
+        {
+          "prediction_for": "2026-10-24T02:00:00",
+          "predicted_aqi": 128.9,
+          "confidence_score": 0.795
+        },
+        {
+          "prediction_for": "2026-10-24T03:00:00",
+          "predicted_aqi": 138.4,
+          "confidence_score": 0.842
+        },
+        {
+          "prediction_for": "2026-10-24T04:00:00",
+          "predicted_aqi": 172.4,
+          "confidence_score": 0.89
+        },
+        {
+          "prediction_for": "2026-10-24T05:00:00",
+          "predicted_aqi": 190.6,
+          "confidence_score": 0.904
+        },
+        {
+          "prediction_for": "2026-10-24T06:00:00",
+          "predicted_aqi": 202.7,
+          "confidence_score": 0.906
+        },
+        {
+          "prediction_for": "2026-10-24T07:00:00",
+          "predicted_aqi": 199.3,
+          "confidence_score": 0.854
+        },
+        {
+          "prediction_for": "2026-10-24T08:00:00",
+          "predicted_aqi": 191.9,
+          "confidence_score": 0.82
+        },
+        {
+          "prediction_for": "2026-10-24T09:00:00",
+          "predicted_aqi": 140,
+          "confidence_score": 0.866
+        },
+        {
+          "prediction_for": "2026-10-24T10:00:00",
+          "predicted_aqi": 118.8,
+          "confidence_score": 0.892
+        },
+        {
+          "prediction_for": "2026-10-24T11:00:00",
+          "predicted_aqi": 109.7,
+          "confidence_score": 0.945
+        },
+        {
+          "prediction_for": "2026-10-24T12:00:00",
+          "predicted_aqi": 109.7,
+          "confidence_score": 0.912
+        },
+        {
+          "prediction_for": "2026-10-24T13:00:00",
+          "predicted_aqi": 114.3,
+          "confidence_score": 0.878
+        },
+        {
+          "prediction_for": "2026-10-24T14:00:00",
+          "predicted_aqi": 120.3,
+          "confidence_score": 0.87
+        },
+        {
+          "prediction_for": "2026-10-24T15:00:00",
+          "predicted_aqi": 137.5,
+          "confidence_score": 0.845
+        },
+        {
+          "prediction_for": "2026-10-24T16:00:00",
+          "predicted_aqi": 148.7,
+          "confidence_score": 0.846
+        },
+        {
+          "prediction_for": "2026-10-24T17:00:00",
+          "predicted_aqi": 163.1,
+          "confidence_score": 0.906
+        },
+        {
+          "prediction_for": "2026-10-24T18:00:00",
+          "predicted_aqi": 173.6,
+          "confidence_score": 0.912
+        },
+        {
+          "prediction_for": "2026-10-24T19:00:00",
+          "predicted_aqi": 175.2,
+          "confidence_score": 0.844
+        },
+        {
+          "prediction_for": "2026-10-24T20:00:00",
+          "predicted_aqi": 167.8,
+          "confidence_score": 0.807
+        },
+        {
+          "prediction_for": "2026-10-24T21:00:00",
+          "predicted_aqi": 134.2,
+          "confidence_score": 0.828
+        },
+        {
+          "prediction_for": "2026-10-24T22:00:00",
+          "predicted_aqi": 110.4,
+          "confidence_score": 0.887
+        },
+        {
+          "prediction_for": "2026-10-24T23:00:00",
+          "predicted_aqi": 106.6,
+          "confidence_score": 0.853
+        },
+        {
+          "prediction_for": "2026-10-25T00:00:00",
+          "predicted_aqi": 134.9,
+          "confidence_score": 0.826
+        },
+        {
+          "prediction_for": "2026-10-25T01:00:00",
+          "predicted_aqi": 150.4,
+          "confidence_score": 0.847
+        }
+      ]
+    },
+    {
+      "city_id": 22,
+      "city_name": "Visakhapatnam",
+      "generated_at": "2026-10-24T01:12:11.953426",
+      "horizon_hours": 24,
+      "points": [
+        {
+          "prediction_for": "2026-10-24T02:00:00",
+          "predicted_aqi": 199.4,
+          "confidence_score": 0.851
+        },
+        {
+          "prediction_for": "2026-10-24T03:00:00",
+          "predicted_aqi": 207.8,
+          "confidence_score": 0.869
+        },
+        {
+          "prediction_for": "2026-10-24T04:00:00",
+          "predicted_aqi": 214.3,
+          "confidence_score": 0.891
+        },
+        {
+          "prediction_for": "2026-10-24T05:00:00",
+          "predicted_aqi": 214.3,
+          "confidence_score": 0.879
+        },
+        {
+          "prediction_for": "2026-10-24T06:00:00",
+          "predicted_aqi": 239.6,
+          "confidence_score": 0.909
+        },
+        {
+          "prediction_for": "2026-10-24T07:00:00",
+          "predicted_aqi": 273.4,
+          "confidence_score": 0.923
+        },
+        {
+          "prediction_for": "2026-10-24T08:00:00",
+          "predicted_aqi": 268.6,
+          "confidence_score": 0.915
+        },
+        {
+          "prediction_for": "2026-10-24T09:00:00",
+          "predicted_aqi": 242.3,
+          "confidence_score": 0.893
+        },
+        {
+          "prediction_for": "2026-10-24T10:00:00",
+          "predicted_aqi": 210.7,
+          "confidence_score": 0.902
+        },
+        {
+          "prediction_for": "2026-10-24T11:00:00",
+          "predicted_aqi": 197.6,
+          "confidence_score": 0.912
+        },
+        {
+          "prediction_for": "2026-10-24T12:00:00",
+          "predicted_aqi": 203.8,
+          "confidence_score": 0.894
+        },
+        {
+          "prediction_for": "2026-10-24T13:00:00",
+          "predicted_aqi": 210.6,
+          "confidence_score": 0.896
+        },
+        {
+          "prediction_for": "2026-10-24T14:00:00",
+          "predicted_aqi": 224,
+          "confidence_score": 0.913
+        },
+        {
+          "prediction_for": "2026-10-24T15:00:00",
+          "predicted_aqi": 235.7,
+          "confidence_score": 0.89
+        },
+        {
+          "prediction_for": "2026-10-24T16:00:00",
+          "predicted_aqi": 248.9,
+          "confidence_score": 0.899
+        },
+        {
+          "prediction_for": "2026-10-24T17:00:00",
+          "predicted_aqi": 251.9,
+          "confidence_score": 0.897
+        },
+        {
+          "prediction_for": "2026-10-24T18:00:00",
+          "predicted_aqi": 248.6,
+          "confidence_score": 0.881
+        },
+        {
+          "prediction_for": "2026-10-24T19:00:00",
+          "predicted_aqi": 247.9,
+          "confidence_score": 0.873
+        },
+        {
+          "prediction_for": "2026-10-24T20:00:00",
+          "predicted_aqi": 243.1,
+          "confidence_score": 0.872
+        },
+        {
+          "prediction_for": "2026-10-24T21:00:00",
+          "predicted_aqi": 237,
+          "confidence_score": 0.873
+        },
+        {
+          "prediction_for": "2026-10-24T22:00:00",
+          "predicted_aqi": 232.8,
+          "confidence_score": 0.863
+        },
+        {
+          "prediction_for": "2026-10-24T23:00:00",
+          "predicted_aqi": 237.6,
+          "confidence_score": 0.876
+        },
+        {
+          "prediction_for": "2026-10-25T00:00:00",
+          "predicted_aqi": 266.3,
+          "confidence_score": 0.922
+        },
+        {
+          "prediction_for": "2026-10-25T01:00:00",
+          "predicted_aqi": 275.7,
+          "confidence_score": 0.911
+        }
+      ]
+    }
+  ]
+}

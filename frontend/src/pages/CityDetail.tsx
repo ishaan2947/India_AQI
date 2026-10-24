@@ -18,6 +18,7 @@ import CityTimeline from "../components/City/CityTimeline";
 import Pollutants from "../components/City/Pollutants";
 import { Reveal } from "../components/motion/Reveal";
 import { fetchCity, fetchCityHistory } from "../api/client";
+import { citySnapshot } from "../data/snapshot";
 import { useAccent } from "../hooks/useAccent";
 import { useCurrentAQI } from "../hooks/useAQIData";
 import { useCityPrediction } from "../hooks/usePredictions";
@@ -34,17 +35,36 @@ export default function CityDetail() {
   const { cityId } = useParams<{ cityId: string }>();
   const id = cityId ? Number(cityId) : null;
 
-  const [city, setCity] = useState<CityWithLatest | null>(null);
+  const [fetchedCity, setFetchedCity] = useState<CityWithLatest | null>(null);
   const [latestReading, setLatestReading] = useState<AQIReading | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const all = useCurrentAQI();
   const prediction = useCityPrediction(id);
 
+  // A freshness ladder rather than a single source, so the masthead is
+  // populated on the first frame and only ever gets more current:
+  //
+  //   1. /cities/:id        — the authoritative record, once it lands
+  //   2. /aqi/current       — already on screen, polls every 5 min, and is
+  //                           itself seeded from the bundled snapshot
+  //   3. the bundled snapshot — the floor, for an id the list doesn't carry
+  //
+  // Every rung carries its own `latest_timestamp`, which the page prints
+  // under "Reading for" and "Updated", so a visitor is never shown an old
+  // number without being told how old it is.
+  const city = useMemo(
+    () =>
+      fetchedCity ??
+      all.data?.find((c) => c.id === id) ??
+      citySnapshot(id),
+    [fetchedCity, all.data, id],
+  );
+
   useEffect(() => {
     if (id == null) return;
     let cancelled = false;
-    setCity(null);
+    setFetchedCity(null);
     setLatestReading(null);
     setError(null);
     (async () => {
@@ -56,10 +76,17 @@ export default function CityDetail() {
           fetchCityHistory(id, 24),
         ]);
         if (cancelled) return;
-        setCity(c);
+        setFetchedCity(c);
         setLatestReading(hist.length > 0 ? hist[hist.length - 1] : null);
       } catch (err) {
-        if (!cancelled) {
+        if (cancelled) return;
+        // A failed refresh on top of a populated page is not a page-level
+        // error — the visitor is reading a real, timestamped number from a
+        // lower rung of the ladder. Only admit failure when every rung is
+        // empty, which in practice means an id that doesn't exist.
+        const haveSomething =
+          all.data?.some((c) => c.id === id) || citySnapshot(id) != null;
+        if (!haveSomething) {
           setError(err instanceof Error ? err.message : "Failed to load city");
         }
       }

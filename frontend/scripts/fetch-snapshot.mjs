@@ -25,6 +25,13 @@ const TIMEOUT_MS = 60_000; // 60s — generous for Render cold starts
 const endpoints = [
   { url: `${API_BASE}/api/cities`, file: "cities-snapshot.json" },
   { url: `${API_BASE}/api/stats/worst`, file: "worst-snapshot.json" },
+  // The 24h forecast bundle for all thirty cities. ~66KB of JSON, ~5KB
+  // over the wire once gzipped, which is a cheap price for /predictions
+  // and the city timeline painting instantly instead of waiting out a
+  // Render cold start. Unlike the two above, this one carries timestamps
+  // that *expire* — see freshPredictionsSnapshot() in src/data/snapshot.ts,
+  // which refuses to seed a horizon that has already passed.
+  { url: `${API_BASE}/api/predictions/all`, file: "predictions-snapshot.json" },
 ];
 
 async function fetchWithTimeout(url, timeoutMs) {

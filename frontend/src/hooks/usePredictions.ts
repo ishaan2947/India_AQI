@@ -7,11 +7,19 @@
  * therefore means "try again shortly", not "this is broken" — so a failed
  * attempt schedules a bounded retry instead of parking an error on screen
  * until the next ten-minute poll.
+ *
+ * And because thirty seconds of skeleton is a bad first impression however
+ * well-behaved the retry is, both hooks seed from the forecast snapshot
+ * baked into the bundle at build time (see ../data/snapshot.ts). The live
+ * call still fires immediately and overwrites the seed the moment it lands;
+ * the seed only decides what the visitor looks at in the meantime. It
+ * expires — a forecast whose horizon has passed declines to seed at all.
  */
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { fetchAllPredictions, fetchPrediction } from "../api/client";
+import { freshPredictionsSnapshot, predictionSnapshot } from "../data/snapshot";
 import type { AllPredictionsResponse, PredictionResponse } from "../types";
 
 const POLL_MS = 10 * 60 * 1000; // predictions only update on retrain cycles
@@ -28,14 +36,19 @@ function useAsync<T>(
   fn: () => Promise<T>,
   deps: ReadonlyArray<unknown>,
   pollMs?: number,
+  seed: T | null = null,
 ): AsyncState<T> & { refetch: () => void } {
-  const [state, setState] = useState<AsyncState<T>>({
-    data: null,
-    loading: true,
+  const [state, setState] = useState<AsyncState<T>>(() => ({
+    data: seed,
+    // Seeded means paintable, and a page that can paint should not be
+    // showing a spinner. The refresh happens quietly underneath.
+    loading: seed == null,
     error: null,
-  });
+  }));
   const fnRef = useRef(fn);
   fnRef.current = fn;
+  const seedRef = useRef(seed);
+  seedRef.current = seed;
 
   // Pending retry timer, cleared on unmount and before each new attempt so a
   // route change can't leave a timer firing into a dead component.
@@ -49,7 +62,8 @@ function useAsync<T>(
     }
     if (!isRetry) attempts.current = 0;
 
-    setState((s) => ({ ...s, loading: true, error: null }));
+    // Only claim to be loading if there is nothing on screen yet.
+    setState((s) => ({ ...s, loading: s.data == null, error: null }));
     try {
       const data = await fnRef.current();
       attempts.current = 0;
@@ -58,14 +72,19 @@ function useAsync<T>(
       const message = err instanceof Error ? err.message : "Unknown error";
       attempts.current += 1;
       const willRetry = attempts.current <= MAX_RETRIES;
-      setState({
-        data: null,
-        // Stay in the loading state while a retry is pending: the page is
-        // still waiting on the backend, and saying "failed" for twelve
-        // seconds before it works is worse than saying nothing.
-        loading: willRetry,
-        error: willRetry ? null : message,
-      });
+      setState((s) => ({
+        // Hold on to whatever we were already showing — the bundled seed or
+        // a previous success — rather than blanking a populated page because
+        // one request lost a race with a cold dyno.
+        data: s.data,
+        // Stay in the loading state while a retry is pending *and* we have
+        // nothing to show: saying "failed" for twelve seconds before it
+        // works is worse than saying nothing.
+        loading: s.data == null && willRetry,
+        // Only surface an error if we have exhausted the retries and have
+        // nothing to fall back on.
+        error: s.data == null && !willRetry ? message : null,
+      }));
       if (willRetry) {
         retryTimer.current = window.setTimeout(() => {
           void run(true);
@@ -76,6 +95,15 @@ function useAsync<T>(
   }, []);
 
   useEffect(() => {
+    // Deps changing means a different subject (a different city), so the
+    // data on screen belongs to the previous one. Drop back to the new
+    // subject's seed rather than showing city A's forecast under city B's
+    // name while the fetch is in flight.
+    setState({
+      data: seedRef.current,
+      loading: seedRef.current == null,
+      error: null,
+    });
     void run();
     const id = pollMs ? window.setInterval(() => void run(), pollMs) : null;
     return () => {
@@ -89,13 +117,21 @@ function useAsync<T>(
 }
 
 export function useCityPrediction(cityId: number | null) {
+  const seed = useMemo(() => predictionSnapshot(cityId), [cityId]);
   return useAsync<PredictionResponse | null>(
     () => (cityId == null ? Promise.resolve(null) : fetchPrediction(cityId)),
     [cityId],
     POLL_MS,
+    seed,
   );
 }
 
 export function useAllPredictions() {
-  return useAsync<AllPredictionsResponse>(() => fetchAllPredictions(), [], POLL_MS);
+  const seed = useMemo(() => freshPredictionsSnapshot(), []);
+  return useAsync<AllPredictionsResponse>(
+    () => fetchAllPredictions(),
+    [],
+    POLL_MS,
+    seed,
+  );
 }
