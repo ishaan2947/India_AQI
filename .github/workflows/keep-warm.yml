@@ -1,60 +1,86 @@
-# Pings the Render backend every 10 minutes so it never goes to sleep.
+# Keeps the Render backend awake so nobody waits on a cold start.
 #
-# Why: Render's free tier sleeps a service after 15 minutes of idle. The
-# next request takes 30-60 seconds to cold-start. A recruiter or
-# interviewer opening the live demo should never wait that long.
+# Why: Render's free tier sleeps a service after 15 minutes of idle, and
+# the next request then takes 30-60 seconds to boot uvicorn and seed
+# SQLite. Someone opening the live demo should never wait that long.
 #
-# This workflow runs entirely on GitHub-hosted runners — free on public
-# repos. The 10-minute cadence stays comfortably under Render's 15-min
-# sleep threshold even if GitHub schedules a job a few minutes late
-# (which it sometimes does under heavy runner load).
+# Why this is a *looping* job rather than a `*/10 * * * *` cron:
+# GitHub does not honour short schedules. Measured over 24h on this repo,
+# a workflow asking for a tick every 10 minutes actually fired roughly
+# every 2.5 to 5.5 hours — scheduled events on shared runners are queued
+# best-effort and dropped under load, and the shorter the interval the
+# more aggressively they are dropped. The dyno was therefore asleep for
+# most of every day and essentially every first-time visitor paid the
+# cold start.
+#
+# So instead of asking for 144 unreliable ticks a day, each run holds a
+# runner and pings from inside a loop for just under six hours (the
+# per-job ceiling). The schedule only has to land a few times a day for
+# coverage to be continuous, which is well within what GitHub actually
+# delivers. Public repos get unlimited Actions minutes, so the only cost
+# is a runner slot.
+#
+# Belt and braces: the frontend also seeds every page from a snapshot
+# baked into the bundle (frontend/src/data/snapshot.ts), so even if this
+# workflow is throttled to nothing the site still paints instantly.
 
 name: Keep Render warm
 
 on:
   schedule:
-    # Every 10 minutes. Cron in GitHub Actions runs in UTC.
-    - cron: "*/10 * * * *"
+    # Every three hours. Each run covers ~5h50m, so even if GitHub drops
+    # half of these the windows still overlap. Cron here is UTC.
+    - cron: "0 */3 * * *"
   # Allow manual triggering from the Actions tab.
   workflow_dispatch:
 
-# Only one keep-warm job in flight at a time.
+# A fresh run takes over from the one already looping. Cancelling is safe
+# and leaves no gap: the incoming run pings immediately on startup.
 concurrency:
   group: keep-warm
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   ping:
     runs-on: ubuntu-latest
-    timeout-minutes: 3
+    # Just under GitHub's 6h per-job ceiling, leaving room for the runner
+    # to spin up without the job being killed mid-loop.
+    timeout-minutes: 350
     steps:
-      - name: Ping /healthz (warms the dyno)
+      - name: Ping /healthz on a loop
         run: |
-          # Wake the service. --max-time 90s covers a worst-case cold
-          # start. We don't fail the job on a single non-200 — Render's
-          # proxy occasionally returns 502 mid-wakeup; the next cron tick
-          # will catch it.
           set +e
-          for i in 1 2 3; do
-            code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 90 \
-              "https://aqi-india-api.onrender.com/healthz")
-            echo "Attempt $i → HTTP $code"
-            if [ "$code" = "200" ]; then
-              exit 0
-            fi
-            sleep 10
-          done
-          # Give a soft warning but don't fail — the next 10-minute tick
-          # is right around the corner.
-          echo "::warning::healthz did not return 200 after 3 attempts"
+          URL="https://aqi-india-api.onrender.com/healthz"
+          # Stop a few minutes before timeout-minutes so the job ends
+          # cleanly rather than being cancelled.
+          DEADLINE=$(( SECONDS + 345 * 60 ))
+          INTERVAL=300          # 5 min — half of Render's 15-min sleep timer
+          ok=0; fail=0
 
-      - name: Warm a couple of real endpoints too
-        run: |
-          # /api/cities and /api/stats/worst are the two endpoints the
-          # frontend hits first on home-page load. Pre-warming them
-          # means the very first user request hits a hot SQLAlchemy
-          # connection pool, not a fresh one.
-          curl -s -o /dev/null --max-time 30 \
-            "https://aqi-india-api.onrender.com/api/cities" || true
-          curl -s -o /dev/null --max-time 30 \
-            "https://aqi-india-api.onrender.com/api/stats/worst" || true
+          while [ "$SECONDS" -lt "$DEADLINE" ]; do
+            code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 90 "$URL")
+            if [ "$code" = "200" ]; then
+              ok=$(( ok + 1 ))
+            else
+              fail=$(( fail + 1 ))
+              # Render's proxy occasionally 502s mid-wakeup. One retry
+              # after a short pause usually catches the service just as
+              # it finishes booting.
+              sleep 15
+              code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 90 "$URL")
+              echo "$(date -u +%H:%M:%SZ) retry -> HTTP $code"
+            fi
+
+            # Only log state changes and the occasional heartbeat, so a
+            # six-hour run doesn't produce a 70-line wall of 200s.
+            if [ "$(( (ok + fail) % 12 ))" = "0" ] || [ "$code" != "200" ]; then
+              echo "$(date -u +%H:%M:%SZ) HTTP $code  (ok=$ok fail=$fail)"
+            fi
+
+            sleep "$INTERVAL"
+          done
+
+          echo "Finished window: $ok OK, $fail non-200."
+          # Never fail the job — a red X here would be noise, and the next
+          # scheduled run takes over regardless.
+          exit 0

@@ -17,11 +17,16 @@ name: Refresh snapshot
 
 on:
   schedule:
-    # Once daily at 03:30 UTC (~09:00 IST — before most real users hit
-    # the demo). Hourly would just burn CI minutes for no real gain
-    # since the dashboard's 12h formatter floor already collapses
-    # anything older than half a day to "recently". Cron is UTC.
-    - cron: "30 3 * * *"
+    # Every six hours. Daily was enough while the snapshot only seeded
+    # readings — a reading is a true statement about a past hour however
+    # old it is. It is not enough now that the snapshot also seeds the
+    # 24-hour forecast, which freshPredictionsSnapshot() refuses to use
+    # once it is more than 12 hours old (see frontend/src/data/snapshot.ts:
+    # a forecast whose horizon has passed is not a forecast). Asking for
+    # four ticks a day keeps the bundled forecast inside that window even
+    # with the several hours of drift GitHub routinely adds to a
+    # schedule. Cron is UTC.
+    - cron: "30 */6 * * *"
   workflow_dispatch:
 
 concurrency:
