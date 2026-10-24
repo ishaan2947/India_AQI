@@ -264,16 +264,19 @@ export default function ForecastGrid({
                   const band = getAQIBand(cell.aqi);
                   const hour = getISTHour(cell.at);
                   const midnight = hour === 0;
+                  // Once per cell, not three times: this string is wanted by
+                  // the dataset, the title and the screen-reader text, and
+                  // across 720 cells the difference is measurable.
+                  const label = formatISTHourLabel(cell.at);
+                  const value = Math.round(cell.aqi);
                   return (
                     <td
                       key={cell.at}
                       data-aqi={cell.aqi}
                       data-city={row.city}
-                      data-hour={formatISTHourLabel(cell.at)}
+                      data-hour={label}
                       tabIndex={-1}
-                      title={`${row.city} ${formatISTHourLabel(cell.at)} IST — AQI ${Math.round(
-                        cell.aqi,
-                      )}, ${band.label}`}
+                      title={`${row.city} ${label} IST — AQI ${value}, ${band.label}`}
                       // The day boundary gets a hairline, so "overnight" is
                       // visible as a place on the grid rather than something
                       // the reader has to work out from the axis.
@@ -284,7 +287,7 @@ export default function ForecastGrid({
                         style={{ background: band.color, opacity: 0.88 }}
                       >
                         <span className="sr-only">
-                          {Math.round(cell.aqi)} at {formatISTHourLabel(cell.at)}
+                          {value} at {label}
                         </span>
                       </span>
                     </td>

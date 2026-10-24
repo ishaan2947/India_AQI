@@ -219,22 +219,53 @@ export function formatTimestamp(ts: string | null | undefined): string {
  * looking at?" — which matters for AQI, because the curve has a shape and
  * 06:00 and 14:00 mean very different things. Both get shown together.
  */
+/**
+ * Constructing an `Intl.DateTimeFormat` is the expensive part of formatting a
+ * date — roughly a tenth of a millisecond each — and formatting with an
+ * existing one is nearly free. The forecast grid asks for the same two dozen
+ * hours 720 times over, so building a formatter per call cost ~2,880
+ * constructions and half a second of blocked main thread per render.
+ *
+ * Built once, lazily, and cached as `null` if this engine has no tz database
+ * so the fallback is decided once rather than re-thrown every call.
+ */
+function makeFormatter(
+  opts: Intl.DateTimeFormatOptions,
+): Intl.DateTimeFormat | null {
+  try {
+    return new Intl.DateTimeFormat("en-GB", {
+      timeZone: "Asia/Kolkata",
+      hour12: false,
+      ...opts,
+    });
+  } catch {
+    return null;
+  }
+}
+
+let clockFormatter: Intl.DateTimeFormat | null | undefined;
+let hourFormatter: Intl.DateTimeFormat | null | undefined;
+
+/**
+ * Timestamp string to IST hour is a pure, deterministic mapping, and the grid
+ * repeats each of its 24 distinct timestamps thirty times. Remembering the
+ * answer collapses the work to one lookup per hour. Cleared wholesale rather
+ * than evicted one by one: the key space is hours, so it only grows on a page
+ * left open for days, and a rare clear is cheaper than tracking recency.
+ */
+const HOUR_CACHE = new Map<string, number | null>();
+const HOUR_CACHE_MAX = 512;
+
 export function formatISTClock(ts: string | null | undefined): string | null {
   const d = parseApiTimestamp(ts);
   if (!d) return null;
-  try {
-    const hhmm = new Intl.DateTimeFormat("en-GB", {
-      timeZone: "Asia/Kolkata",
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: false,
-    }).format(d);
-    return `${hhmm} IST`;
-  } catch {
-    // Intl without the tz database (very old engines) — better to say
-    // nothing than to print a wrong hour.
-    return null;
+  if (clockFormatter === undefined) {
+    clockFormatter = makeFormatter({ hour: "2-digit", minute: "2-digit" });
   }
+  // Intl without the tz database (very old engines) — better to say nothing
+  // than to print a wrong hour.
+  if (!clockFormatter) return null;
+  return `${clockFormatter.format(d)} IST`;
 }
 
 /**
@@ -245,19 +276,26 @@ export function formatISTClock(ts: string | null | undefined): string | null {
  * whatever time it happens to be where the reader is sitting.
  */
 export function getISTHour(ts: string | null | undefined): number | null {
+  if (!ts) return null;
+
+  const cached = HOUR_CACHE.get(ts);
+  if (cached !== undefined) return cached;
+
+  const value = computeISTHour(ts);
+  if (HOUR_CACHE.size >= HOUR_CACHE_MAX) HOUR_CACHE.clear();
+  HOUR_CACHE.set(ts, value);
+  return value;
+}
+
+function computeISTHour(ts: string): number | null {
   const d = parseApiTimestamp(ts);
   if (!d) return null;
-  try {
-    const hh = new Intl.DateTimeFormat("en-GB", {
-      timeZone: "Asia/Kolkata",
-      hour: "2-digit",
-      hour12: false,
-    }).format(d);
-    const n = Number(hh);
-    return Number.isFinite(n) ? n % 24 : null;
-  } catch {
-    return null;
+  if (hourFormatter === undefined) {
+    hourFormatter = makeFormatter({ hour: "2-digit" });
   }
+  if (!hourFormatter) return null;
+  const n = Number(hourFormatter.format(d));
+  return Number.isFinite(n) ? n % 24 : null;
 }
 
 /** "21:00" in IST, for axis ticks and labels. */
