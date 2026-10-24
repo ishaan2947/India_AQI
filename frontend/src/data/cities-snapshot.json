@@ -5,11 +5,11 @@
     "lat": 27.1767,
     "lng": 78.0081,
     "id": 17,
-    "created_at": "2026-10-24T01:12:11.439272",
-    "latest_aqi": 190.3,
-    "latest_pm25": 109.4,
-    "latest_timestamp": "2026-10-24T00:00:00",
-    "latest_source": "synthetic"
+    "created_at": "2026-10-24T07:57:16.826664",
+    "latest_aqi": 127,
+    "latest_pm25": 127,
+    "latest_timestamp": "2026-10-24T10:57:17.934311",
+    "latest_source": "waqi"
   },
   {
     "name": "Ahmedabad",
@@ -17,11 +17,11 @@
     "lat": 23.0225,
     "lng": 72.5714,
     "id": 8,
-    "created_at": "2026-10-24T01:12:11.359741",
-    "latest_aqi": 194.2,
-    "latest_pm25": 106.7,
-    "latest_timestamp": "2026-10-24T00:00:00",
-    "latest_source": "synthetic"
+    "created_at": "2026-10-24T07:57:16.717955",
+    "latest_aqi": 108,
+    "latest_pm25": 108,
+    "latest_timestamp": "2026-10-24T10:57:18.067194",
+    "latest_source": "waqi"
   },
   {
     "name": "Amritsar",
@@ -29,11 +29,11 @@
     "lat": 31.634,
     "lng": 74.8723,
     "id": 19,
-    "created_at": "2026-10-24T01:12:11.446674",
-    "latest_aqi": 118.7,
-    "latest_pm25": 70.2,
-    "latest_timestamp": "2026-10-24T00:00:00",
-    "latest_source": "synthetic"
+    "created_at": "2026-10-24T07:57:16.841419",
+    "latest_aqi": 128,
+    "latest_pm25": 128,
+    "latest_timestamp": "2026-10-24T10:57:18.215909",
+    "latest_source": "waqi"
   },
   {
     "name": "Bangalore",
@@ -41,11 +41,11 @@
     "lat": 12.9716,
     "lng": 77.5946,
     "id": 3,
-    "created_at": "2026-10-24T01:12:11.145863",
-    "latest_aqi": 77.5,
-    "latest_pm25": 46.1,
-    "latest_timestamp": "2026-10-24T00:00:00",
-    "latest_source": "synthetic"
+    "created_at": "2026-10-24T07:57:16.624021",
+    "latest_aqi": 53,
+    "latest_pm25": 53,
+    "latest_timestamp": "2026-10-24T10:57:18.341998",
+    "latest_source": "waqi"
   },
   {
     "name": "Bhopal",
@@ -53,11 +53,11 @@
     "lat": 23.2599,
     "lng": 77.4126,
     "id": 15,
-    "created_at": "2026-10-24T01:12:11.429612",
-    "latest_aqi": 247.4,
-    "latest_pm25": 153.8,
-    "latest_timestamp": "2026-10-24T00:00:00",
-    "latest_source": "synthetic"
+    "created_at": "2026-10-24T07:57:16.813122",
+    "latest_aqi": 50,
+    "latest_pm25": 50,
+    "latest_timestamp": "2026-10-24T10:57:18.466732",
+    "latest_source": "waqi"
   },
   {
     "name": "Chandigarh",
@@ -65,11 +65,11 @@
     "lat": 30.7333,
     "lng": 76.7794,
     "id": 25,
-    "created_at": "2026-10-24T01:12:11.531881",
-    "latest_aqi": 69.4,
-    "latest_pm25": 43.4,
-    "latest_timestamp": "2026-10-24T00:00:00",
-    "latest_source": "synthetic"
+    "created_at": "2026-10-24T07:57:16.927526",
+    "latest_aqi": 61,
+    "latest_pm25": 61,
+    "latest_timestamp": "2026-10-24T10:57:18.590654",
+    "latest_source": "waqi"
   },
   {
     "name": "Chennai",
@@ -77,11 +77,11 @@
     "lat": 13.0827,
     "lng": 80.2707,
     "id": 4,
-    "created_at": "2026-10-24T01:12:11.149771",
-    "latest_aqi": 226.3,
-    "latest_pm25": 143.8,
-    "latest_timestamp": "2026-10-24T00:00:00",
-    "latest_source": "synthetic"
+    "created_at": "2026-10-24T07:57:16.630763",
+    "latest_aqi": 46,
+    "latest_pm25": 46,
+    "latest_timestamp": "2026-10-24T10:57:18.723819",
+    "latest_source": "waqi"
   },
   {
     "name": "Coimbatore",
@@ -89,11 +89,11 @@
     "lat": 11.0168,
     "lng": 76.9558,
     "id": 23,
-    "created_at": "2026-10-24T01:12:11.462639",
-    "latest_aqi": 105,
-    "latest_pm25": 67.9,
-    "latest_timestamp": "2026-10-24T00:00:00",
-    "latest_source": "synthetic"
+    "created_at": "2026-10-24T07:57:16.913388",
+    "latest_aqi": 23,
+    "latest_pm25": 7,
+    "latest_timestamp": "2026-10-24T10:57:18.855185",
+    "latest_source": "waqi"
   },
   {
     "name": "Delhi",
@@ -101,11 +101,11 @@
     "lat": 28.6139,
     "lng": 77.209,
     "id": 1,
-    "created_at": "2026-10-24T01:12:11.135749",
-    "latest_aqi": 209.5,
-    "latest_pm25": 133.4,
-    "latest_timestamp": "2026-10-24T00:00:00",
-    "latest_source": "synthetic"
+    "created_at": "2026-10-24T07:57:16.536390",
+    "latest_aqi": 132,
+    "latest_pm25": 132,
+    "latest_timestamp": "2026-10-24T10:57:18.987585",
+    "latest_source": "waqi"
   },
   {
     "name": "Guwahati",
@@ -113,11 +113,11 @@
     "lat": 26.1445,
     "lng": 91.7362,
     "id": 26,
-    "created_at": "2026-10-24T01:12:11.535644",
-    "latest_aqi": 110.5,
-    "latest_pm25": 57.2,
-    "latest_timestamp": "2026-10-24T00:00:00",
-    "latest_source": "synthetic"
+    "created_at": "2026-10-24T07:57:16.933907",
+    "latest_aqi": 394,
+    "latest_pm25": 330,
+    "latest_timestamp": "2026-10-24T10:57:19.113343",
+    "latest_source": "waqi"
   },
   {
     "name": "Hyderabad",
@@ -125,11 +125,11 @@
     "lat": 17.385,
     "lng": 78.4867,
     "id": 6,
-    "created_at": "2026-10-24T01:12:11.240901",
-    "latest_aqi": 74.5,
-    "latest_pm25": 54.1,
-    "latest_timestamp": "2026-10-24T00:00:00",
-    "latest_source": "synthetic"
+    "created_at": "2026-10-24T07:57:16.647838",
+    "latest_aqi": 93,
+    "latest_pm25": 93,
+    "latest_timestamp": "2026-10-24T10:57:19.239039",
+    "latest_source": "waqi"
   },
   {
     "name": "Indore",
@@ -137,10 +137,10 @@
     "lat": 22.7196,
     "lng": 75.8577,
     "id": 14,
-    "created_at": "2026-10-24T01:12:11.384941",
-    "latest_aqi": 72,
-    "latest_pm25": 39.9,
-    "latest_timestamp": "2026-10-24T00:00:00",
+    "created_at": "2026-10-24T07:57:16.760005",
+    "latest_aqi": 117.6,
+    "latest_pm25": 61.5,
+    "latest_timestamp": "2026-10-24T10:57:19.538469",
     "latest_source": "synthetic"
   },
   {
@@ -149,11 +149,11 @@
     "lat": 26.9124,
     "lng": 75.7873,
     "id": 9,
-    "created_at": "2026-10-24T01:12:11.363968",
-    "latest_aqi": 105.1,
-    "latest_pm25": 54,
-    "latest_timestamp": "2026-10-24T00:00:00",
-    "latest_source": "synthetic"
+    "created_at": "2026-10-24T07:57:16.724539",
+    "latest_aqi": 129,
+    "latest_pm25": 129,
+    "latest_timestamp": "2026-10-24T10:57:19.720745",
+    "latest_source": "waqi"
   },
   {
     "name": "Jodhpur",
@@ -161,11 +161,11 @@
     "lat": 26.2389,
     "lng": 73.0243,
     "id": 29,
-    "created_at": "2026-10-24T01:12:11.546623",
-    "latest_aqi": 125.2,
-    "latest_pm25": 81.2,
-    "latest_timestamp": "2026-10-24T00:00:00",
-    "latest_source": "synthetic"
+    "created_at": "2026-10-24T07:57:16.957877",
+    "latest_aqi": 107,
+    "latest_pm25": 107,
+    "latest_timestamp": "2026-10-24T10:57:19.872612",
+    "latest_source": "waqi"
   },
   {
     "name": "Kanpur",
@@ -173,11 +173,11 @@
     "lat": 26.4499,
     "lng": 80.3319,
     "id": 11,
-    "created_at": "2026-10-24T01:12:11.373364",
-    "latest_aqi": 99.1,
-    "latest_pm25": 65.1,
-    "latest_timestamp": "2026-10-24T00:00:00",
-    "latest_source": "synthetic"
+    "created_at": "2026-10-24T07:57:16.737855",
+    "latest_aqi": 150,
+    "latest_pm25": 150,
+    "latest_timestamp": "2026-10-24T10:57:20.036876",
+    "latest_source": "waqi"
   },
   {
     "name": "Kochi",
@@ -185,10 +185,10 @@
     "lat": 9.9312,
     "lng": 76.2673,
     "id": 24,
-    "created_at": "2026-10-24T01:12:11.466288",
-    "latest_aqi": 241.1,
-    "latest_pm25": 141.7,
-    "latest_timestamp": "2026-10-24T00:00:00",
+    "created_at": "2026-10-24T07:57:16.920877",
+    "latest_aqi": 234.6,
+    "latest_pm25": 139,
+    "latest_timestamp": "2026-10-24T10:57:20.199641",
     "latest_source": "synthetic"
   },
   {
@@ -197,11 +197,11 @@
     "lat": 22.5726,
     "lng": 88.3639,
     "id": 5,
-    "created_at": "2026-10-24T01:12:11.153520",
-    "latest_aqi": 83.8,
-    "latest_pm25": 54.9,
-    "latest_timestamp": "2026-10-24T00:00:00",
-    "latest_source": "synthetic"
+    "created_at": "2026-10-24T07:57:16.637607",
+    "latest_aqi": 172,
+    "latest_pm25": 172,
+    "latest_timestamp": "2026-10-24T10:57:20.374430",
+    "latest_source": "waqi"
   },
   {
     "name": "Lucknow",
@@ -209,11 +209,11 @@
     "lat": 26.8467,
     "lng": 80.9462,
     "id": 10,
-    "created_at": "2026-10-24T01:12:11.369331",
-    "latest_aqi": 125.6,
-    "latest_pm25": 82.3,
-    "latest_timestamp": "2026-10-24T00:00:00",
-    "latest_source": "synthetic"
+    "created_at": "2026-10-24T07:57:16.731136",
+    "latest_aqi": 128,
+    "latest_pm25": 128,
+    "latest_timestamp": "2026-10-24T10:57:20.575038",
+    "latest_source": "waqi"
   },
   {
     "name": "Ludhiana",
@@ -221,11 +221,11 @@
     "lat": 30.901,
     "lng": 75.8573,
     "id": 16,
-    "created_at": "2026-10-24T01:12:11.433701",
-    "latest_aqi": 69.6,
-    "latest_pm25": 32.5,
-    "latest_timestamp": "2026-10-24T00:00:00",
-    "latest_source": "synthetic"
+    "created_at": "2026-10-24T07:57:16.820173",
+    "latest_aqi": 143,
+    "latest_pm25": 143,
+    "latest_timestamp": "2026-10-24T10:57:20.817826",
+    "latest_source": "waqi"
   },
   {
     "name": "Meerut",
@@ -233,11 +233,11 @@
     "lat": 28.9845,
     "lng": 77.7064,
     "id": 30,
-    "created_at": "2026-10-24T01:12:11.550051",
-    "latest_aqi": 118.8,
-    "latest_pm25": 62.6,
-    "latest_timestamp": "2026-10-24T00:00:00",
-    "latest_source": "synthetic"
+    "created_at": "2026-10-24T07:57:17.013261",
+    "latest_aqi": 155,
+    "latest_pm25": 155,
+    "latest_timestamp": "2026-10-24T10:57:20.977586",
+    "latest_source": "waqi"
   },
   {
     "name": "Mumbai",
@@ -245,11 +245,11 @@
     "lat": 19.076,
     "lng": 72.8777,
     "id": 2,
-    "created_at": "2026-10-24T01:12:11.141037",
-    "latest_aqi": 77.1,
-    "latest_pm25": 48,
-    "latest_timestamp": "2026-10-24T00:00:00",
-    "latest_source": "synthetic"
+    "created_at": "2026-10-24T07:57:16.614795",
+    "latest_aqi": 158,
+    "latest_pm25": 158,
+    "latest_timestamp": "2026-10-24T10:57:21.298984",
+    "latest_source": "waqi"
   },
   {
     "name": "Nagpur",
@@ -257,10 +257,10 @@
     "lat": 21.1458,
     "lng": 79.0882,
     "id": 12,
-    "created_at": "2026-10-24T01:12:11.376904",
-    "latest_aqi": 100.1,
-    "latest_pm25": 54.8,
-    "latest_timestamp": "2026-10-24T00:00:00",
+    "created_at": "2026-10-24T07:57:16.745257",
+    "latest_aqi": 125.3,
+    "latest_pm25": 83.3,
+    "latest_timestamp": "2026-10-24T10:57:21.575914",
     "latest_source": "synthetic"
   },
   {
@@ -269,11 +269,11 @@
     "lat": 25.5941,
     "lng": 85.1376,
     "id": 13,
-    "created_at": "2026-10-24T01:12:11.380629",
-    "latest_aqi": 80.3,
-    "latest_pm25": 48.7,
-    "latest_timestamp": "2026-10-24T00:00:00",
-    "latest_source": "synthetic"
+    "created_at": "2026-10-24T07:57:16.753223",
+    "latest_aqi": 21,
+    "latest_pm25": 107,
+    "latest_timestamp": "2026-10-24T10:57:21.819448",
+    "latest_source": "waqi"
   },
   {
     "name": "Pune",
@@ -281,11 +281,11 @@
     "lat": 18.5204,
     "lng": 73.8567,
     "id": 7,
-    "created_at": "2026-10-24T01:12:11.352681",
-    "latest_aqi": 74.8,
-    "latest_pm25": 45.8,
-    "latest_timestamp": "2026-10-24T00:00:00",
-    "latest_source": "synthetic"
+    "created_at": "2026-10-24T07:57:16.654715",
+    "latest_aqi": 232,
+    "latest_pm25": 232,
+    "latest_timestamp": "2026-10-24T10:57:22.060371",
+    "latest_source": "waqi"
   },
   {
     "name": "Raipur",
@@ -293,10 +293,10 @@
     "lat": 21.2514,
     "lng": 81.6296,
     "id": 28,
-    "created_at": "2026-10-24T01:12:11.543064",
-    "latest_aqi": 101,
-    "latest_pm25": 53,
-    "latest_timestamp": "2026-10-24T00:00:00",
+    "created_at": "2026-10-24T07:57:16.950863",
+    "latest_aqi": 149.1,
+    "latest_pm25": 83.9,
+    "latest_timestamp": "2026-10-24T10:57:22.291017",
     "latest_source": "synthetic"
   },
   {
@@ -305,10 +305,10 @@
     "lat": 23.3441,
     "lng": 85.3096,
     "id": 27,
-    "created_at": "2026-10-24T01:12:11.539381",
-    "latest_aqi": 237.8,
-    "latest_pm25": 146,
-    "latest_timestamp": "2026-10-24T00:00:00",
+    "created_at": "2026-10-24T07:57:16.943407",
+    "latest_aqi": 242.5,
+    "latest_pm25": 144.3,
+    "latest_timestamp": "2026-10-24T10:57:22.577553",
     "latest_source": "synthetic"
   },
   {
@@ -317,10 +317,10 @@
     "lat": 21.1702,
     "lng": 72.8311,
     "id": 21,
-    "created_at": "2026-10-24T01:12:11.455248",
-    "latest_aqi": 101.6,
-    "latest_pm25": 56.6,
-    "latest_timestamp": "2026-10-24T00:00:00",
+    "created_at": "2026-10-24T07:57:16.856550",
+    "latest_aqi": 148.6,
+    "latest_pm25": 95.5,
+    "latest_timestamp": "2026-10-24T10:57:22.909051",
     "latest_source": "synthetic"
   },
   {
@@ -329,10 +329,10 @@
     "lat": 22.3072,
     "lng": 73.1812,
     "id": 20,
-    "created_at": "2026-10-24T01:12:11.451656",
-    "latest_aqi": 59,
-    "latest_pm25": 30.3,
-    "latest_timestamp": "2026-10-24T00:00:00",
+    "created_at": "2026-10-24T07:57:16.849236",
+    "latest_aqi": 79.4,
+    "latest_pm25": 41.6,
+    "latest_timestamp": "2026-10-24T10:57:23.107221",
     "latest_source": "synthetic"
   },
   {
@@ -341,11 +341,11 @@
     "lat": 25.3176,
     "lng": 82.9739,
     "id": 18,
-    "created_at": "2026-10-24T01:12:11.442922",
-    "latest_aqi": 91.2,
-    "latest_pm25": 62.9,
-    "latest_timestamp": "2026-10-24T00:00:00",
-    "latest_source": "synthetic"
+    "created_at": "2026-10-24T07:57:16.833015",
+    "latest_aqi": 146,
+    "latest_pm25": 146,
+    "latest_timestamp": "2026-10-24T10:57:23.327534",
+    "latest_source": "waqi"
   },
   {
     "name": "Visakhapatnam",
@@ -353,10 +353,10 @@
     "lat": 17.6868,
     "lng": 83.2185,
     "id": 22,
-    "created_at": "2026-10-24T01:12:11.458940",
-    "latest_aqi": 154,
-    "latest_pm25": 92.9,
-    "latest_timestamp": "2026-10-24T00:00:00",
+    "created_at": "2026-10-24T07:57:16.863586",
+    "latest_aqi": 171.7,
+    "latest_pm25": 104.9,
+    "latest_timestamp": "2026-10-24T10:57:23.488602",
     "latest_source": "synthetic"
   }
 ]
