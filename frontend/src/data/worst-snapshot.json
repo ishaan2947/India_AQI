@@ -7,23 +7,23 @@
       "state": "Assam",
       "aqi_value": 394,
       "pm25": 330,
-      "timestamp": "2026-10-25T05:08:15.149775"
+      "timestamp": "2026-10-25T11:54:58.792716"
     },
     {
       "city_id": 27,
       "city_name": "Ranchi",
       "state": "Jharkhand",
-      "aqi_value": 255.3,
-      "pm25": 143.3,
-      "timestamp": "2026-10-25T05:08:17.100188"
+      "aqi_value": 256.1,
+      "pm25": 151.8,
+      "timestamp": "2026-10-25T11:55:01.099693"
     },
     {
       "city_id": 24,
       "city_name": "Kochi",
       "state": "Kerala",
-      "aqi_value": 248.8,
-      "pm25": 155.2,
-      "timestamp": "2026-10-25T05:08:15.873534"
+      "aqi_value": 239.8,
+      "pm25": 142.6,
+      "timestamp": "2026-10-25T11:54:59.661784"
     },
     {
       "city_id": 7,
@@ -31,15 +31,7 @@
       "state": "Maharashtra",
       "aqi_value": 232,
       "pm25": 232,
-      "timestamp": "2026-10-25T05:08:16.854732"
-    },
-    {
-      "city_id": 22,
-      "city_name": "Visakhapatnam",
-      "state": "Andhra Pradesh",
-      "aqi_value": 185.7,
-      "pm25": 103.1,
-      "timestamp": "2026-10-25T05:08:17.588604"
+      "timestamp": "2026-10-25T11:55:00.831937"
     },
     {
       "city_id": 5,
@@ -47,7 +39,23 @@
       "state": "West Bengal",
       "aqi_value": 172,
       "pm25": 172,
-      "timestamp": "2026-10-25T05:08:15.997289"
+      "timestamp": "2026-10-25T11:54:59.825371"
+    },
+    {
+      "city_id": 22,
+      "city_name": "Visakhapatnam",
+      "state": "Andhra Pradesh",
+      "aqi_value": 169.8,
+      "pm25": 97.2,
+      "timestamp": "2026-10-25T11:55:01.690177"
+    },
+    {
+      "city_id": 1,
+      "city_name": "Delhi",
+      "state": "Delhi",
+      "aqi_value": 160,
+      "pm25": 160,
+      "timestamp": "2026-10-25T11:54:58.670789"
     },
     {
       "city_id": 2,
@@ -55,7 +63,7 @@
       "state": "Maharashtra",
       "aqi_value": 158,
       "pm25": 158,
-      "timestamp": "2026-10-25T05:08:16.492231"
+      "timestamp": "2026-10-25T11:55:00.449191"
     },
     {
       "city_id": 30,
@@ -63,7 +71,7 @@
       "state": "Uttar Pradesh",
       "aqi_value": 155,
       "pm25": 155,
-      "timestamp": "2026-10-25T05:08:16.369985"
+      "timestamp": "2026-10-25T11:55:00.324804"
     },
     {
       "city_id": 11,
@@ -71,15 +79,7 @@
       "state": "Uttar Pradesh",
       "aqi_value": 150,
       "pm25": 150,
-      "timestamp": "2026-10-25T05:08:15.744128"
-    },
-    {
-      "city_id": 28,
-      "city_name": "Raipur",
-      "state": "Chhattisgarh",
-      "aqi_value": 149.2,
-      "pm25": 87.3,
-      "timestamp": "2026-10-25T05:08:16.980439"
+      "timestamp": "2026-10-25T11:54:59.506441"
     }
   ]
 }
