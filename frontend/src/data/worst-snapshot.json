@@ -2,84 +2,84 @@
   "label": "Most polluted cities",
   "entries": [
     {
-      "city_id": 26,
-      "city_name": "Guwahati",
-      "state": "Assam",
-      "aqi_value": 394,
-      "pm25": 330,
-      "timestamp": "2026-11-01T21:24:14.717469"
-    },
-    {
       "city_id": 27,
       "city_name": "Ranchi",
       "state": "Jharkhand",
-      "aqi_value": 290.5,
-      "pm25": 171.9,
-      "timestamp": "2026-11-01T21:24:16.768800"
+      "aqi_value": 265.9,
+      "pm25": 165.7,
+      "timestamp": "2026-11-02T05:00:00"
     },
     {
       "city_id": 24,
       "city_name": "Kochi",
       "state": "Kerala",
-      "aqi_value": 271.6,
-      "pm25": 162.5,
-      "timestamp": "2026-11-01T21:24:15.488244"
+      "aqi_value": 256.5,
+      "pm25": 149.4,
+      "timestamp": "2026-11-02T05:00:00"
+    },
+    {
+      "city_id": 15,
+      "city_name": "Bhopal",
+      "state": "Madhya Pradesh",
+      "aqi_value": 251.3,
+      "pm25": 145.7,
+      "timestamp": "2026-11-02T05:00:00"
+    },
+    {
+      "city_id": 17,
+      "city_name": "Agra",
+      "state": "Uttar Pradesh",
+      "aqi_value": 237.4,
+      "pm25": 142,
+      "timestamp": "2026-11-02T05:00:00"
+    },
+    {
+      "city_id": 4,
+      "city_name": "Chennai",
+      "state": "Tamil Nadu",
+      "aqi_value": 235.4,
+      "pm25": 145.5,
+      "timestamp": "2026-11-02T05:00:00"
     },
     {
       "city_id": 1,
       "city_name": "Delhi",
       "state": "Delhi",
-      "aqi_value": 255,
-      "pm25": 255,
-      "timestamp": "2026-11-01T21:24:14.592860"
+      "aqi_value": 227.2,
+      "pm25": 139.6,
+      "timestamp": "2026-11-02T05:00:00"
     },
     {
-      "city_id": 7,
-      "city_name": "Pune",
-      "state": "Maharashtra",
-      "aqi_value": 232,
-      "pm25": 232,
-      "timestamp": "2026-11-01T21:24:16.516823"
+      "city_id": 8,
+      "city_name": "Ahmedabad",
+      "state": "Gujarat",
+      "aqi_value": 205.9,
+      "pm25": 115.2,
+      "timestamp": "2026-11-02T05:00:00"
     },
     {
       "city_id": 22,
       "city_name": "Visakhapatnam",
       "state": "Andhra Pradesh",
-      "aqi_value": 204.5,
-      "pm25": 132.1,
-      "timestamp": "2026-11-01T21:24:17.296529"
+      "aqi_value": 169.6,
+      "pm25": 106,
+      "timestamp": "2026-11-02T05:00:00"
     },
     {
-      "city_id": 5,
-      "city_name": "Kolkata",
-      "state": "West Bengal",
-      "aqi_value": 172,
-      "pm25": 172,
-      "timestamp": "2026-11-01T21:24:15.614163"
+      "city_id": 19,
+      "city_name": "Amritsar",
+      "state": "Punjab",
+      "aqi_value": 152,
+      "pm25": 87,
+      "timestamp": "2026-11-02T05:00:00"
     },
     {
-      "city_id": 12,
-      "city_name": "Nagpur",
-      "state": "Maharashtra",
-      "aqi_value": 160.7,
-      "pm25": 92.3,
-      "timestamp": "2026-11-01T21:24:16.263132"
-    },
-    {
-      "city_id": 2,
-      "city_name": "Mumbai",
-      "state": "Maharashtra",
-      "aqi_value": 158,
-      "pm25": 158,
-      "timestamp": "2026-11-01T21:24:16.128770"
-    },
-    {
-      "city_id": 30,
-      "city_name": "Meerut",
-      "state": "Uttar Pradesh",
-      "aqi_value": 155,
-      "pm25": 155,
-      "timestamp": "2026-11-01T21:24:16.001761"
+      "city_id": 29,
+      "city_name": "Jodhpur",
+      "state": "Rajasthan",
+      "aqi_value": 150.9,
+      "pm25": 93.8,
+      "timestamp": "2026-11-02T05:00:00"
     }
   ]
 }
