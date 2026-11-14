@@ -5,25 +5,25 @@
       "city_id": 27,
       "city_name": "Ranchi",
       "state": "Jharkhand",
-      "aqi_value": 297.6,
-      "pm25": 179.1,
-      "timestamp": "2026-11-14T06:19:56.628950"
+      "aqi_value": 282.7,
+      "pm25": 174,
+      "timestamp": "2026-11-14T18:06:27.979882"
     },
     {
       "city_id": 24,
       "city_name": "Kochi",
       "state": "Kerala",
-      "aqi_value": 273.7,
-      "pm25": 156.8,
-      "timestamp": "2026-11-14T06:19:55.268012"
+      "aqi_value": 278,
+      "pm25": 168.8,
+      "timestamp": "2026-11-14T18:06:26.719399"
     },
     {
-      "city_id": 1,
-      "city_name": "Delhi",
-      "state": "Delhi",
-      "aqi_value": 250,
-      "pm25": 250,
-      "timestamp": "2026-11-14T06:19:54.359700"
+      "city_id": 8,
+      "city_name": "Ahmedabad",
+      "state": "Gujarat",
+      "aqi_value": 236,
+      "pm25": 178,
+      "timestamp": "2026-11-14T18:06:24.958256"
     },
     {
       "city_id": 7,
@@ -31,55 +31,55 @@
       "state": "Maharashtra",
       "aqi_value": 232,
       "pm25": 232,
-      "timestamp": "2026-11-14T06:19:56.325518"
+      "timestamp": "2026-11-14T18:06:27.723501"
+    },
+    {
+      "city_id": 1,
+      "city_name": "Delhi",
+      "state": "Delhi",
+      "aqi_value": 216,
+      "pm25": 216,
+      "timestamp": "2026-11-14T18:06:25.837203"
     },
     {
       "city_id": 22,
       "city_name": "Visakhapatnam",
       "state": "Andhra Pradesh",
-      "aqi_value": 215.7,
-      "pm25": 131.2,
-      "timestamp": "2026-11-14T06:19:57.293283"
+      "aqi_value": 193.4,
+      "pm25": 108.5,
+      "timestamp": "2026-11-14T18:06:28.483441"
     },
     {
-      "city_id": 30,
-      "city_name": "Meerut",
-      "state": "Uttar Pradesh",
-      "aqi_value": 192,
-      "pm25": 192,
-      "timestamp": "2026-11-14T06:19:55.791505"
-    },
-    {
-      "city_id": 17,
-      "city_name": "Agra",
-      "state": "Uttar Pradesh",
-      "aqi_value": 185,
-      "pm25": 185,
-      "timestamp": "2026-11-14T06:19:53.274511"
-    },
-    {
-      "city_id": 10,
-      "city_name": "Lucknow",
-      "state": "Uttar Pradesh",
-      "aqi_value": 185,
-      "pm25": 185,
-      "timestamp": "2026-11-14T06:19:55.530278"
-    },
-    {
-      "city_id": 19,
-      "city_name": "Amritsar",
-      "state": "Punjab",
-      "aqi_value": 174,
-      "pm25": 174,
-      "timestamp": "2026-11-14T06:19:53.552244"
+      "city_id": 13,
+      "city_name": "Patna",
+      "state": "Bihar",
+      "aqi_value": 173,
+      "pm25": 173,
+      "timestamp": "2026-11-14T18:06:27.599095"
     },
     {
       "city_id": 15,
       "city_name": "Bhopal",
       "state": "Madhya Pradesh",
-      "aqi_value": 174,
-      "pm25": 174,
-      "timestamp": "2026-11-14T06:19:53.820150"
+      "aqi_value": 170,
+      "pm25": 158,
+      "timestamp": "2026-11-14T18:06:25.336079"
+    },
+    {
+      "city_id": 12,
+      "city_name": "Nagpur",
+      "state": "Maharashtra",
+      "aqi_value": 166,
+      "pm25": 166,
+      "timestamp": "2026-11-14T18:06:27.474643"
+    },
+    {
+      "city_id": 28,
+      "city_name": "Raipur",
+      "state": "Chhattisgarh",
+      "aqi_value": 165.5,
+      "pm25": 99,
+      "timestamp": "2026-11-14T18:06:27.849858"
     }
   ]
 }
